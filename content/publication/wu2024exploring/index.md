@@ -1,0 +1,20 @@
+---
+title: 'Exploring large language model for graph data understanding in online job recommendations'
+authors:
+  - Likang Wu
+  - Zhaopeng Qiu
+  - Zhi Zheng
+  - Hengshu Zhu
+  - Enhong Chen
+
+date: '2024-03-24'
+doi: '10.1609/aaai.v38i8.28769'
+
+publication_types: ['paper-conference']
+
+publication: In *Proceedings of the AAAI Conference on Artificial Intelligence*
+publication_short: In *AAAI*
+
+abstract: Large Language Models (LLMs) have revolutionized natural language processing tasks, demonstrating their exceptional capabilities in various domains. However, their potential for graph semantic mining in job recommendations remains largely unexplored. This paper focuses on unveiling the capability of large language models in understanding behavior graphs and leveraging this understanding to enhance recommendations in online recruitment, including promoting out-of-distribution (OOD) applications. We present a novel framework that harnesses the rich contextual information and semantic representations provided by large language models to analyze behavior graphs and uncover underlying patterns and relationships. Specifically, we propose a meta-path prompt constructor that aids LLM recommender in grasping the semantics of behavior graphs for the first time and design a corresponding path augmentation module to alleviate the prompt bias introduced by path-based sequence input. By facilitating this capability, our framework enables personalized and accurate job recommendations for individual users. We evaluate the effectiveness of our approach on comprehensive real-world datasets and demonstrate its ability to improve the relevance and quality of recommended results. This research not only sheds light on the untapped potential of large language models but also provides valuable insights for developing advanced recommendation systems in the recruitment market. The findings contribute to the growing field of natural language processing and offer practical implications for enhancing job search experiences.
+
+---

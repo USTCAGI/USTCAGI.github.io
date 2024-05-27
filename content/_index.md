@@ -1,22 +1,64 @@
 ---
 # Leave the homepage title empty to use the site title
-title:
-date: 2022-10-24
+title: USTC AGI Research Group
 type: landing
 
 sections:
   - block: hero
     content:
       title: |
-        Wowchemy
-        Research Group
-      image:
-        filename: welcome.jpg
+        USTC AGI Group
       text: |
         <br>
         
-        The **Wowchemy Research Group** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
-  
+        **A**rtificial **G**eneral **I**ntelligence group is a part of State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China. AGI group mainly focuses on applying AI & data mining techniques to general applications.
+      image:
+        filename: welcome.png
+  # - block: markdown
+  #   content:
+  #     title:
+  #     subtitle:
+  #     text: |
+  #       {{% cta cta_link="./people/" cta_text="Meet the team" %}}
+  #   design:
+  #     columns: '1'
+  - block: collection
+    content:
+      title: Research
+      subtitle:
+      text:
+      count: 6
+      filters:
+        author: ''
+        category: ''
+        exclude_featured: false
+        publication_type: ''
+        tag: ''
+      offset: 0
+      order: desc
+      page_type: research
+    design:
+      view: showcase
+      columns: '1'
+
+  - block: collection
+    content:
+      title: Projects
+      subtitle:
+      text:
+      count: 3
+      filters:
+        author: ''
+        category: ''
+        exclude_featured: false
+        publication_type: ''
+        tag: ''
+      offset: 0
+      order: desc
+      page_type: project
+    design:
+      view: showcase
+      columns: '1'
   - block: collection
     content:
       title: Latest News
@@ -35,46 +77,18 @@ sections:
     design:
       view: card
       columns: '1'
-  
-  - block: markdown
-    content:
-      title:
-      subtitle: ''
-      text:
-    design:
-      columns: '1'
-      background:
-        image: 
-          filename: coders.jpg
-          filters:
-            brightness: 1
-          parallax: false
-          position: center
-          size: cover
-          text_color_light: true
-      spacing:
-        padding: ['20px', '0', '20px', '0']
-      css_class: fullscreen
-
-  - block: collection
-    content:
-      title: Latest Preprints
-      text: ""
-      count: 5
-      filters:
-        folders:
-          - publication
-        publication_type: 'article'
-    design:
-      view: citation
-      columns: '1'
 
   - block: markdown
     content:
-      title:
-      subtitle:
-      text: |
-        {{% cta cta_link="./people/" cta_text="Meet the team →" %}}
+      title: Related Links
+      text: >
+        <a href="https://www.ustc.edu.cn/">中国科学技术大学</a>
+        &nbsp;&nbsp;
+        <a href="https://cogskl.iflytek.com/">认知智能全国重点实验室</a>
+        &nbsp;&nbsp;
+        <a href="https://bigdata.ustc.edu.cn/">大数据分析与应用安徽省重点实验室</a>
+        &nbsp;&nbsp;
+        <a href="https://base.ustc.edu.cn/">智慧科教组（BASE Group）</a>
     design:
       columns: '1'
 ---
