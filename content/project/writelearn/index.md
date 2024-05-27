@@ -1,6 +1,7 @@
 ---
 title: 文修智能助写平台
 date: 2023-09-05
+index: PROJ001
 ---
 
 https://writelearn.bdaa.pro/

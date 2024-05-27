@@ -1,6 +1,7 @@
 ---
 title: 冰鉴大模型评测平台
 date: 2024-01-10
+index: PROJ002
 ---
 
 https://bingjian.bdaa.pro/
