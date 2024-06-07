@@ -26,10 +26,10 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-# interests:
-#   - Data Mining and Analysis
-#   - AI for Healthcare and Clinical Analysis
-#   - Cross-domain Transfer Learning
+interests:
+  - Transfer Learning
+  - Clinical Prediction
+  - Domain Generalization
 
 # education:
 #   courses:
