@@ -16,7 +16,7 @@ superuser: false
 index: 'BS2401'
 
 # Role/position
-role: Master Student
+role: Ph.D. Student
 
 # Organizations/Affiliations
 organizations:
