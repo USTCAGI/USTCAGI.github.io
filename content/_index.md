@@ -20,8 +20,7 @@ sections:
       title:
       subtitle:
       text: |
-        {{% cta cta_link="./people/" cta_text="Meet the Team" %}}
-        {{% cta cta_link="https://github.com/USTCAGI" cta_text="View the Repository" %}}
+        {{% cta cta_link="./people/" cta_text="Meet the Team" %}}  {{% cta cta_link="https://github.com/USTCAGI" cta_text="View the Repository" %}}
     design:
       columns: '1'
 
