@@ -1,9 +1,9 @@
 ---
-title: 围术期智慧医疗
+title: 围术期大数据与人工智能应用
 date: 2024-05-28
 ---
 
-AI for Perioperative Medicine
+Big Data and AI Applications in Perioperative Medicine
 
 研究目标在于探索安全可控的智能化手术监护模式，通过对零散患者生理信号数据的集成、基于标准化高维高频数据的复杂风险事件感知、以及基于领域专用大模型相关技术的专业知识导航等一系列子流程，实现对手术医师的围术期智能辅助决策。
 
