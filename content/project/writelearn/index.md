@@ -1,6 +1,6 @@
 ---
 title: 文修智能助写平台
-date: 2024-03-05
+date: 2024-05-01
 ---
 
 https://writelearn.bdaa.pro/

@@ -1,6 +1,6 @@
 ---
 title: 语言大模型方法及其在科技文献挖掘中的应用
-date: 2024-05-27
+date: 2024-05-29
 ---
 
 LLMs and Applications in Scientific Article Mining

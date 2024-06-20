@@ -19,3 +19,6 @@ main:
   - name: Projects
     url: project
     weight: 50
+  - name: Repository
+    url: https://github.com/USTCAGI
+    weight: 60
