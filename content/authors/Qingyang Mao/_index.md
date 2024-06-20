@@ -29,7 +29,7 @@ organizations:
 interests:
   - Scientific Data Mining
   - Multi-modal Knowledge Discovery
-  - Cross-domain Transfer Learning
+  - Cross-domain Learning
 
 # education:
 #   courses:
