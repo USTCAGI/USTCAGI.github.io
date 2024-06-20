@@ -20,5 +20,7 @@ main:
     url: project
     weight: 50
   - name: Repository
+    params:
+      rel: external
     url: https://github.com/USTCAGI
     weight: 60
