@@ -10,7 +10,7 @@ sections:
         USTC AGI Group
       text: |
         <br>
-        
+
         **A**rtificial **G**eneral **I**ntelligence group is a part of State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China. AGI group mainly focuses on applying AI & data mining techniques to match or surpass human capabilities across a wide range of applications.
       image:
         filename: welcome.png
@@ -22,17 +22,17 @@ sections:
       text:
       count: 6
       filters:
-        author: ''
-        category: ''
+        author: ""
+        category: ""
         exclude_featured: false
-        publication_type: ''
-        tag: ''
+        publication_type: ""
+        tag: ""
       offset: 0
       order: desc
       page_type: research
     design:
       view: showcase
-      columns: '1'
+      columns: "1"
 
   - block: collection
     content:
@@ -41,17 +41,18 @@ sections:
       text:
       count: 3
       filters:
-        author: ''
-        category: ''
+        author: ""
+        category: ""
         exclude_featured: false
-        publication_type: ''
-        tag: ''
+        publication_type: ""
+        tag: ""
       offset: 0
       order: desc
       page_type: project
     design:
       view: showcase
-      columns: '1'
+      columns: "1"
+
   - block: collection
     content:
       title: Latest News
@@ -59,17 +60,17 @@ sections:
       text:
       count: 5
       filters:
-        author: ''
-        category: ''
+        author: ""
+        category: ""
         exclude_featured: false
-        publication_type: ''
-        tag: ''
+        publication_type: ""
+        tag: ""
       offset: 0
       order: desc
       page_type: post
     design:
       view: card
-      columns: '1'
+      columns: "1"
 
   - block: markdown
     content:
@@ -83,5 +84,5 @@ sections:
         &nbsp;&nbsp;
         <a href="https://base.ustc.edu.cn/">智慧科教组（BASE Group）</a>
     design:
-      columns: '1'
+      columns: "1"
 ---
