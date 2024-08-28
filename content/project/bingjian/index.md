@@ -1,7 +1,6 @@
 ---
 title: 冰鉴大模型评测平台
 date: 2024-06-10
-weight: 10
 ---
 
 https://bingjian.bdaa.pro/
