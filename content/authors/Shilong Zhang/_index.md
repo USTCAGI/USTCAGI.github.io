@@ -1,19 +1,19 @@
 ---
 # Display name
-title: Jie Ouyang
+title: Shilong Zhang
 
 # Full name (for SEO)
-first_name: Jie
-last_name: Ouyang
+first_name: Shilong
+last_name: Zhang
 
 # Username (this should match the folder name)
 authors:
-  - Jie Ouyang
+  - Shilong Zhang
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2301"
+index: "SS2405"
 
 # Role/position
 role: Master Student
@@ -27,8 +27,7 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Recommender System
-  - Large Language Model
+  - Time Series Analysis
 
 # education:
 #   courses:
@@ -49,10 +48,10 @@ interests:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:ouyang_jie@mail.ustc.edu.cn"
+    link: "mailto:zhangshilong@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "ouyang_jie@mail.ustc.edu.cn"
+email: "zhangshilong@mail.ustc.edu.cn"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
