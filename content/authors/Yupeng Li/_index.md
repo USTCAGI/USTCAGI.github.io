@@ -1,19 +1,19 @@
 ---
 # Display name
-title: Li Li
+title: Yupeng Li
 
 # Full name (for SEO)
-first_name: Li
+first_name: Yupeng
 last_name: Li
 
 # Username (this should match the folder name)
 authors:
-  - Li Li
+  - Yupeng Li
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2401"
+index: "SS2407"
 
 # Role/position
 role: Master Student
@@ -27,7 +27,7 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Recommender System
+  - Large Language Model
 
 # education:
 #   courses:
@@ -48,10 +48,10 @@ interests:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:lili0516@mail.ustc.edu.cn"
+    link: "mailto:liyupeng@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "lili0516@mail.ustc.edu.cn"
+email: "liyupeng@mail.ustc.edu.cn"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.

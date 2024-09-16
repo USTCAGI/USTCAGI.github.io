@@ -13,7 +13,7 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: 'TE0003'
+index: "TE0003"
 
 # Role/position
 role: Associate Researcher
@@ -21,16 +21,16 @@ role: Associate Researcher
 # Organizations/Affiliations
 organizations:
   - name: State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China
-    url: ''
+    url: ""
 
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
   - Time Series Analysis
-  - Perioperative Data Mining
-  - Natural Language Processing
-  - Sequential Recommendation
+  - Tabular Data Mining
+  - Recommender Systems
+  - AI for Healthcare
 
 # education:
 #   courses:
@@ -51,7 +51,7 @@ interests:
 social:
   - icon: envelope
     icon_pack: fas
-    link: 'mailto:mycheng@ustc.edu.cn'
+    link: "mailto:mycheng@ustc.edu.cn"
   - icon: google-scholar
     icon_pack: ai
     link: https://scholar.google.com/citations?hl=zh-CN&user=74IhSx8AAAAJ
@@ -67,4 +67,3 @@ email: mycheng@ustc.edu.cn
 user_groups:
   - Supervisors
 ---
-
