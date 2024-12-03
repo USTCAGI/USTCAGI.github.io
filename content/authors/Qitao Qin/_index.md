@@ -13,7 +13,7 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: 'SS2203'
+index: "SS2203"
 
 # Role/position
 role: Master Student
@@ -21,13 +21,13 @@ role: Master Student
 # Organizations/Affiliations
 organizations:
   - name: State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China
-    url: ''
+    url: ""
 
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 # interests:
-#   - 
+#   -
 
 # education:
 #   courses:
@@ -48,14 +48,13 @@ organizations:
 social:
   - icon: envelope
     icon_pack: fas
-    link: 'mailto:903497072@qq.com'
+    link: "mailto:903497072@qq.com"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: '903497072@qq.com'
+email: "903497072@qq.com"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Students
+  - Alumni
 ---
-

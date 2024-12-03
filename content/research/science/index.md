@@ -1,6 +1,6 @@
 ---
 title: 多模态科技文献挖掘
-date: 2024-05-30
+date: 2024-07-15
 ---
 
 Multimodal Scientific Literature Mining
