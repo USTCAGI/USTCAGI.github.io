@@ -3,7 +3,7 @@ title: 传道写作智能教学辅助平台
 date: 2024-05-10
 ---
 
-http://118.195.128.126/campus/
+http://transdle.bdaa.pro/
 
 传道：写作智能教学辅助平台
 
