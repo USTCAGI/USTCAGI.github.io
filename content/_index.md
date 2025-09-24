@@ -81,8 +81,6 @@ sections:
         <a href="https://cogskl.iflytek.com/">认知智能全国重点实验室</a>
         &nbsp;&nbsp;
         <a href="https://bigdata.ustc.edu.cn/">大数据分析与应用安徽省重点实验室</a>
-        &nbsp;&nbsp;
-        <a href="https://base.ustc.edu.cn/">智慧科教组（BASE Group）</a>
     design:
       columns: "1"
 ---
