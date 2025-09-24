@@ -13,7 +13,7 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: 'SS2201'
+index: "SS2201"
 
 # Role/position
 role: Master Student
@@ -21,14 +21,14 @@ role: Master Student
 # Organizations/Affiliations
 organizations:
   - name: State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China
-    url: ''
+    url: ""
 
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-- Recommender System
-- Time Series Analysis
+  - Recommender System
+  - Time Series Analysis
 
 # education:
 #   courses:
@@ -49,14 +49,13 @@ interests:
 social:
   - icon: envelope
     icon_pack: fas
-    link: 'mailto:zh2001@mail.ustc.edu.cn'
+    link: "mailto:zh2001@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'zh2001@mail.ustc.edu.cn'
+email: "zh2001@mail.ustc.edu.cn"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Students
+  - Alumni
 ---
-

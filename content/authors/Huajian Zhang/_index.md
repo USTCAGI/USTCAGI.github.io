@@ -1,22 +1,22 @@
 ---
 # Display name
-title: Likang Wu
+title: Huajian Zhang
 
 # Full name (for SEO)
-first_name: Likang
-last_name: Wu
+first_name: Huajian
+last_name: Zhang
 
 # Username (this should match the folder name)
 authors:
-  - Likang Wu
+  - Huajian Zhang
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "GB2401"
+index: "BS2501"
 
 # Role/position
-role: Ph.D.
+role: Ph.D. Student
 
 # Organizations/Affiliations
 organizations:
@@ -26,8 +26,9 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-# interests:
-#   - Data Mining
+interests:
+  - Large Language Model
+  - Reinforcement Learning
 
 # education:
 #   courses:
@@ -48,13 +49,13 @@ organizations:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:wulk@mail.ustc.edu.cn"
+    link: "mailto:zhjustc@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "wulk@mail.ustc.edu.cn"
+email: zhjustc@mail.ustc.edu.cn
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - None
+  - Students
 ---
