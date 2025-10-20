@@ -1,19 +1,19 @@
 ---
 # Display name
-title: Huajian Zhang
+title: Zirui Liu
 
 # Full name (for SEO)
-first_name: Huajian
-last_name: Zhang
+first_name: Zirui
+last_name: Liu
 
 # Username (this should match the folder name)
 authors:
-  - Huajian Zhang
+  - Zirui Liu
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "BS2502"
+index: "BS2501"
 
 # Role/position
 role: Ph.D. Student
@@ -27,8 +27,8 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Large Language Model
-  - Reinforcement Learning
+  - Computerized Adaptive Testing
+  - LLM Evaluation
 
 # education:
 #   courses:
@@ -49,10 +49,10 @@ interests:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:zhjustc@mail.ustc.edu.cn"
+    link: "mailto:liuzirui@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: zhjustc@mail.ustc.edu.cn
+email: liuzirui@mail.ustc.edu.cn
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
