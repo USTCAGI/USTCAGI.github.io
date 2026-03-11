@@ -1,0 +1,20 @@
+---
+title: 'MemWeaver: A Hierarchical Memory from Textual Interactive Behaviors for Personalized Generation'
+authors:
+- Shuo Yu
+- Mingyue Cheng
+- Daoyu Wang
+- Qi Liu
+- Zirui Liu
+- Ze Guo
+- Xiaoyu Tao
+
+date: '2025-10-09'
+
+publication_types: ['article']
+publication: ArXiv
+publication_short: ArXiv
+
+abstract: "The primary form of user-internet engagement is shifting from leveraging implicit feedback signals, such as browsing and clicks, to harnessing the rich explicit feedback provided by textual interactive behaviors. This shift unlocks a rich source of user textual history, presenting a profound opportunity for a deeper form of personalization. However, prevailing approaches offer only a shallow form of personalization, as they treat user history as a flat list of texts for retrieval and fail to model the rich temporal and semantic structures reflecting dynamic nature of user interests. In this work, we propose \textbf{MemWeaver}, a framework that weaves the user's entire textual history into a hierarchical memory to power deeply personalized generation. The core innovation of our memory lies in its ability to capture both the temporal evolution of interests and the semantic relationships between different activities. To achieve this, MemWeaver builds two complementary memory components that both integrate temporal and semantic information, but at different levels of abstraction: behavioral memory, which captures specific user actions, and cognitive memory, which represents long-term preferences. This dual-component memory serves as a comprehensive representation of the user, allowing large language models (LLMs) to reason over both concrete behaviors and abstracted cognitive traits. This leads to content generation that is deeply aligned with their latent preferences. Experiments on the six datasets of the Language Model Personalization (LaMP) benchmark validate the efficacy of MemWeaver. Our code is available."
+
+---

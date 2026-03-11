@@ -1,0 +1,20 @@
+---
+title: 'Towards Automatic Sampling of User Behaviors for Sequential Recommender Systems'
+authors:
+- Hao Zhang
+- Mingyue Cheng
+- Qi Liu
+- Zhiding Liu
+- Linbo Zhu
+- Yu Su
+
+date: '2025-11-12'
+doi: '10.24963/ijcai.2025/403'
+
+publication_types: ['paper-conference']
+publication: In *Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence*
+publication_short: In *IJCAI*
+
+abstract: "Sequential recommender systems (SRS) have gained increasing popularity due to their remarkable proficiency in capturing dynamic user preferences. In the current setup of SRS, a common configuration is to uniformly consider each historical behavior as a positive interaction. However, this setting has the potential to yield sub-optimal performance as each individual item often have a different impact on shaping the user's interests. Hence, in this paper, we propose a novel automatic sampling framework for sequential recommendation, named AutoSAM, to non-uniformly treat historical behaviors. Specifically, AutoSAM extends the conventional SRS framework by integrating an extra sampler to intelligently discern the skew distribution of the raw input, and then sample informative sub-sets to build more generalizable SRS. To tackle the challenges posed by non-differentiable sampling actions and to introduce multiple decision factors for sampling, we further design a novel reinforcement learning based method to guide the training of the sampler. Furthermore, we theoretically devise multi-objective sampling rewards including Future Prediction and Sequence Perplexity, and then optimize the whole framework in an end-to-end manner by combining the policy gradient. We conduct extensive experiments on benchmark recommendation models and four real-world datasets. The experimental results demonstrate the effectiveness of the proposed AutoSAM."
+
+---

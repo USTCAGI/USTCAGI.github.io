@@ -1,0 +1,15 @@
+---
+title: 'TimeDART: A Diffusion Autoregressive Transformer for Self-supervised Time Series Representation'
+authors:
+- Daoyu Wang
+- Mingyue Cheng
+- Zhiding Liu
+- Qi Liu
+
+publication_types: ['paper-conference']
+publication: In *Proceedings of the 42nd International Conference on Machine Learning*
+publication_short: In *ICML*
+
+abstract: "Self-supervised learning has garnered increasing attention in time series analysis for benefiting various downstream tasks and reducing reliance on labeled data. Despite its effectiveness, existing methods often struggle to comprehensively capture both long-term dynamic evolution and subtle local patterns in a unified manner. In this work, we propose TimeDART, a novel self-supervised time series pre-training framework that unifies two powerful generative paradigms to learn more transferable representations. Specifically, we first employ a causal Transformer encoder, accompanied by a patch-based embedding strategy, to model the evolving trends from left to right. Building on this global modeling, we further introduce a denoising diffusion process to capture fine-grained local patterns through forward diffusion and reverse denoising. Finally, we optimize the model in an autoregressive manner. As a result, TimeDART effectively accounts for both global and local sequence features in a coherent way.We conduct extensive experiments on public datasets for time series forecasting and classification. The experimental results demonstrate that TimeDART consistently outperforms previous compared methods, validating the effectiveness of our approach.Our code is available at https://github.com/Melmaphother/TimeDART."
+
+---
