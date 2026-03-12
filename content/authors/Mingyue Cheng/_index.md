@@ -27,8 +27,9 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Time Series and Sequence Modeling
-  - Biomedical Big Data
+  - LLM-driven Agent
+  - Time Series Analysis
+  - AI for Science
   - Recommender Systems
 
 # education:
