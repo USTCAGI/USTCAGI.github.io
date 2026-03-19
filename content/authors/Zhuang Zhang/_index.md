@@ -1,19 +1,19 @@
 ---
 # Display name
-title: Liwei Song
+title: Zhuang Zhang
 
 # Full name (for SEO)
-first_name: Liwei
-last_name: Song
+first_name: Zhuang
+last_name: Zhang
 
 # Username (this should match the folder name)
 authors:
-  - Liwei Song
+  - Zhuang Zhang
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2204"
+index: "SS2603"
 
 # Role/position
 role: Master Student
@@ -26,8 +26,8 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-# interests:
-#   -
+interests:
+  - Time Series Analysis
 
 # education:
 #   courses:
@@ -48,13 +48,13 @@ organizations:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:17857693371@163.com"
+    link: "mailto:zz6666@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "17857693371@163.com"
+email: "zz6666@mail.ustc.edu.cn"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Alumni
+  - Students
 ---
