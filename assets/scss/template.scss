@@ -21,3 +21,63 @@ section[data-block="hero"] p {
   line-height: 1.7;
   text-align: justify;
 }
+
+// Publication cards: stronger card feel with hover feedback.
+.card-simple {
+  height: 100%;
+  border: 1px solid rgba(18, 38, 63, 0.08);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(34, 139, 230, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.96));
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+  overflow: hidden;
+}
+
+.card-simple:hover,
+.card-simple:focus-within {
+  transform: translateY(-8px);
+  border-color: rgba(34, 139, 230, 0.32);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.14);
+}
+
+.card-simple .section-subheading {
+  line-height: 1.45;
+}
+
+.card-simple .article-metadata {
+  margin-top: 0.65rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(15, 23, 42, 0.72);
+}
+
+.card-simple .card-text,
+.card-simple .article-style {
+  color: rgba(15, 23, 42, 0.76);
+  line-height: 1.72;
+}
+
+.card-simple .btn-links {
+  margin-top: 1rem;
+}
+
+.card-simple .btn-links .btn,
+.card-simple .btn-links a {
+  border-radius: 999px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-simple .btn-links .btn:hover,
+.card-simple .btn-links a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(34, 139, 230, 0.14);
+}
