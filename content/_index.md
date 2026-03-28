@@ -6,8 +6,7 @@ type: landing
 sections:
   - block: hero
     content:
-      title: |
-        USTC AGI Group
+      title:
       text: |
         The AGentic Intelligence (AGI) Group is a specialized research unit within the State Key Laboratory of Cognitive Intelligence, USTC. Here, AGI stands for Agentic Intelligence—our core focus is on advancing AI and data mining to create autonomous systems that can proactively reason and act, aiming to match or exceed human capabilities in complex, real-world environments.
       image:

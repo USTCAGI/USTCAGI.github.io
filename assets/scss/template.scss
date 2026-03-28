@@ -8,14 +8,16 @@
   justify-content: center;
 }
 
-// Hero block: reduce text size to balance with image
+// Hero block: reduce text size and justify paragraph
 .hero-lead {
   font-size: 0.95rem !important;
   line-height: 1.7;
   margin-top: 0.5rem;
+  text-align: justify;
 }
 
 section[data-block="hero"] p {
   font-size: 0.95rem;
   line-height: 1.7;
+  text-align: justify;
 }
