@@ -8,21 +8,14 @@
   justify-content: center;
 }
 
-// Hero block layout: tighten text and vertically center content beside image
+// Hero block: reduce text size to balance with image
 .hero-lead {
-  font-size: 1.15rem;
-  line-height: 1.75;
+  font-size: 0.95rem !important;
+  line-height: 1.7;
   margin-top: 0.5rem;
 }
 
-section[data-block="hero"] .col-lg-5,
-section[data-block="hero"] .col-md-6 {
-  display: flex;
-  align-items: center;
-}
-
-section[data-block="hero"] h1 {
-  font-size: 2.4rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+section[data-block="hero"] p {
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
