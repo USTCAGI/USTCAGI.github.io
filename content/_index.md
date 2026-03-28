@@ -11,7 +11,7 @@ sections:
       text: |
         <br>
 
-        **A**rtificial **G**eneral **I**ntelligence group is a part of State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China. AGI group mainly focuses on applying AI & data mining techniques to match or surpass human capabilities across a wide range of applications.
+        **AG**entic **I**ntelligence group is a part of State Key Laboratory of Cognitive Intelligence, University of Science and Technology of China. AGI group mainly focuses on advancing AI & data mining technologies to develop autonomous agentic systems, aiming to match or exceed human capabilities across wide-ranging applications. 
       image:
         filename: welcome.png
 
