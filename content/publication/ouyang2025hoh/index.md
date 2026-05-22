@@ -1,5 +1,6 @@
 ---
 title: 'HoH: A Dynamic Benchmark for Evaluating the Impact of Outdated Information on Retrieval-Augmented Generation'
+date: '2025-07-01'
 authors:
 - Jie Ouyang
 - Tingyue Pan

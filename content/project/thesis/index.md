@@ -3,7 +3,7 @@ title: 文阅学位论文预审系统
 date: 2024-05-01
 ---
 
-http://thesis-test.youngcode.net/
+[访问系统](https://thesis-test.youngcode.net/)
 
 文阅：文阅学位论文预审系统
 

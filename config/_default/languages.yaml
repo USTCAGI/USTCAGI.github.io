@@ -3,20 +3,21 @@
 #   Documentation: https://docs.hugoblox.com/reference/language/
 
 # Default language
-en:
-  languageCode: en-us
-  # Uncomment for multi-lingual sites, and move English content into `en` sub-folder.
-  #contentDir: content/en
+zh:
+  languageCode: zh-Hans
+  title: USTC AGI Research Group
+  params:
+    description: 中国科学技术大学 AGI 研究组关注智能体智能、大模型、数据挖掘、时间序列分析、表格推理、推荐系统与 AI for Science。
 
 # Uncomment the lines below to configure your website in a second language.
-#zh:
-#  languageCode: zh-Hans
-#  contentDir: content/zh
-#  title: Chinese website title...
+#en:
+#  languageCode: en-us
+#  contentDir: content/en
+#  title: English website title...
 #  params:
-#    description: Site description in Chinese...
+#    description: Site description in English...
 #  menu:
 #    main:
-#      - name: 传
+#      - name: About
 #        url: '#about'
 #        weight: 1

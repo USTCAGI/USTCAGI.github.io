@@ -1,5 +1,6 @@
 ---
 title: 'TimeDART: A Diffusion Autoregressive Transformer for Self-supervised Time Series Representation'
+date: '2025-07-01'
 authors:
 - Daoyu Wang
 - Mingyue Cheng

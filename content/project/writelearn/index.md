@@ -3,7 +3,7 @@ title: 科言智能助写系统
 date: 2024-06-20
 ---
 
-https://writelearn.bdaa.pro/
+[访问系统](https://writelearn.bdaa.pro/)
 
 科言：科研写作之旅 科言文修与你同行
 

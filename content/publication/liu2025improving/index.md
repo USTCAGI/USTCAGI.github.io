@@ -1,5 +1,6 @@
 ---
 title: 'Improving Time Series Forecasting via Instance-aware Post-hoc Revision'
+date: '2025-12-01'
 authors:
 - Zhiding Liu
 - Mingyue Cheng

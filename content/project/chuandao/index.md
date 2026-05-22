@@ -3,7 +3,7 @@ title: 传道写作教学批改系统
 date: 2024-05-10
 ---
 
-http://transdle.bdaa.pro/
+[访问系统](http://transdle.bdaa.pro/)
 
 传道：传道写作教学批改系统
 

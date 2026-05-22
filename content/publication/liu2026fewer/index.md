@@ -1,5 +1,6 @@
 ---
 title: 'Fewer Battles, More Gain: An Information-Efficient Framework for Arena-based LLM Evaluation'
+date: '2025-04-01'
 authors:
 - Zirui Liu
 - Xianquan Wang
