@@ -47,6 +47,9 @@ assert(/title:\s*中国科大 AGI 研究组/.test(languages), 'default language 
 const home = read('content/_index.md');
 assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a Chinese title');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
+assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
+assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
+assert(/id:\s*home-focus/.test(home), 'homepage should include a compact research focus section after the hero');
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
@@ -54,6 +57,14 @@ for (const id of ['hero', 'research', 'selected-publications', 'news-highlights'
   assert(new RegExp(`id:\\s*${id}`).test(home), `homepage section should define stable id: ${id}`);
 }
 assert(!/id:\s*projects/.test(home), 'homepage should not render the Projects section');
+assert(/id:\s*research[\s\S]*?view:\s*card[\s\S]*?columns:\s*["']2["']/.test(home), 'homepage research section should use a denser two-column card layout');
+assert(/id:\s*news-highlights[\s\S]*?view:\s*card[\s\S]*?columns:\s*["']3["']/.test(home), 'homepage news section should use a three-column card layout');
+
+assert(/#hero\s*\{/.test(scss), 'homepage hero should have dedicated CSS');
+assert(/\.home-focus-grid\s*\{/.test(scss), 'homepage research focus grid should have dedicated CSS');
+assert(/#research\s+\.col-12\.col-lg-8\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research cards should be explicitly arranged in a two-column CSS grid');
+assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage news cards should be explicitly arranged in a three-column CSS grid');
+assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 
 const menus = read('config/_default/menus.yaml');
 for (const label of ['新闻', '成员', '研究方向', '论文', '项目', '代码仓库']) {
