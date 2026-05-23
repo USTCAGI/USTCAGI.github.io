@@ -1,6 +1,8 @@
 ---
 title: AI for Science
 date: 2024-07-15
+image:
+  alt_text: "AI for Science 研究方向配图"
 ---
 
 面向科研场景构建具备数据理解、知识发现与工具协同能力的科学智能体。

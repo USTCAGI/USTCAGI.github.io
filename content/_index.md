@@ -67,7 +67,7 @@ sections:
       page_type: research
     design:
       view: card
-      columns: "2"
+      columns: "1"
 
   - block: collection
     id: selected-publications
@@ -107,7 +107,7 @@ sections:
       page_type: post
     design:
       view: card
-      columns: "3"
+      columns: "1"
 
   - block: markdown
     id: related-links

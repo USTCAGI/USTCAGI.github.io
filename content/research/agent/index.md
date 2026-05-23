@@ -1,6 +1,8 @@
 ---
 title: 大模型的机理、机制与智能体
 date: 2024-07-28
+image:
+  alt_text: "大模型的机理、机制与智能体研究方向配图"
 ---
 
 Mechanisms, Dynamics, and Agents of Large Models

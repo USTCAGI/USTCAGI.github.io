@@ -1,6 +1,8 @@
 ---
 title: 情境认知的预测理论与方法
 date: 2024-07-30
+image:
+  alt_text: "情境认知的预测理论与方法研究方向配图"
 ---
 
 Predictive Theories and Methods of Contextual Cognition

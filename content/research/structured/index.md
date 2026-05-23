@@ -1,6 +1,8 @@
 ---
 title: 结构化数据挖掘
 date: 2024-05-31
+image:
+  alt_text: "结构化数据挖掘研究方向配图"
 ---
 
 Structured Data Mining

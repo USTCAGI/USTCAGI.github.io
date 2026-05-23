@@ -1,6 +1,8 @@
 ---
 title: AGI组同学组队参加KDD Cup 2024挑战赛并获得RAG赛道亚军
 date: 2024-08-05
+image:
+  alt_text: "AGI组同学获得KDD Cup 2024挑战赛RAG赛道亚军新闻配图"
 ---
 
 2024 年 4 月至 6 月期间，Meta 举办 KDD Cup 2024:Comprehensive RAG Benchmark 比赛。AGI 组同学组建团队参与了本次比赛，经过激烈的角逐，最终进入决赛并取得第二名的优异成绩。

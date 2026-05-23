@@ -1,6 +1,8 @@
 ---
 title: 个性化推荐
 date: 2024-05-29
+image:
+  alt_text: "个性化推荐研究方向配图"
 ---
 
 Personalized Recommendation

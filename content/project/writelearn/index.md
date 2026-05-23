@@ -1,6 +1,8 @@
 ---
 title: 科言智能助写系统
 date: 2024-06-20
+image:
+  alt_text: "科言智能助写系统项目配图"
 ---
 
 [访问系统](https://writelearn.bdaa.pro/)
