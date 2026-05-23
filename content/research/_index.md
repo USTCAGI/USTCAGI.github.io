@@ -1,5 +1,5 @@
 ---
-title: Research
+title: 研究方向
 
 # Listing view
 view: compact

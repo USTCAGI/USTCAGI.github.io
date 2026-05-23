@@ -1,6 +1,6 @@
 ---
 title: 'Visual Autoregressive Modeling for Instruction-Guided Image Editing'
-date: '2025-04-01'
+date: '2026-04-23'
 authors:
 - Qingyang Mao
 - Qi Cai

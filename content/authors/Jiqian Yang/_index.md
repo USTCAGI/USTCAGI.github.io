@@ -48,7 +48,7 @@ organizations:
 social:
   - icon: envelope
     icon_pack: fas
-    link: "mailto:yangjq@mail.ustc.edu.cns"
+    link: "mailto:yangjq@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: "yangjq@mail.ustc.edu.cn"
