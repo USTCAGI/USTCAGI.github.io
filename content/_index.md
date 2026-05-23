@@ -22,7 +22,7 @@ sections:
         label: 代表论文
         url: /publication/
       cta_note:
-        label: 智能体智能 · 大模型 · 数据挖掘 · AI for Science
+        label: 大模型 · 智能体 · 数据挖掘 · 科学智能 · 时间序列分析
 
   - block: markdown
     id: home-focus

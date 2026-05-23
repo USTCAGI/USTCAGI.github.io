@@ -59,6 +59,7 @@ assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a 
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
+assert(/cta_note:\s*\n\s*label:\s*大模型 · 智能体 · 数据挖掘 · 科学智能 · 时间序列分析/.test(home), 'homepage hero should use the requested research topic tagline');
 assert(/id:\s*home-focus/.test(home), 'homepage should include a compact research focus section after the hero');
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
@@ -79,7 +80,7 @@ assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 
 const menus = read('config/_default/menus.yaml');
-for (const label of ['新闻', '成员', '研究方向', '论文', '项目', '代码仓库']) {
+for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '系统', '代码仓库']) {
   assert(new RegExp(`name:\\s*${label}`).test(menus), `main menu should use Chinese label: ${label}`);
 }
 assert(!/name:\s*(News|People|Research|Publications|Projects|Repository)\b/.test(menus), 'main menu labels should not remain English');
