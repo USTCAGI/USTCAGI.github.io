@@ -1,0 +1,70 @@
+{{- define "main" -}}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ $featured := index $pages 0 }}
+{{ $rest := after 1 $pages }}
+
+<div class="post-index">
+  <section class="post-index-hero">
+    <div class="post-index-hero-inner">
+      <p class="post-index-eyebrow">News</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}
+        <p>{{ . }}</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="post-index-list" aria-label="新闻列表">
+    {{ with $featured }}
+      {{ $resource := partial "blox-core/functions/get_featured_image.html" . }}
+      {{ $anchor := .Params.image.focal_point | default "Smart" }}
+      {{ $alt := .Params.image.alt_text | default .Title }}
+      <a class="post-featured-card" href="{{ .RelPermalink }}">
+        <div class="post-featured-copy">
+          <div class="post-card-meta">
+            <span>{{ .Date | time.Format site.Params.locale.date_format }}</span>
+            <span>{{ .ReadingTime }} {{ i18n "minute_read" }}</span>
+          </div>
+          <h2>{{ .Title }}</h2>
+          <p class="post-card-summary">{{ .Summary | plainify }}</p>
+          <span class="post-card-more">阅读全文</span>
+        </div>
+        {{ with $resource }}
+          {{ $image := .Fill (printf "960x540 %s" $anchor) }}
+          {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+          <div class="post-featured-media">
+            <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $alt }}" loading="lazy">
+          </div>
+        {{ end }}
+      </a>
+    {{ end }}
+
+    <div class="post-card-grid">
+      {{ range $rest }}
+        {{ $resource := partial "blox-core/functions/get_featured_image.html" . }}
+        {{ $anchor := .Params.image.focal_point | default "Smart" }}
+        {{ $alt := .Params.image.alt_text | default .Title }}
+        <a class="post-card" href="{{ .RelPermalink }}">
+          {{ with $resource }}
+            {{ $image := .Fill (printf "808x455 %s" $anchor) }}
+            {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+            <div class="post-card-media">
+              <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $alt }}" loading="lazy">
+            </div>
+          {{ end }}
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              <span>{{ .Date | time.Format site.Params.locale.date_format }}</span>
+              <span>{{ .ReadingTime }} {{ i18n "minute_read" }}</span>
+            </div>
+            <h2>{{ .Title }}</h2>
+            <p class="post-card-summary">{{ .Summary | plainify }}</p>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+
+    {{ partial "pagination" . }}
+  </section>
+</div>
+{{- end -}}

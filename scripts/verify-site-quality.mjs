@@ -95,6 +95,31 @@ for (const [path, title] of [
   assert(new RegExp(`title:\\s*${title}`).test(read(path)), `${path} should use the Chinese section title ${title}`);
 }
 
+const postIndex = read('content/post/_index.md');
+assert(/summary:\s*['"].+['"]/.test(postIndex), 'post index should define a concise page summary');
+assert(/view:\s*card/.test(postIndex), 'post index should use the card view as a fallback instead of compact stream items');
+
+const postListPath = 'layouts/post/list.html';
+assert(fs.existsSync(postListPath), 'post section should use a dedicated list layout');
+if (fs.existsSync(postListPath)) {
+  const postList = read(postListPath);
+  assert(/post-index-hero/.test(postList), 'post layout should render a page hero');
+  assert(/post-featured-card/.test(postList), 'post layout should emphasize the latest news item');
+  assert(/post-card-grid/.test(postList), 'post layout should render remaining news in a grid');
+  assert(/post-card-meta/.test(postList), 'post layout should render compact date metadata');
+  assert(/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(postList), 'post layout should reuse featured images through the HugoBlox image helper');
+}
+
+assert(/\.post-index\s*\{/.test(scss), 'post index should have a scoped layout shell');
+assert(/\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'post cards should use a three-column desktop grid');
+assert(/\.post-featured-card\s*\{[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s+minmax\(280px,\s*0\.95fr\)/.test(scss), 'latest post should use a balanced desktop feature layout');
+assert(/\.post-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'post cards should use the site card radius');
+assert(/\.post-card-summary\s*\{[\s\S]*-webkit-line-clamp:\s*3/.test(scss), 'post card summaries should be clamped to keep the grid balanced');
+assert(/@media\s*\(max-width:\s*1199\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'post cards should reduce to two columns on tablets');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-featured-card\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'featured post should stack on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-featured-media\s*\{[\s\S]*order:\s*-1/.test(scss), 'featured post image should move above the copy on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'post cards should use one column on mobile');
+
 for (const path of [
   'content/authors/Mingfan Pan/_index.md',
   'content/authors/Linjie Wu/_index.md',
