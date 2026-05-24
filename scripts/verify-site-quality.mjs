@@ -84,6 +84,8 @@ const researchFocusModules = [
   '自主交互智能体',
 ];
 assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a Chinese title');
+assert(/我们关注人工智能基础理论与关键方法，包括多模态表征学习、情境表示与推理、慢思考认知推理、智能体学习与可信评测/.test(home), 'homepage hero should describe the updated core research methods');
+assert(!/我们关注能够主动理解情境、推理规划并调用工具完成复杂任务的智能系统/.test(home), 'homepage hero should not keep the previous shorter research framing');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/image:\s*\n\s*filename:\s*welcome\.png[\s\S]*slides:\s*\n(?:\s+-\s*filename:\s*.+\n\s+alt:\s*.+\n){3,}/.test(home), 'homepage hero image should define at least three configured carousel slides');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
