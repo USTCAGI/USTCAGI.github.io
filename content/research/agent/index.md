@@ -1,6 +1,7 @@
 ---
 title: 大模型的机理、机制与智能体
 date: 2024-07-28
+weight: 10
 subtitle: "Mechanisms, Dynamics, and Agents of Large Models"
 summary: "聚焦大模型推理机制、训练优化、多模态融合与自主智能体设计，提升模型在复杂任务中的规划、检索和工具调用能力。"
 topics:

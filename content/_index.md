@@ -57,7 +57,7 @@ sections:
   - block: collection
     id: research
     content:
-      title: 应用领域
+      title: 领域应用研究
       subtitle:
       text:
       count: 5
@@ -68,7 +68,8 @@ sections:
         publication_type: ""
         tag: ""
       offset: 0
-      order: desc
+      sort_by: Weight
+      order: asc
       page_type: research
     design:
       view: card

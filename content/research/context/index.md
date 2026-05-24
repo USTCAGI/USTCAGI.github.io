@@ -1,6 +1,7 @@
 ---
 title: 情境认知的时间序列分析
 date: 2024-07-30
+weight: 20
 subtitle: "Context-Aware Time Series Analysis"
 summary: "面向多源动态情境数据，研究情境特征融合、情境认知推理与情境自主交互方法，支撑复杂环境下的时间序列理解、预测与决策。"
 topics:

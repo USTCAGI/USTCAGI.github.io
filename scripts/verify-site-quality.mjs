@@ -93,6 +93,8 @@ for (const moduleTitle of researchFocusModules) {
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
+assert(/id:\s*research[\s\S]*title:\s*领域应用研究/.test(home), 'homepage research collection should be labelled 领域应用研究');
+assert(/id:\s*research[\s\S]*sort_by:\s*Weight[\s\S]*order:\s*asc/.test(home), 'homepage research collection should use explicit weight ordering');
 for (const id of ['hero', 'research', 'selected-publications', 'news-highlights', 'related-links']) {
   assert(new RegExp(`id:\\s*${id}`).test(home), `homepage section should define stable id: ${id}`);
 }
@@ -113,41 +115,79 @@ assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 
 const peoplePage = read('content/people/index.md');
-assert(/id:\s*people-overview/.test(peoplePage), 'people page should include a concise overview section before the member grid');
-assert(/class="people-overview-panel"/.test(peoplePage), 'people overview should render as a designed intro panel');
-assert(/title:\s*成员列表/.test(peoplePage), 'people widget should use a distinct member-list heading after the overview');
-assert(/#people-overview\s*\{/.test(scss), 'people overview should have scoped section CSS');
-assert(/\.people-overview-panel\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'people overview panel should match the site card radius');
-assert(/\.people-overview-tags\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people overview tags should use a balanced three-column desktop grid');
+assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
+assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
+assert(/title:\s*成员列表/.test(peoplePage), 'people widget should keep the member-list heading');
 assert(/#section-people\s+\.people-widget\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people page should use a dense five-column member grid on desktop');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s+h2\s*\{[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef/.test(scss), 'people group headings should visually separate member groups');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*margin-top:\s*0\.55rem/.test(scss), 'people group headings should leave visible breathing room before the first member row');
+assert(/#section-people\s+\.section-heading\s*\+\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*grid-column:\s*2/.test(scss), 'supervisor cards should start from the second desktop grid column so the row is centered');
+assert(/@media\s*\(max-width:\s*1199\.98px\)\s*\{[\s\S]*#section-people\s+\.section-heading\s*\+\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*grid-column:\s*auto/.test(scss), 'supervisor centering should reset below the five-column desktop layout');
 assert(/#section-people\s+\.people-person\s*\{[\s\S]*position:\s*relative[\s\S]*border-top:\s*3px\s+solid\s+#1f6fbc[\s\S]*border-radius:\s*8px[\s\S]*text-align:\s*center/.test(scss), 'people entries should render as polished compact member cards');
-assert(/#section-people\s+\.people-person\s+\.avatar\s*\{[\s\S]*width:\s*112px[\s\S]*height:\s*112px/.test(scss), 'people avatars should be compact and consistently sized');
+assert(/#section-people\s+\.people-person\s+\.avatar\s*\{[\s\S]*width:\s*120px[\s\S]*height:\s*150px[\s\S]*border-radius:\s*8px/.test(scss), 'people avatars should render as compact rectangular portraits');
 assert(/#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*2\.45rem/.test(scss), 'people role text should reserve enough height to keep card bodies aligned');
 assert(/#section-people\s+\.network-icon\s*\{[\s\S]*display:\s*flex/.test(scss), 'people social links should align as a compact icon row');
 assert(/#section-people\s+\.people-interests\s*\{[\s\S]*-webkit-line-clamp:\s*2/.test(scss), 'people interests should be clamped to keep cards balanced');
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
-assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.people-overview-tags\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people overview tags should stack cleanly on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
 assert(/@media\s*\(max-width:\s*479\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow mobile');
 
 const menus = read('config/_default/menus.yaml');
-for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '系统', '代码仓库']) {
+for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '开源项目', '系统', '代码仓库']) {
   assert(new RegExp(`name:\\s*${label}`).test(menus), `main menu should use Chinese label: ${label}`);
 }
 assert(!/name:\s*(News|People|Research|Publications|Projects|Repository)\b/.test(menus), 'main menu labels should not remain English');
+assert(/name:\s*开源项目\s*\n\s*url:\s*open-source/.test(menus), 'main menu should link Open Source Projects to the local open-source page');
 
 for (const [path, title] of [
   ['content/post/_index.md', '新闻'],
   ['content/people/index.md', '成员'],
   ['content/research/_index.md', '研究方向'],
   ['content/publication/_index.md', '论文'],
+  ['content/open-source/_index.md', '开源项目'],
   ['content/project/_index.md', '项目'],
 ]) {
-  assert(new RegExp(`title:\\s*${title}`).test(read(path)), `${path} should use the Chinese section title ${title}`);
+  assert(fs.existsSync(path), `${path} should exist`);
+  if (fs.existsSync(path)) {
+    assert(new RegExp(`title:\\s*${title}`).test(read(path)), `${path} should use the Chinese section title ${title}`);
+  }
 }
+
+const openSourceIndexPath = 'content/open-source/_index.md';
+assert(fs.existsSync(openSourceIndexPath), 'open-source page should exist');
+if (fs.existsSync(openSourceIndexPath)) {
+  const openSourceIndex = read(openSourceIndexPath);
+  assert(/summary:\s*['"].+['"]/.test(openSourceIndex), 'open-source page should define a concise summary');
+  assert(/source_url:\s*https:\/\/github\.com\/USTCAGI/.test(openSourceIndex), 'open-source page should record the source GitHub page');
+  assert((openSourceIndex.match(/^\s+- title:/gm) || []).length >= 8, 'open-source page should include at least eight project cards copied from GitHub');
+  for (const repo of [
+    'Awesome-Papers-Retrieval-Augmented-Generation',
+    'CRAG-in-KDD-Cup2024',
+    'Awesome-Papers-Time-Series-Forecasting',
+    'Awesome-LLM-Table-Mining',
+    'PruningRAG',
+    'KeyanGPT',
+    'Bingjian',
+    'OpenTS',
+  ]) {
+    assert(openSourceIndex.includes(`https://github.com/USTCAGI/${repo}`), `open-source page should include repository: ${repo}`);
+  }
+}
+
+const openSourceListPath = 'layouts/open-source/list.html';
+assert(fs.existsSync(openSourceListPath), 'open-source section should use a dedicated list layout');
+if (fs.existsSync(openSourceListPath)) {
+  const openSourceList = read(openSourceListPath);
+  assert(/opensource-hero/.test(openSourceList), 'open-source layout should render a page hero');
+  assert(/opensource-card-grid/.test(openSourceList), 'open-source layout should render repository cards in a grid');
+  assert(/opensource-card-meta/.test(openSourceList), 'open-source layout should render repository metadata');
+  assert(/Params\.projects/.test(openSourceList), 'open-source layout should render projects from front matter');
+}
+assert(/\.opensource-hero\s*\{/.test(scss), 'open-source page should have scoped hero CSS');
+assert(/\.opensource-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'open-source cards should use a three-column desktop grid');
+assert(/\.opensource-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'open-source cards should match the site card radius');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.opensource-card-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'open-source cards should stack on mobile');
 
 const postIndex = read('content/post/_index.md');
 assert(/summary:\s*['"].+['"]/.test(postIndex), 'post index should define a concise page summary');
@@ -193,7 +233,8 @@ if (fs.existsSync(researchListPath)) {
   assert(/research-direction-grid/.test(researchList), 'research layout should render directions in a grid');
   assert(/research-direction-card/.test(researchList), 'research layout should render dedicated direction cards');
   assert(/Params\.topics/.test(researchList), 'research layout should render per-direction topics');
-  assert(/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(researchList), 'research layout should reuse each direction featured image');
+  assert(!/research-direction-media/.test(researchList), 'research direction cards should not render image media blocks');
+  assert(!/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(researchList), 'research direction cards should not load featured images');
 }
 
 for (const path of fs.readdirSync('content/research', { withFileTypes: true })
@@ -204,6 +245,16 @@ for (const path of fs.readdirSync('content/research', { withFileTypes: true })
   assert(/subtitle:\s*['"].+['"]/.test(text), `${path} should define a subtitle for the research card`);
   assert(/summary:\s*['"].+['"]/.test(text), `${path} should define a summary for the research card`);
   assert(/topics:\s*\n(?:\s+-\s+.+\n){2,}/.test(text), `${path} should define at least two research card topics`);
+}
+
+for (const [path, weight] of [
+  ['content/research/agent/index.md', 10],
+  ['content/research/context/index.md', 20],
+  ['content/research/science/index.md', 30],
+  ['content/research/structured/index.md', 40],
+  ['content/research/recommendation/index.md', 50],
+]) {
+  assert(new RegExp(`weight:\\s*${weight}\\b`).test(read(path)), `${path} should define homepage ordering weight ${weight}`);
 }
 
 const contextResearch = read('content/research/context/index.md');

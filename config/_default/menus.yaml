@@ -16,9 +16,12 @@ main:
   - name: 论文列表
     url: publication
     weight: 40
+  - name: 开源项目
+    url: open-source
+    weight: 50
   - name: 系统
     url: project
-    weight: 50
+    weight: 60
   - name: 代码仓库
     url: https://github.com/USTCAGI
-    weight: 60
+    weight: 70

@@ -1,0 +1,41 @@
+{{- define "main" -}}
+<div class="opensource-page">
+  <section class="opensource-hero">
+    <div class="opensource-hero-inner">
+      <p class="opensource-eyebrow">Open Source</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}
+        <p>{{ . }}</p>
+      {{ end }}
+      <div class="opensource-source">
+        <span>来源：GitHub / USTCAGI</span>
+        {{ with .Params.source_checked_at }}
+          <span>更新核对：{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <section class="opensource-list" aria-label="开源项目列表">
+    <div class="opensource-card-grid">
+      {{ range .Params.projects }}
+        <a class="opensource-card" href="{{ .repo_url }}" target="_blank" rel="noopener">
+          <div class="opensource-card-meta">
+            <span>{{ .category }}</span>
+            <span>{{ .meta }}</span>
+          </div>
+          <h2>{{ .title }}</h2>
+          <p>{{ .description }}</p>
+          <span class="opensource-card-action">查看仓库</span>
+        </a>
+      {{ end }}
+    </div>
+
+    {{ with .Params.source_url }}
+      <div class="opensource-more">
+        <a href="{{ . }}" target="_blank" rel="noopener">访问 USTCAGI GitHub 主页</a>
+      </div>
+    {{ end }}
+  </section>
+</div>
+{{- end -}}

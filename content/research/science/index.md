@@ -1,6 +1,7 @@
 ---
 title: AI for Science
 date: 2024-07-15
+weight: 30
 subtitle: "Scientific Agents and AI for Science"
 summary: "面向科研场景构建能够理解数据、发现知识、调用工具并协同推理的科学智能体，服务文献分析和科学发现。"
 topics:

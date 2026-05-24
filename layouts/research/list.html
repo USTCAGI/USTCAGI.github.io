@@ -60,16 +60,6 @@
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
         <a class="research-direction-card" href="{{ $link }}" {{ $target | safeHTMLAttr }}>
-          {{ $resource := partial "blox-core/functions/get_featured_image.html" $item }}
-          {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
-          {{ $alt := $item.Params.image.alt_text | default $item.Title }}
-          {{ with $resource }}
-            {{ $image := .Fill (printf "960x540 %s" $anchor) }}
-            {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
-            <div class="research-direction-media">
-              <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $alt }}" loading="lazy">
-            </div>
-          {{ end }}
           <div class="research-direction-body">
             <span class="research-direction-index">{{ printf "%02d" (add $index 1) }}</span>
             <h3>{{ $item.Title }}</h3>
