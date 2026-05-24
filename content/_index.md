@@ -16,10 +16,10 @@ sections:
         slides:
           - filename: welcome.png
             alt: 中国科大 AGI 研究组合影
-          - filename: coders.jpg
-            alt: 智能系统研发与协作场景
-          - filename: welcome.jpg
-            alt: AI for Science 科研实验场景
+          - filename: hero-group-meeting.png
+            alt: 中国科大 AGI 研究组团队合影
+          - filename: hero-campus-snow.png
+            alt: 中国科大校园雪景
       cta:
         label: 查看研究方向
         url: /research/

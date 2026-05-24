@@ -316,8 +316,13 @@ for (const path of ['content/project/writelearn/index.md']) {
 
 for (const path of [
   'content/project/chuandao/index.md',
-  'content/project/bingjian/index.md',
   'content/project/thesis/index.md',
+]) {
+  assert(!fs.existsSync(path), `${path} should remain removed from the project listing`);
+}
+
+for (const path of [
+  'content/project/bingjian/index.md',
 ]) {
   const text = read(path);
   assert(!/\[访问系统\]\(https?:\/\/[^)]+\)/.test(text), `${path} should not link directly to a currently unavailable system`);
