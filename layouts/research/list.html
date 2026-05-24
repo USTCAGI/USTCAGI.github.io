@@ -10,7 +10,7 @@
         <p class="research-index-summary">{{ . }}</p>
       {{ end }}
       {{ with .Params.highlights }}
-        <div class="research-index-highlights" aria-label="研究布局要点">
+        <div class="research-index-highlights" aria-label="研究聚焦模块">
           {{ range . }}
             <span>{{ . }}</span>
           {{ end }}
@@ -21,12 +21,12 @@
 
   <section class="research-overview-section" aria-labelledby="research-overview-title">
     <div class="research-overview-heading">
-      <h2 id="research-overview-title">研究布局</h2>
-      <p>研究方向围绕模型能力、数据理解和场景落地三条主线展开，强调从基础机制到可验证应用的连续闭环。</p>
+      <h2 id="research-overview-title">研究聚焦</h2>
+      <p>研究聚焦于复杂数据表征、情境推理、慢思考认知推理与自主交互智能体四个模块，强调从统一表示到可靠推理和自主执行的能力闭环。</p>
     </div>
 
     {{ with .Params.pillars }}
-      <div class="research-pillar-grid" aria-label="研究主线">
+      <div class="research-pillar-grid" aria-label="研究聚焦模块">
         {{ range . }}
           <article class="research-pillar-card">
             <h3>{{ .title }}</h3>

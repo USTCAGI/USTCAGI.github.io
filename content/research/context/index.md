@@ -1,24 +1,24 @@
 ---
-title: 情境认知的预测理论与方法
+title: 情境认知的时间序列分析
 date: 2024-07-30
-subtitle: "Predictive Theories and Methods of Contextual Cognition"
-summary: "探索多源情境信息的解析、建模和自适应预测机制，让模型在真实环境变化下保持更强泛化能力和稳健性。"
+subtitle: "Context-Aware Time Series Analysis"
+summary: "面向多源动态情境数据，研究情境特征融合、情境认知推理与情境自主交互方法，支撑复杂环境下的时间序列理解、预测与决策。"
 topics:
-  - 情境解析
-  - 自适应预测
-  - Context-aware Forecasting
+  - 情境特征融合
+  - 情境认知推理
+  - 情境自主交互
 image:
-  alt_text: "情境认知的预测理论与方法研究方向配图"
+  alt_text: "情境认知的时间序列分析研究方向配图"
 ---
 
-Predictive Theories and Methods of Contextual Cognition
+情境认知的时间序列分析
 
-探索多源情境信息的理解、建模与自适应预测机制，提升模型在复杂环境中的泛化与稳健性。
+面向多源动态情境数据，研究情境特征融合、情境认知推理与情境自主交互方法，提升模型在复杂环境中的时间序列理解、预测与决策能力。
 
 <!--more-->
 
 主要研究内容包括：
 
-- 情境解析与理解（Context Parsing）
-- 情境增强的预测建模（Context-aware Forecasting）
-- 情境自适应预测机制（Adaptive Contextual Prediction）
+- 情境特征融合
+- 情境认知推理
+- 情境自主交互

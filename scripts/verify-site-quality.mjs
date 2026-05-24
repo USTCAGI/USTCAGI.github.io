@@ -46,25 +46,50 @@ assert(/date_format:\s*['"]2006年1月2日['"]/.test(params), 'site date format 
 assert(/address_format:\s*zh-cn/.test(params), 'address format should match the Chinese default language');
 assert(/font_size:\s*M/.test(params), 'font size should be set to M for denser research pages');
 
+const footerPartialPath = 'layouts/partials/site_footer.html';
+assert(fs.existsSync(footerPartialPath), 'site should use a local custom footer partial');
+if (fs.existsSync(footerPartialPath)) {
+  const footerPartial = read(footerPartialPath);
+  assert(/footer-brand/.test(footerPartial), 'custom footer should render a clear research-group brand block');
+  assert(/footer-meta/.test(footerPartial), 'custom footer should render address and affiliation metadata');
+  assert(/footer-links/.test(footerPartial), 'custom footer should render useful navigation links');
+  assert(!/published_with|Hugo Blox Builder|hugoblox/i.test(footerPartial), 'custom footer should not render the default Hugo Blox powered-by copy');
+}
+assert(/\.page-footer\s*\{[\s\S]*background:\s*#f7fafc/.test(scss), 'footer should sit on a compact light band');
+assert(/\.site-footer\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s+auto/.test(scss), 'footer should use a desktop two-column layout');
+assert(/\.site-footer\s*\{[\s\S]*padding:\s*1\.35rem\s+0/.test(scss), 'footer should reduce the oversized vertical spacing');
+assert(/\.footer-links\s*\{[\s\S]*display:\s*flex/.test(scss), 'footer links should render as a compact horizontal group');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.site-footer\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'footer should collapse to one column on mobile');
+
 const hugo = read('config/_default/hugo.yaml');
 assert(/defaultContentLanguage:\s*zh/.test(hugo), 'default content language should be Chinese');
 assert(/hasCJKLanguage:\s*true/.test(hugo), 'CJK language support should be enabled');
-assert(/title:\s*中国科大 AGI 研究组/.test(hugo), 'site title should be Chinese');
+assert(/title:\s*USTC-AGI Research Group/.test(hugo), 'site title should use the requested English navbar brand');
 
 const languages = read('config/_default/languages.yaml');
 assert(/^zh:/m.test(languages), 'languages.yaml should define zh as the default language');
 assert(/languageCode:\s*zh-Hans/.test(languages), 'languageCode should be zh-Hans');
-assert(/title:\s*中国科大 AGI 研究组/.test(languages), 'default language title should be Chinese');
+assert(/title:\s*USTC-AGI Research Group/.test(languages), 'default language title should use the requested English navbar brand');
 
 const home = read('content/_index.md');
 const researchHomeSection = homepageSection('research');
 const newsHomeSection = homepageSection('news-highlights');
+const researchFocusModules = [
+  '多模态表征学习',
+  '情境表示与推理',
+  '慢思考认知推理',
+  '自主交互智能体',
+];
 assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a Chinese title');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
-assert(/cta_note:\s*\n\s*label:\s*大模型 · 智能体 · 数据挖掘 · 科学智能 · 时间序列分析/.test(home), 'homepage hero should use the requested research topic tagline');
+assert(/cta_note:\s*\n\s*label:\s*多模态表征学习 · 情境表示与推理 · 慢思考认知推理 · 自主交互智能体/.test(home), 'homepage hero should use the requested research focus tagline');
 assert(/id:\s*home-focus/.test(home), 'homepage should include a compact research focus section after the hero');
+assert((home.match(/class="home-focus-item"/g) || []).length === 4, 'homepage research focus should render four modules');
+for (const moduleTitle of researchFocusModules) {
+  assert(home.includes(moduleTitle), `homepage research focus should include ${moduleTitle}`);
+}
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
@@ -77,8 +102,12 @@ assert(/view:\s*card/.test(newsHomeSection) && /columns:\s*["']1["']/.test(newsH
 
 assert(/#hero\s*\{/.test(scss), 'homepage hero should have dedicated CSS');
 assert(/\.home-focus-grid\s*\{/.test(scss), 'homepage research focus grid should have dedicated CSS');
+assert(/\.home-focus-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research focus modules should use a readable two-column desktop grid');
 assert(/#research\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research cards should be explicitly arranged in a full-width three-column CSS grid');
 assert(/#research\s+\.article-metadata\s*\{[\s\S]*display:\s*none/.test(scss), 'homepage research cards should hide publication-style dates');
+assert(/#research\s+\.card-simple\s+\.article-banner\s*\{[\s\S]*display:\s*none/.test(scss), 'homepage research cards should not render image banners');
+assert(/#research\s+\.card-simple\s*\{[\s\S]*border-top:\s*4px\s+solid\s+#1f6fbc[\s\S]*padding:\s*1\.25rem/.test(scss), 'homepage research cards should mirror the research focus card shell');
+assert(/#research\s+\.card-simple:nth-child\(4n\s*\+\s*2\)\s*\{[\s\S]*border-top-color:\s*#0f766e/.test(scss), 'homepage research cards should reuse the focus-card accent colors');
 assert(/margin-top:\s*0/.test(homepageCardGridBlock), 'homepage card grids should remove theme card top margins');
 assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage news cards should be explicitly arranged in a three-column CSS grid');
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
@@ -147,8 +176,11 @@ assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\
 
 const researchIndex = read('content/research/_index.md');
 assert(/summary:\s*['"].+['"]/.test(researchIndex), 'research index should define a concise page summary');
-assert(/highlights:\s*\n(?:\s+-\s+.+\n){3,}/.test(researchIndex), 'research index should define overview highlights');
-assert(/pillars:\s*\n(?:\s+-\s+title:\s*['"]?.+['"]?\n\s+text:\s*['"]?.+['"]?\n){3,}/.test(researchIndex), 'research index should define three research pillars');
+assert(/highlights:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define four overview highlights');
+assert(/pillars:\s*\n(?:\s+-\s+title:\s*['"]?.+['"]?\n\s+text:\s*['"]?.+['"]?\n){4,}/.test(researchIndex), 'research index should define four research focus modules');
+for (const moduleTitle of researchFocusModules) {
+  assert(researchIndex.includes(moduleTitle), `research index should include ${moduleTitle}`);
+}
 assert(/applications:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define representative application scenarios');
 
 const researchListPath = 'layouts/research/list.html';
@@ -174,8 +206,15 @@ for (const path of fs.readdirSync('content/research', { withFileTypes: true })
   assert(/topics:\s*\n(?:\s+-\s+.+\n){2,}/.test(text), `${path} should define at least two research card topics`);
 }
 
+const contextResearch = read('content/research/context/index.md');
+assert(/title:\s*情境认知的时间序列分析/.test(contextResearch), 'context research direction should use the requested Chinese title');
+assert(!/情境认知的预测理论与方法/.test(contextResearch), 'context research direction should not keep the previous title wording');
+for (const topic of ['情境特征融合', '情境认知推理', '情境自主交互']) {
+  assert(contextResearch.includes(topic), `context research direction should include topic: ${topic}`);
+}
+
 assert(/\.research-index-hero\s*\{/.test(scss), 'research index hero should have dedicated CSS');
-assert(/\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research pillars should use a three-column desktop grid');
+assert(/\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research focus modules should use a readable two-column desktop grid');
 assert(/\.research-application-strip\s*\{[\s\S]*display:\s*flex/.test(scss), 'research application scenarios should render as a compact strip');
 assert(/\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research direction grid should use a six-track desktop layout');
 assert(/\.research-direction-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research direction cards should use the site card radius');
