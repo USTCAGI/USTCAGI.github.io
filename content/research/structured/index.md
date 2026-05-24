@@ -1,6 +1,12 @@
 ---
 title: 结构化数据挖掘
 date: 2024-05-31
+subtitle: "Structured Data Mining"
+summary: "研究表格、时间序列和混合文档等结构化数据的理解、推理与预测方法，支撑能源、医疗和网络运维等场景。"
+topics:
+  - 表格理解与推理
+  - 时间序列分析
+  - 趋势预测与预警
 image:
   alt_text: "结构化数据挖掘研究方向配图"
 ---

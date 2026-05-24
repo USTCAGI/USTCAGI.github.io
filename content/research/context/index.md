@@ -1,6 +1,12 @@
 ---
 title: 情境认知的预测理论与方法
 date: 2024-07-30
+subtitle: "Predictive Theories and Methods of Contextual Cognition"
+summary: "探索多源情境信息的解析、建模和自适应预测机制，让模型在真实环境变化下保持更强泛化能力和稳健性。"
+topics:
+  - 情境解析
+  - 自适应预测
+  - Context-aware Forecasting
 image:
   alt_text: "情境认知的预测理论与方法研究方向配图"
 ---

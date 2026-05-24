@@ -28,6 +28,10 @@ const homepageSection = (id) => {
 const scss = read('assets/scss/template.scss');
 const cardBlock = between(scss, /^\.card-simple\s*\{/m, /^\}/m);
 const homepageCardGridBlock = between(scss, /^#research\s+\.card-simple,\s*$/m, /^\}/m);
+assert(/\.page-header\.header--fixed\s*\{[\s\S]*top:\s*0[\s\S]*z-index:\s*1030/.test(scss), 'site header should stay pinned to the top across homepage and subpages');
+assert(/\.page-header\.header--fixed\.headroom--unpinned\s*\{[\s\S]*transform:\s*translateY\(0\)\s*!important/.test(scss), 'subpage Headroom state should not shift the navbar away from the top');
+assert(/#navbar-main\s*\{[\s\S]*height:\s*70px[\s\S]*min-height:\s*70px/.test(scss), 'desktop navbar height should match the homepage header height');
+assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#navbar-main\s*\{[\s\S]*height:\s*50px[\s\S]*min-height:\s*50px/.test(scss), 'mobile navbar height should match the homepage header height');
 assert(!/height:\s*100%\s*;/.test(cardBlock), 'card-simple must not force global height: 100%');
 assert(/border-radius:\s*8px\s*;/.test(cardBlock), 'card-simple should use an 8px radius');
 assert(/-webkit-line-clamp:\s*4\s*;/.test(scss), 'card summaries should be clamped to four lines');
@@ -79,6 +83,27 @@ assert(/margin-top:\s*0/.test(homepageCardGridBlock), 'homepage card grids shoul
 assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage news cards should be explicitly arranged in a three-column CSS grid');
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 
+const peoplePage = read('content/people/index.md');
+assert(/id:\s*people-overview/.test(peoplePage), 'people page should include a concise overview section before the member grid');
+assert(/class="people-overview-panel"/.test(peoplePage), 'people overview should render as a designed intro panel');
+assert(/title:\s*成员列表/.test(peoplePage), 'people widget should use a distinct member-list heading after the overview');
+assert(/#people-overview\s*\{/.test(scss), 'people overview should have scoped section CSS');
+assert(/\.people-overview-panel\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'people overview panel should match the site card radius');
+assert(/\.people-overview-tags\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people overview tags should use a balanced three-column desktop grid');
+assert(/#section-people\s+\.people-widget\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people page should use a dense five-column member grid on desktop');
+assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s+h2\s*\{[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef/.test(scss), 'people group headings should visually separate member groups');
+assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*margin-top:\s*0\.55rem/.test(scss), 'people group headings should leave visible breathing room before the first member row');
+assert(/#section-people\s+\.people-person\s*\{[\s\S]*position:\s*relative[\s\S]*border-top:\s*3px\s+solid\s+#1f6fbc[\s\S]*border-radius:\s*8px[\s\S]*text-align:\s*center/.test(scss), 'people entries should render as polished compact member cards');
+assert(/#section-people\s+\.people-person\s+\.avatar\s*\{[\s\S]*width:\s*112px[\s\S]*height:\s*112px/.test(scss), 'people avatars should be compact and consistently sized');
+assert(/#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*2\.45rem/.test(scss), 'people role text should reserve enough height to keep card bodies aligned');
+assert(/#section-people\s+\.network-icon\s*\{[\s\S]*display:\s*flex/.test(scss), 'people social links should align as a compact icon row');
+assert(/#section-people\s+\.people-interests\s*\{[\s\S]*-webkit-line-clamp:\s*2/.test(scss), 'people interests should be clamped to keep cards balanced');
+assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.people-overview-tags\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people overview tags should stack cleanly on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
+assert(/@media\s*\(max-width:\s*479\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow mobile');
+
 const menus = read('config/_default/menus.yaml');
 for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '系统', '代码仓库']) {
   assert(new RegExp(`name:\\s*${label}`).test(menus), `main menu should use Chinese label: ${label}`);
@@ -115,10 +140,48 @@ assert(/\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax
 assert(/\.post-featured-card\s*\{[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s+minmax\(280px,\s*0\.95fr\)/.test(scss), 'latest post should use a balanced desktop feature layout');
 assert(/\.post-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'post cards should use the site card radius');
 assert(/\.post-card-summary\s*\{[\s\S]*-webkit-line-clamp:\s*3/.test(scss), 'post card summaries should be clamped to keep the grid balanced');
-assert(/@media\s*\(max-width:\s*1199\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'post cards should reduce to two columns on tablets');
+assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'post cards should reduce to two columns on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-featured-card\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'featured post should stack on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-featured-media\s*\{[\s\S]*order:\s*-1/.test(scss), 'featured post image should move above the copy on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'post cards should use one column on mobile');
+
+const researchIndex = read('content/research/_index.md');
+assert(/summary:\s*['"].+['"]/.test(researchIndex), 'research index should define a concise page summary');
+assert(/highlights:\s*\n(?:\s+-\s+.+\n){3,}/.test(researchIndex), 'research index should define overview highlights');
+assert(/pillars:\s*\n(?:\s+-\s+title:\s*['"]?.+['"]?\n\s+text:\s*['"]?.+['"]?\n){3,}/.test(researchIndex), 'research index should define three research pillars');
+assert(/applications:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define representative application scenarios');
+
+const researchListPath = 'layouts/research/list.html';
+assert(fs.existsSync(researchListPath), 'research section should use a dedicated list layout');
+if (fs.existsSync(researchListPath)) {
+  const researchList = read(researchListPath);
+  assert(/research-index-hero/.test(researchList), 'research layout should render a page hero');
+  assert(/research-pillar-grid/.test(researchList), 'research layout should render research pillars before direction cards');
+  assert(/research-application-strip/.test(researchList), 'research layout should render representative application scenarios');
+  assert(/research-direction-grid/.test(researchList), 'research layout should render directions in a grid');
+  assert(/research-direction-card/.test(researchList), 'research layout should render dedicated direction cards');
+  assert(/Params\.topics/.test(researchList), 'research layout should render per-direction topics');
+  assert(/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(researchList), 'research layout should reuse each direction featured image');
+}
+
+for (const path of fs.readdirSync('content/research', { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => `content/research/${entry.name}/index.md`)
+  .filter((path) => fs.existsSync(path))) {
+  const text = read(path);
+  assert(/subtitle:\s*['"].+['"]/.test(text), `${path} should define a subtitle for the research card`);
+  assert(/summary:\s*['"].+['"]/.test(text), `${path} should define a summary for the research card`);
+  assert(/topics:\s*\n(?:\s+-\s+.+\n){2,}/.test(text), `${path} should define at least two research card topics`);
+}
+
+assert(/\.research-index-hero\s*\{/.test(scss), 'research index hero should have dedicated CSS');
+assert(/\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research pillars should use a three-column desktop grid');
+assert(/\.research-application-strip\s*\{[\s\S]*display:\s*flex/.test(scss), 'research application scenarios should render as a compact strip');
+assert(/\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research direction grid should use a six-track desktop layout');
+assert(/\.research-direction-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research direction cards should use the site card radius');
+assert(/\.research-direction-card:nth-child\(-n\s*\+\s*2\)\s*\{[\s\S]*grid-column:\s*span\s+3/.test(scss), 'first two research cards should have stronger desktop emphasis');
+assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research pillars should stack on tablets');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research direction grid should collapse to one column on mobile');
 
 for (const path of [
   'content/authors/Mingfan Pan/_index.md',

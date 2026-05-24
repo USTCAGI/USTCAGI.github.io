@@ -31,19 +31,19 @@ sections:
       text: |
         <div class="home-focus-grid" aria-label="研究聚焦">
           <a class="home-focus-item" href="/research/agent/">
-            <span class="home-focus-kicker">Agentic Intelligence</span>
-            <strong>智能体智能与大模型</strong>
-            <span>研究大模型推理机制、工具调用、规划协同与多模态增强，面向复杂任务构建可靠智能体。</span>
+            <span class="home-focus-kicker">LLM Agents</span>
+            <strong>大模型智能体</strong>
+            <span>研究大模型驱动的自主智能体、规划推理、工具调用与多智能体协同，构建可靠可控的复杂任务执行系统。</span>
+          </a>
+          <a class="home-focus-item" href="/research/context/">
+            <span class="home-focus-kicker">Context Reasoning</span>
+            <strong>情境表示与推理</strong>
+            <span>面向多源动态情境，研究语义表示、状态建模与自适应推理方法，提升模型在真实环境中的泛化与稳健性。</span>
           </a>
           <a class="home-focus-item" href="/research/structured/">
-            <span class="home-focus-kicker">Structured Data</span>
-            <strong>结构化数据与时序预测</strong>
-            <span>围绕表格、时间序列和混合文档数据，发展可解释、可泛化的数据挖掘与预测方法。</span>
-          </a>
-          <a class="home-focus-item" href="/research/science/">
-            <span class="home-focus-kicker">AI for Science</span>
-            <strong>科学智能与真实场景</strong>
-            <span>连接科研、教育、医疗与推荐等应用场景，推动智能系统从算法能力走向可用工作流。</span>
+            <span class="home-focus-kicker">Knowledge Reasoning</span>
+            <strong>知识表示与推理</strong>
+            <span>围绕结构化知识、表格与文档数据，研究知识抽取、表示学习、检索增强与可解释推理，支撑可信智能决策。</span>
           </a>
         </div>
     design:

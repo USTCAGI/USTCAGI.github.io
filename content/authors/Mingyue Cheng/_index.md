@@ -27,10 +27,10 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Agentic AI
+  - LLMs and Agentic AI
   - Time Series Analysis
-  - Tabular Data Mining
   - Recommender Systems
+  - AI for Science
 
 # education:
 #   courses:
