@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="title">
+  <title id="title">腾讯 Tencent</title>
+  <rect width="240" height="72" fill="none"/>
+  <circle cx="52" cy="36" r="15" fill="#0052d9"/>
+  <circle cx="71" cy="36" r="15" fill="#00a4ff"/>
+  <text x="145" y="33" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24" font-weight="700">Tencent</text>
+  <text x="145" y="55" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" font-weight="700">腾讯</text>
+</svg>

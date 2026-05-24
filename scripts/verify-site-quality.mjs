@@ -28,10 +28,13 @@ const homepageSection = (id) => {
 const scss = read('assets/scss/template.scss');
 const cardBlock = between(scss, /^\.card-simple\s*\{/m, /^\}/m);
 const homepageCardGridBlock = between(scss, /^#research\s+\.card-simple,\s*$/m, /^\}/m);
-assert(/\.page-header\.header--fixed\s*\{[\s\S]*top:\s*0[\s\S]*z-index:\s*1030/.test(scss), 'site header should stay pinned to the top across homepage and subpages');
+assert(/:root\s*\{[\s\S]*--site-navbar-height:\s*70px[\s\S]*--site-navbar-height-mobile:\s*50px/.test(scss), 'navbar should define one shared desktop and mobile height');
+assert(/body\s*\{[\s\S]*padding-top:\s*var\(--site-navbar-height\)/.test(scss), 'all pages should reserve the same desktop space below the fixed navbar');
+assert(/\.page-header\.header--fixed\s*\{[\s\S]*position:\s*fixed[\s\S]*top:\s*0[\s\S]*right:\s*0[\s\S]*left:\s*0[\s\S]*z-index:\s*1030[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef[\s\S]*background:\s*#ffffff[\s\S]*box-shadow:\s*0\s+10px\s+28px\s+rgba\(15,\s*23,\s*42,\s*0\.08\)/.test(scss), 'site header should have one fixed white treatment across homepage and subpages');
 assert(/\.page-header\.header--fixed\.headroom--unpinned\s*\{[\s\S]*transform:\s*translateY\(0\)\s*!important/.test(scss), 'subpage Headroom state should not shift the navbar away from the top');
-assert(/#navbar-main\s*\{[\s\S]*height:\s*70px[\s\S]*min-height:\s*70px/.test(scss), 'desktop navbar height should match the homepage header height');
-assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#navbar-main\s*\{[\s\S]*height:\s*50px[\s\S]*min-height:\s*50px/.test(scss), 'mobile navbar height should match the homepage header height');
+assert(/#navbar-main\s*\{[\s\S]*height:\s*var\(--site-navbar-height\)[\s\S]*min-height:\s*var\(--site-navbar-height\)[\s\S]*background:\s*#ffffff\s*!important/.test(scss), 'desktop navbar height and background should use the shared navbar tokens');
+assert(/#navbar-main\s+\.navbar-brand,\s*[\s\S]*#navbar-main\s+\.navbar-nav\s+\.nav-link\s*\{[\s\S]*display:\s*inline-flex[\s\S]*min-height:\s*var\(--site-navbar-height\)[\s\S]*align-items:\s*center/.test(scss), 'navbar brand and links should align consistently within the shared height');
+assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*body\s*\{[\s\S]*padding-top:\s*var\(--site-navbar-height-mobile\)[\s\S]*#navbar-main\s*\{[\s\S]*height:\s*var\(--site-navbar-height-mobile\)[\s\S]*min-height:\s*var\(--site-navbar-height-mobile\)/.test(scss), 'mobile navbar should use the shared mobile height and matching body offset');
 assert(!/height:\s*100%\s*;/.test(cardBlock), 'card-simple must not force global height: 100%');
 assert(/border-radius:\s*8px\s*;/.test(cardBlock), 'card-simple should use an 8px radius');
 assert(/-webkit-line-clamp:\s*4\s*;/.test(scss), 'card summaries should be clamped to four lines');
@@ -82,6 +85,7 @@ const researchFocusModules = [
 ];
 assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a Chinese title');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
+assert(/image:\s*\n\s*filename:\s*welcome\.png[\s\S]*slides:\s*\n(?:\s+-\s*filename:\s*.+\n\s+alt:\s*.+\n){3,}/.test(home), 'homepage hero image should define at least three configured carousel slides');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
 assert(/cta_note:\s*\n\s*label:\s*多模态表征学习 · 情境表示与推理 · 慢思考认知推理 · 自主交互智能体/.test(home), 'homepage hero should use the requested research focus tagline');
@@ -90,6 +94,9 @@ assert((home.match(/class="home-focus-item"/g) || []).length === 4, 'homepage re
 for (const moduleTitle of researchFocusModules) {
   assert(home.includes(moduleTitle), `homepage research focus should include ${moduleTitle}`);
 }
+assert(!/大数据分析与应用安徽省重点实验室|bigdata\.ustc\.edu\.cn/.test(home), 'homepage related links should not include the removed big-data lab link');
+assert((home.match(/class="home-link-strip"/g) || []).length === 1, 'homepage should keep one related-links strip');
+assert(/\.home-link-strip\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage related links should use a two-column grid after removing the third link');
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
@@ -103,6 +110,11 @@ assert(/view:\s*card/.test(researchHomeSection) && /columns:\s*["']1["']/.test(r
 assert(/view:\s*card/.test(newsHomeSection) && /columns:\s*["']1["']/.test(newsHomeSection), 'homepage news section should keep the heading and cards in a full-width layout');
 
 assert(/#hero\s*\{/.test(scss), 'homepage hero should have dedicated CSS');
+assert(/#hero\s+\.hero-carousel\s*\{[\s\S]*aspect-ratio:\s*16\s*\/\s*9[\s\S]*overflow:\s*hidden/.test(scss), 'homepage hero carousel should reserve a stable 16:9 image frame');
+assert(/#hero\s+\.hero-carousel-slide\s*\{[\s\S]*opacity:\s*0[\s\S]*transition:\s*opacity\s+0\.45s\s+ease/.test(scss), 'homepage hero carousel slides should cross-fade');
+assert(/#hero\s+\.hero-carousel-slide\.is-active\s*\{[\s\S]*opacity:\s*1/.test(scss), 'homepage hero carousel should expose an active slide state');
+assert(/#hero\s+\.hero-carousel-dots\s*\{[\s\S]*display:\s*flex/.test(scss), 'homepage hero carousel should render compact dot controls');
+assert(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*#hero\s+\.hero-carousel-slide\s*\{[\s\S]*transition:\s*none/.test(scss), 'homepage hero carousel should respect reduced motion preferences');
 assert(/\.home-focus-grid\s*\{/.test(scss), 'homepage research focus grid should have dedicated CSS');
 assert(/\.home-focus-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research focus modules should use a readable two-column desktop grid');
 assert(/#research\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research cards should be explicitly arranged in a full-width three-column CSS grid');
@@ -134,7 +146,7 @@ assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.peopl
 assert(/@media\s*\(max-width:\s*479\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow mobile');
 
 const menus = read('config/_default/menus.yaml');
-for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '开源项目', '系统', '代码仓库']) {
+for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '开源项目', '系统研发', '代码仓库']) {
   assert(new RegExp(`name:\\s*${label}`).test(menus), `main menu should use Chinese label: ${label}`);
 }
 assert(!/name:\s*(News|People|Research|Publications|Projects|Repository)\b/.test(menus), 'main menu labels should not remain English');
@@ -285,6 +297,12 @@ assert(fs.existsSync(heroPartialPath), 'local hero partial should render configu
 if (fs.existsSync(heroPartialPath)) {
   const heroPartial = read(heroPartialPath);
   assert(/content\.image\.alt/.test(heroPartial), 'hero partial should read content.image.alt');
+  assert(/content\.image\.slides/.test(heroPartial), 'hero partial should render configured hero carousel slides');
+  assert(/hero-carousel/.test(heroPartial), 'hero partial should render a carousel shell');
+  assert(/hero-carousel-slide/.test(heroPartial), 'hero partial should render individual carousel slides');
+  assert(/hero-carousel-dot/.test(heroPartial), 'hero partial should render accessible carousel dot controls');
+  assert(/setInterval/.test(heroPartial), 'hero carousel should auto-advance without external JavaScript dependencies');
+  assert(/prefers-reduced-motion/.test(heroPartial), 'hero carousel script should respect reduced motion preferences');
 }
 
 for (const path of ['content/project/writelearn/index.md']) {

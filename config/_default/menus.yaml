@@ -19,7 +19,7 @@ main:
   - name: 开源项目
     url: open-source
     weight: 50
-  - name: 系统
+  - name: 系统研发
     url: project
     weight: 60
   - name: 代码仓库

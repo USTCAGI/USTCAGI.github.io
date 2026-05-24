@@ -13,6 +13,13 @@ sections:
       image:
         filename: welcome.png
         alt: 中国科大 AGI 研究组首页图
+        slides:
+          - filename: welcome.png
+            alt: 中国科大 AGI 研究组合影
+          - filename: coders.jpg
+            alt: 智能系统研发与协作场景
+          - filename: welcome.jpg
+            alt: AI for Science 科研实验场景
       cta:
         label: 查看研究方向
         url: /research/
@@ -123,7 +130,23 @@ sections:
         <div class="home-link-strip" aria-label="相关链接">
           <a href="https://www.ustc.edu.cn/">中国科学技术大学</a>
           <a href="https://cogskl.iflytek.com/">认知智能全国重点实验室</a>
-          <a href="https://bigdata.ustc.edu.cn/">大数据分析与应用安徽省重点实验室</a>
+        </div>
+        <div class="home-partner-strip" aria-label="合作企业">
+          <span class="home-partner-label">合作企业</span>
+          <div class="home-partner-grid">
+            <a href="https://www.iflytek.com/" target="_blank" rel="noopener" aria-label="科大讯飞">
+              <img src="/media/partners/iflytek.svg" alt="科大讯飞">
+            </a>
+            <a href="https://www.tencent.com/" target="_blank" rel="noopener" aria-label="腾讯">
+              <img src="/media/partners/tencent.svg" alt="腾讯">
+            </a>
+            <a href="https://www.huawei.com/" target="_blank" rel="noopener" aria-label="华为">
+              <img src="/media/partners/huawei.svg" alt="华为">
+            </a>
+            <a href="https://www.kuaishou.com/" target="_blank" rel="noopener" aria-label="快手">
+              <img src="/media/partners/kuaishou.svg" alt="快手">
+            </a>
+          </div>
         </div>
     design:
       columns: "1"

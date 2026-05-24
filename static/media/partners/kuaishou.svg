@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="title">
+  <title id="title">快手 Kuaishou</title>
+  <rect width="240" height="72" fill="none"/>
+  <rect x="40" y="22" width="36" height="28" rx="8" fill="#ff4906"/>
+  <circle cx="52" cy="36" r="5" fill="#fff"/>
+  <circle cx="64" cy="36" r="5" fill="#fff"/>
+  <text x="151" y="33" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24" font-weight="700">Kuaishou</text>
+  <text x="151" y="55" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" font-weight="700">快手</text>
+</svg>

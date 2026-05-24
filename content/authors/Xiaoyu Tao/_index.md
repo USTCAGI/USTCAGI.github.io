@@ -28,6 +28,7 @@ organizations:
 
 interests:
   - Time Series Analysis
+  - LLMs and Agent
 
 # education:
 #   courses:
@@ -56,5 +57,5 @@ email: "txytiny@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Students
+  - 学生成员
 ---

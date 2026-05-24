@@ -26,8 +26,8 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-# interests:
-# - Data Mining
+interests:
+  - Time Series Analysis
 
 # education:
 #   courses:
@@ -56,5 +56,5 @@ email: "yangjq@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - Alumni
+  - 毕业同学
 ---

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="title">
+  <title id="title">华为 Huawei</title>
+  <rect width="240" height="72" fill="none"/>
+  <path d="M53 21c5 7 8 15 9 24-8-2-15-7-19-14 2-5 5-8 10-10Zm26 0c-5 7-8 15-9 24 8-2 15-7 19-14-2-5-5-8-10-10ZM66 14c-3 9-4 19-1 30 4-10 6-20 1-30Z" fill="#d71920"/>
+  <text x="150" y="33" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24" font-weight="700">HUAWEI</text>
+  <text x="150" y="55" text-anchor="middle" fill="#102033" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" font-weight="700">华为</text>
+</svg>

@@ -6,6 +6,7 @@
 {{ $block := .wcBlock }}
 {{ $bg := $block.design.background }}
 {{ $image_alt := $block.content.image.alt | default $block.content.title | plainify }}
+{{ $slides := $block.content.image.slides | default (slice (dict "filename" $block.content.image.filename "alt" $image_alt)) }}
 
 {{ if $block.content.image.filename }}
 <div class="row">
@@ -64,28 +65,90 @@
   {{ if $block.content.image.filename }}
   </div>
   <div class="col-12 mx-auto col-md-6 {{if $block.content.design.flip}}order-md-first{{end}} hero-media">
-    {{- $image := resources.Get (path.Join "media" $block.content.image.filename) -}}
-    {{ if $image }}
-      {{ $isSVG := eq $image.MediaType.SubType "svg" }}
-      {{ if $isSVG -}}
-        <img src="{{ $image.RelPermalink }}" alt="{{ $image_alt }}">
-      {{- else }}
-        {{ $legacy_img := $image.Resize "400x" }}
-        {{ $img_src := "" }}
-        {{ $img_src_set := slice }}
-        {{ $widths := slice 1200 800 400 }}
+    <div class="hero-carousel" data-hero-carousel aria-roledescription="carousel" aria-label="研究组图片轮播">
+      {{ range $index, $slide := $slides }}
+        {{ $slide_filename := $slide.filename | default $block.content.image.filename }}
+        {{ $slide_alt := $slide.alt | default $image_alt }}
+        {{- $image := resources.Get (path.Join "media" $slide_filename) -}}
+        {{ if $image }}
+          {{ $isSVG := eq $image.MediaType.SubType "svg" }}
+          <div class="hero-carousel-slide{{ if eq $index 0 }} is-active{{ end }}" data-hero-slide aria-hidden="{{ if eq $index 0 }}false{{ else }}true{{ end }}">
+            {{ if $isSVG -}}
+              <img src="{{ $image.RelPermalink }}" alt="{{ $slide_alt }}"{{ if gt $index 0 }} loading="lazy"{{ end }}>
+            {{- else }}
+              {{ $legacy_img := $image.Resize "400x" }}
+              {{ $img_src := "" }}
+              {{ $img_src_set := slice }}
+              {{ $widths := slice 1200 800 400 }}
 
-        {{ range $widths }}
-          {{ $src_link := ($image.Resize (printf "%dx" .)).RelPermalink }}
-          {{ if eq $img_src "" }}
-            {{ $img_src = $src_link }}
-          {{ end }}
-          {{ $img_src_set = $img_src_set | append (printf "%s %dw" $src_link .) }}
+              {{ range $widths }}
+                {{ $src_link := ($image.Resize (printf "%dx" .)).RelPermalink }}
+                {{ if eq $img_src "" }}
+                  {{ $img_src = $src_link }}
+                {{ end }}
+                {{ $img_src_set = $img_src_set | append (printf "%s %dw" $src_link .) }}
+              {{ end }}
+              {{ $img_src_set = delimit $img_src_set "," }}
+
+              <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $slide_alt }}"{{ if gt $index 0 }} loading="lazy"{{ end }}>
+            {{ end }}
+          </div>
         {{ end }}
-        {{ $img_src_set = delimit $img_src_set "," }}
-
-        <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $image_alt }}">
       {{ end }}
+    </div>
+    {{ if gt (len $slides) 1 }}
+      <div class="hero-carousel-dots" aria-label="选择轮播图片">
+        {{ range $index, $slide := $slides }}
+          <button type="button" class="hero-carousel-dot{{ if eq $index 0 }} is-active{{ end }}" data-hero-carousel-dot aria-label="显示第 {{ add $index 1 }} 张图片" aria-current="{{ if eq $index 0 }}true{{ else }}false{{ end }}"></button>
+        {{ end }}
+      </div>
+      <script>
+        (() => {
+          const carousel = document.currentScript.closest('.hero-media').querySelector('[data-hero-carousel]');
+          const slides = Array.from(carousel.querySelectorAll('[data-hero-slide]'));
+          const dots = Array.from(document.currentScript.previousElementSibling.querySelectorAll('[data-hero-carousel-dot]'));
+          if (slides.length < 2 || dots.length !== slides.length) return;
+
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          let activeIndex = 0;
+          let timer = null;
+
+          const show = (nextIndex) => {
+            activeIndex = (nextIndex + slides.length) % slides.length;
+            slides.forEach((slide, index) => {
+              const isActive = index === activeIndex;
+              slide.classList.toggle('is-active', isActive);
+              slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+              dots[index].classList.toggle('is-active', isActive);
+              dots[index].setAttribute('aria-current', isActive ? 'true' : 'false');
+            });
+          };
+
+          const stop = () => {
+            if (timer) window.clearInterval(timer);
+            timer = null;
+          };
+
+          const start = () => {
+            if (reducedMotion || timer) return;
+            timer = window.setInterval(() => show(activeIndex + 1), 4500);
+          };
+
+          dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+              stop();
+              show(index);
+              start();
+            });
+          });
+
+          carousel.addEventListener('mouseenter', stop);
+          carousel.addEventListener('mouseleave', start);
+          carousel.addEventListener('focusin', stop);
+          carousel.addEventListener('focusout', start);
+          start();
+        })();
+      </script>
     {{ end }}
   </div>
 </div>
