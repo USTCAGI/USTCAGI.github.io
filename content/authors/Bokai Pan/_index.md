@@ -57,5 +57,5 @@ email: "bk2585934928@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 在读硕士生
+  - 本科生同学
 ---

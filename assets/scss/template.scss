@@ -599,12 +599,85 @@ body {
 }
 
 #section-people {
-  padding-top: 2.5rem;
+  padding-top: 0.75rem;
   background: #f7fafc;
 }
 
 #section-people .container {
   max-width: 1200px;
+}
+
+#people-hero {
+  padding: 2.75rem 0 1.25rem;
+  background: #f7fafc;
+}
+
+#people-hero .container {
+  max-width: 1200px;
+}
+
+.people-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 2rem;
+  align-items: center;
+  padding: 2.35rem 2.5rem;
+  border: 1px solid #dbe4ef;
+  border-left: 5px solid #1f6fbc;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.07);
+}
+
+.people-banner-kicker {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  color: #1f6fbc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.people-banner h1 {
+  margin: 0 0 0.85rem;
+  color: #102033;
+  font-size: 2.25rem;
+  line-height: 1.18;
+}
+
+.people-banner p {
+  max-width: 760px;
+  margin: 0;
+  color: #3f4f62;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.people-banner-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.people-banner-groups span {
+  display: flex;
+  min-height: 2.6rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid #dbe4ef;
+  border-radius: 8px;
+  background: #f7fafc;
+  color: #102033;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-align: center;
+}
+
+.people-banner-groups span:first-child {
+  grid-column: 1 / -1;
+  background: #eef6ff;
+  color: #1f6fbc;
 }
 
 #section-people .people-widget {
@@ -1479,6 +1552,11 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .people-banner {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
   .research-index-highlights {
     grid-template-columns: 1fr;
   }
@@ -1643,8 +1721,35 @@ body {
     height: 130px;
   }
 
+  #people-hero {
+    padding: 2rem 0 0.75rem;
+  }
+
+  .people-banner {
+    gap: 1.35rem;
+    padding: 1.55rem;
+  }
+
+  .people-banner h1 {
+    font-size: 1.85rem;
+  }
+
+  .people-banner-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .people-banner-groups span:first-child {
+    grid-column: auto;
+  }
+
   #section-people .portrait-title h3 {
     min-height: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  #section-people .people-widget {
+    grid-template-columns: 1fr;
   }
 }
 

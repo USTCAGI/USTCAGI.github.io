@@ -1,22 +1,22 @@
 ---
 # Display name
-title: Ze Guo
+title: Yucong Wu
 
 # Full name (for SEO)
-first_name: Ze
-last_name: Guo
+first_name: Yucong
+last_name: Wu
 
 # Username (this should match the folder name)
 authors:
-  - Ze Guo
+  - Yucong Wu
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2602"
+index: "SS2604"
 
 # Role/position
-role: Master Student
+role: Undergraduate Student
 
 # Organizations/Affiliations
 organizations:
@@ -27,31 +27,14 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - LLM-Based Agent
-
-# education:
-#   courses:
-#     - course: PhD in Artificial Intelligence
-#       institution: Stanford University
-#       year: 2012
-#     - course: MEng in Artificial Intelligence
-#       institution: Massachusetts Institute of Technology
-#       year: 2009
-#     - course: BSc in Artificial Intelligence
-#       institution: Massachusetts Institute of Technology
-#       year: 2008
+  - Time Series Analysis
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
-#   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
-#   form "mailto:your-email@example.com" or "#contact" for contact widget.
-social:
-  - icon: envelope
-    icon_pack: fas
-    link: "mailto:gz1504921411@mail.ustc.edu.cn"
+social: []
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "gz1504921411@mail.ustc.edu.cn"
+email: ""
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.

@@ -141,9 +141,17 @@ const authorGroupPaths = (group) => fs.readdirSync('content/authors', { withFile
   .filter((path) => fs.existsSync(path) && authorHasGroup(path, group));
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
+assert(/id:\s*people-hero/.test(peoplePage), 'people page should render a top banner before the member grid');
+assert(/class="people-banner"/.test(peoplePage), 'people page banner should use the scoped people-banner shell');
+for (const label of ['研究团队', '导师团队', '在读博士生', '在读硕士生', '本科生同学', '历届同学']) {
+  assert(peoplePage.includes(label), `people page banner should include label: ${label}`);
+}
 assert(/title:\s*成员列表/.test(peoplePage), 'people widget should keep the member-list heading');
 assert(/user_groups:\s*\n\s+-\s*Supervisors\s*\n\s+-\s*在读博士生\s*\n\s+-\s*在读硕士生\s*\n\s+-\s*本科生同学\s*\n\s+-\s*历届同学/.test(peoplePage), 'people page should split current students into doctoral and master groups');
 assert(/#section-people\s+\.people-widget\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people page should use a dense five-column member grid on desktop');
+assert(/#people-hero\s*\{[\s\S]*background:\s*#f7fafc/.test(scss), 'people banner should sit on the same light page background');
+assert(/\.people-banner\s*\{[\s\S]*display:\s*grid[\s\S]*border-left:\s*5px\s+solid\s+#1f6fbc[\s\S]*border-radius:\s*8px/.test(scss), 'people banner should render as a compact framed header');
+assert(/\.people-banner-groups\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people banner group labels should use a compact two-column desktop grid');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s+h2\s*\{[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef/.test(scss), 'people group headings should visually separate member groups');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*margin-top:\s*0\.55rem/.test(scss), 'people group headings should leave visible breathing room before the first member row');
 assert(/#section-people\s+\.section-heading\s*\+\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*grid-column:\s*2/.test(scss), 'supervisor cards should start from the second desktop grid column so the row is centered');
@@ -156,6 +164,7 @@ assert(/#section-people\s+\.people-interests\s*\{[\s\S]*-webkit-line-clamp:\s*2/
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
+assert(/@media\s*\(max-width:\s*575\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow phones');
 assert(/@media\s*\(max-width:\s*479\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow mobile');
 assert(
   authorIndex('content/authors/Huajian Zhang/_index.md') > authorIndex('content/authors/Daoyu Wang/_index.md')
@@ -345,8 +354,6 @@ for (const path of [
   'content/authors/Huajian Zhang/_index.md',
   'content/authors/Yaguo Liu/_index.md',
   'content/authors/Yiju Zhang/_index.md',
-  'content/authors/Bokai Pan/_index.md',
-  'content/authors/Ze Guo/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
@@ -366,9 +373,17 @@ for (const path of [
 for (const path of [
   'content/authors/Xingpeng Gao/_index.md',
   'content/authors/Zhuang Zhang/_index.md',
+  'content/authors/Yucong Wu/_index.md',
+  'content/authors/Bokai Pan/_index.md',
+  'content/authors/Ze Guo/_index.md',
 ]) {
   assert(/user_groups:\s*\n\s+-\s*本科生同学/.test(read(path)), `${path} should be listed as an undergraduate member`);
 }
+
+const yucongWu = read('content/authors/Yucong Wu/_index.md');
+assert(/title:\s*Yucong Wu/.test(yucongWu), 'Yucong Wu profile should define the display name');
+assert(/interests:\s*\n\s+-\s*Time Series Analysis/.test(yucongWu), 'Yucong Wu profile should list Time Series Analysis');
+assert(fs.existsSync('content/authors/Yucong Wu/avatar.jpg'), 'Yucong Wu profile should include the provided avatar image');
 
 const heroPartialPath = 'layouts/partials/blocks/hero.html';
 assert(fs.existsSync(heroPartialPath), 'local hero partial should render configured image alt text');
