@@ -16,7 +16,7 @@ superuser: false
 index: "SS2601"
 
 # Role/position
-role: Master Student
+role: Undergraduate Student
 
 # Organizations/Affiliations
 organizations:

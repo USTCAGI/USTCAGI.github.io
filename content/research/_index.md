@@ -21,6 +21,16 @@ applications:
   - 医疗风险预警
   - 能源功率预测
   - 推荐与用户建模
+related_projects:
+  - title: "AgentR1"
+    url: "https://agentr1.github.io/"
+    summary: "面向智能体推理与强化学习方法的项目页面。"
+  - title: "USTC Time Series"
+    url: "https://ustc-time-series.github.io/"
+    summary: "聚焦时间序列分析、预测与表示学习的项目页面。"
+  - title: "USTCAGI for Science"
+    url: "https://ustcagi-sci.github.io/"
+    summary: "围绕 AI for Science 研究方向的项目页面。"
 
 # Listing view
 view: compact

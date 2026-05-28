@@ -86,5 +86,27 @@
       {{ end }}
     </div>
   </section>
+
+  {{ with .Params.related_projects }}
+    <section class="research-related-section" aria-labelledby="research-related-title">
+      <div class="research-related-heading">
+        <h2 id="research-related-title">相关项目</h2>
+        <p>与研究组方向关联的项目页面和成果展示。</p>
+      </div>
+
+      <div class="research-related-grid">
+        {{ range . }}
+          <a class="research-related-card" href="{{ .url }}" target="_blank" rel="noopener">
+            <span class="research-related-label">External Link</span>
+            <h3>{{ .title }}</h3>
+            {{ with .summary }}
+              <p>{{ . }}</p>
+            {{ end }}
+            <span class="research-related-more">访问页面</span>
+          </a>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
 </div>
 {{- end -}}

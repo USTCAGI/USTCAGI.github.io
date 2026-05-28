@@ -259,6 +259,7 @@ assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-featured-media\s*\
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'post cards should use one column on mobile');
 
 const researchIndex = read('content/research/_index.md');
+const relatedProjectsBlock = between(researchIndex, /^related_projects:\s*$/m, /^\s*# Listing view/m);
 assert(/summary:\s*['"].+['"]/.test(researchIndex), 'research index should define a concise page summary');
 assert(/highlights:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define four overview highlights');
 assert(/pillars:\s*\n(?:\s+-\s+title:\s*['"]?.+['"]?\n\s+text:\s*['"]?.+['"]?\n){4,}/.test(researchIndex), 'research index should define four research focus modules');
@@ -266,6 +267,14 @@ for (const moduleTitle of researchFocusModules) {
   assert(researchIndex.includes(moduleTitle), `research index should include ${moduleTitle}`);
 }
 assert(/applications:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define representative application scenarios');
+assert((relatedProjectsBlock.match(/^\s+-\s+title:/gm) || []).length === 3, 'research index should define three related project links');
+for (const url of [
+  'https://agentr1.github.io/',
+  'https://ustc-time-series.github.io/',
+  'https://ustcagi-sci.github.io/',
+]) {
+  assert(researchIndex.includes(`url: "${url}"`), `research index should include related project URL: ${url}`);
+}
 
 const researchListPath = 'layouts/research/list.html';
 assert(fs.existsSync(researchListPath), 'research section should use a dedicated list layout');
@@ -277,6 +286,8 @@ if (fs.existsSync(researchListPath)) {
   assert(/research-direction-grid/.test(researchList), 'research layout should render directions in a grid');
   assert(/research-direction-card/.test(researchList), 'research layout should render dedicated direction cards');
   assert(/Params\.topics/.test(researchList), 'research layout should render per-direction topics');
+  assert(/Params\.related_projects/.test(researchList), 'research layout should render related project links from front matter');
+  assert(/research-related-grid/.test(researchList), 'research layout should render related project cards in a grid');
   assert(!/research-direction-media/.test(researchList), 'research direction cards should not render image media blocks');
   assert(!/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(researchList), 'research direction cards should not load featured images');
 }
@@ -314,8 +325,11 @@ assert(/\.research-application-strip\s*\{[\s\S]*display:\s*flex/.test(scss), 're
 assert(/\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research direction grid should use a six-track desktop layout');
 assert(/\.research-direction-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research direction cards should use the site card radius');
 assert(/\.research-direction-card:nth-child\(-n\s*\+\s*2\)\s*\{[\s\S]*grid-column:\s*span\s+3/.test(scss), 'first two research cards should have stronger desktop emphasis');
+assert(/\.research-related-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research related project links should use a three-column desktop grid');
+assert(/\.research-related-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research related project cards should match the site card radius');
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research pillars should stack on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research direction grid should collapse to one column on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-related-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research related project links should stack on mobile');
 
 for (const path of [
   'content/authors/Mingfan Pan/_index.md',
@@ -357,6 +371,10 @@ for (const path of [
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
+const firstMasterPath = authorGroupPaths('在读硕士生')
+  .map((path) => ({ path, index: authorIndex(path) }))
+  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))[0]?.path;
+assert(firstMasterPath === 'content/authors/Qingchuan Li/_index.md', 'Qingchuan Li should appear first in the master student group');
 
 for (const path of [
   'content/authors/Tian Gao/_index.md',
@@ -377,7 +395,9 @@ for (const path of [
   'content/authors/Bokai Pan/_index.md',
   'content/authors/Ze Guo/_index.md',
 ]) {
-  assert(/user_groups:\s*\n\s+-\s*本科生同学/.test(read(path)), `${path} should be listed as an undergraduate member`);
+  const author = read(path);
+  assert(/role:\s*Undergraduate Student/.test(author), `${path} should use Undergraduate Student role`);
+  assert(/user_groups:\s*\n\s+-\s*本科生同学/.test(author), `${path} should be listed as an undergraduate member`);
 }
 
 const yucongWu = read('content/authors/Yucong Wu/_index.md');

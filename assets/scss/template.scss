@@ -1129,6 +1129,99 @@ body {
   font-weight: 700;
 }
 
+.research-related-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+}
+
+.research-related-heading {
+  max-width: 760px;
+  margin: 0 auto 1.7rem;
+  text-align: center;
+}
+
+.research-related-heading h2 {
+  margin-bottom: 0.65rem;
+  color: #102033;
+  font-size: 1.72rem;
+  line-height: 1.28;
+}
+
+.research-related-heading p {
+  margin: 0;
+  color: #5d6b7c;
+  line-height: 1.75;
+}
+
+.research-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.research-related-card {
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  padding: 1.2rem;
+  border: 1px solid #dbe4ef;
+  border-top: 4px solid #1f6fbc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #102033;
+  text-decoration: none;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.research-related-card:nth-child(2) {
+  border-top-color: #0f766e;
+}
+
+.research-related-card:nth-child(3) {
+  border-top-color: #7c3aed;
+}
+
+.research-related-card:hover,
+.research-related-card:focus {
+  color: #102033;
+  text-decoration: none;
+  transform: translateY(-5px);
+  border-color: rgba(31, 111, 188, 0.36);
+  box-shadow: 0 22px 46px rgba(15, 23, 42, 0.12);
+}
+
+.research-related-label {
+  margin-bottom: 0.55rem;
+  color: #1f6fbc;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.research-related-card h3 {
+  margin-bottom: 0.55rem;
+  color: #102033;
+  font-size: 1.12rem;
+  line-height: 1.35;
+}
+
+.research-related-card p {
+  margin-bottom: 1rem;
+  color: #3f4f62;
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.research-related-more {
+  margin-top: auto;
+  color: #1f6fbc;
+  font-weight: 700;
+}
+
 .post-index {
   background: #f7fafc;
 }
@@ -1644,6 +1737,18 @@ body {
 
   .research-direction-grid {
     grid-template-columns: 1fr;
+  }
+
+  .research-related-section {
+    padding: 0 1rem 3rem;
+  }
+
+  .research-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .research-related-card {
+    min-height: 0;
   }
 
   .post-index-hero {
