@@ -11,6 +11,7 @@ sections:
       user_groups:
         - Supervisors
         - 学生成员
+        - 本科生同学
         - 毕业同学
       sort_by: Params.index
       sort_ascending: true

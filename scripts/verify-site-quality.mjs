@@ -132,6 +132,7 @@ const peoplePage = read('content/people/index.md');
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/title:\s*成员列表/.test(peoplePage), 'people widget should keep the member-list heading');
+assert(/user_groups:\s*\n\s+-\s*Supervisors\s*\n\s+-\s*学生成员\s*\n\s+-\s*本科生同学\s*\n\s+-\s*毕业同学/.test(peoplePage), 'people page should show undergraduate members between students and alumni');
 assert(/#section-people\s+\.people-widget\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people page should use a dense five-column member grid on desktop');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s+h2\s*\{[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef/.test(scss), 'people group headings should visually separate member groups');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*margin-top:\s*0\.55rem/.test(scss), 'people group headings should leave visible breathing room before the first member row');
@@ -290,8 +291,30 @@ assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-direction-grid
 for (const path of [
   'content/authors/Mingfan Pan/_index.md',
   'content/authors/Linjie Wu/_index.md',
+  'content/authors/Yuqian Wang/_index.md',
+  'content/authors/Ruikun Cai/_index.md',
+  'content/authors/Yuren Zhang/_index.md',
 ]) {
   assert(/user_groups:\s*\[\]/.test(read(path)), `${path} should be hidden from the People page`);
+}
+
+for (const path of [
+  'content/authors/Tian Gao/_index.md',
+  'content/authors/Chuan Jiang/_index.md',
+  'content/authors/Huibo Xu/_index.md',
+  'content/authors/Yucong Luo/_index.md',
+  'content/authors/Jie Ouyang/_index.md',
+  'content/authors/Jiaying Lin/_index.md',
+  'content/authors/Yiming Zhou/_index.md',
+]) {
+  assert(/user_groups:\s*\n\s+-\s*毕业同学/.test(read(path)), `${path} should be listed as an alumnus`);
+}
+
+for (const path of [
+  'content/authors/Xingpeng Gao/_index.md',
+  'content/authors/Zhuang Zhang/_index.md',
+]) {
+  assert(/user_groups:\s*\n\s+-\s*本科生同学/.test(read(path)), `${path} should be listed as an undergraduate member`);
 }
 
 const heroPartialPath = 'layouts/partials/blocks/hero.html';
