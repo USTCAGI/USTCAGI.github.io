@@ -80,5 +80,5 @@ email: linjya@mail.ustc.edu.cn
 # Set this to `[]` or comment out if you are not using People widget.
 
 user_groups:
-  - 毕业同学
+  - 历届同学
 ---

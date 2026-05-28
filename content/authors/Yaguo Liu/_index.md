@@ -56,5 +56,5 @@ email: "ygliu@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 学生成员
+  - 在读硕士生
 ---

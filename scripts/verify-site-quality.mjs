@@ -129,10 +129,20 @@ assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 
 const peoplePage = read('content/people/index.md');
+const authorIndex = (path) => {
+  const match = read(path).match(/^index:\s*["']?([^"'\n]+)["']?/m);
+  assert(match, `${path} should define an index for People page sorting`);
+  return match?.[1] || '';
+};
+const authorHasGroup = (path, group) => new RegExp(`^user_groups:\\s*\\n\\s+-\\s*${group}\\s*$`, 'm').test(read(path));
+const authorGroupPaths = (group) => fs.readdirSync('content/authors', { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => `content/authors/${entry.name}/_index.md`)
+  .filter((path) => fs.existsSync(path) && authorHasGroup(path, group));
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/title:\s*成员列表/.test(peoplePage), 'people widget should keep the member-list heading');
-assert(/user_groups:\s*\n\s+-\s*Supervisors\s*\n\s+-\s*学生成员\s*\n\s+-\s*本科生同学\s*\n\s+-\s*毕业同学/.test(peoplePage), 'people page should show undergraduate members between students and alumni');
+assert(/user_groups:\s*\n\s+-\s*Supervisors\s*\n\s+-\s*在读博士生\s*\n\s+-\s*在读硕士生\s*\n\s+-\s*本科生同学\s*\n\s+-\s*历届同学/.test(peoplePage), 'people page should split current students into doctoral and master groups');
 assert(/#section-people\s+\.people-widget\s*\{[\s\S]*display:\s*grid[\s\S]*grid-template-columns:\s*repeat\(5,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people page should use a dense five-column member grid on desktop');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s+h2\s*\{[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef/.test(scss), 'people group headings should visually separate member groups');
 assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*margin-top:\s*0\.55rem/.test(scss), 'people group headings should leave visible breathing room before the first member row');
@@ -147,6 +157,16 @@ assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.peopl
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
 assert(/@media\s*\(max-width:\s*479\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'people grid should use one column on narrow mobile');
+assert(
+  authorIndex('content/authors/Huajian Zhang/_index.md') > authorIndex('content/authors/Daoyu Wang/_index.md')
+    && authorIndex('content/authors/Huajian Zhang/_index.md') < authorIndex('content/authors/Yaguo Liu/_index.md'),
+  'Huajian Zhang should appear immediately before Yaguo Liu in the master student group',
+);
+const firstDoctoralPath = authorGroupPaths('在读博士生')
+  .map((path) => ({ path, index: authorIndex(path) }))
+  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))[0]?.path;
+assert(firstDoctoralPath === 'content/authors/Qingyang Mao/_index.md', 'Qingyang Mao should appear first in the doctoral student group');
+assert(authorGroupPaths('学生成员').length === 0, 'people profiles should not use the old student group after doctoral/master split');
 
 const menus = read('config/_default/menus.yaml');
 for (const label of ['动态发布', '师生成员', '研究方向', '论文列表', '开源项目', '系统研发', '代码仓库']) {
@@ -299,6 +319,39 @@ for (const path of [
 }
 
 for (const path of [
+  'content/authors/Qingyang Mao/_index.md',
+  'content/authors/Zhiding Liu/_index.md',
+  'content/authors/Xiaoyu Tao/_index.md',
+  'content/authors/Zirui Liu/_index.md',
+]) {
+  assert(authorHasGroup(path, '在读博士生'), `${path} should be listed as a doctoral student`);
+}
+
+for (const path of [
+  'content/authors/Li Li/_index.md',
+  'content/authors/Tingyue Pan/_index.md',
+  'content/authors/Jie Ma/_index.md',
+  'content/authors/Jintao Zhang/_index.md',
+  'content/authors/Shilong Zhang/_index.md',
+  'content/authors/Yitong Zhou/_index.md',
+  'content/authors/Yupeng Li/_index.md',
+  'content/authors/Jiawei Cao/_index.md',
+  'content/authors/Xiaohan Zhang/_index.md',
+  'content/authors/Panjing He/_index.md',
+  'content/authors/Qingchuan Li/_index.md',
+  'content/authors/Jiahao Wang/_index.md',
+  'content/authors/Shuo Yu/_index.md',
+  'content/authors/Daoyu Wang/_index.md',
+  'content/authors/Huajian Zhang/_index.md',
+  'content/authors/Yaguo Liu/_index.md',
+  'content/authors/Yiju Zhang/_index.md',
+  'content/authors/Bokai Pan/_index.md',
+  'content/authors/Ze Guo/_index.md',
+]) {
+  assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
+}
+
+for (const path of [
   'content/authors/Tian Gao/_index.md',
   'content/authors/Chuan Jiang/_index.md',
   'content/authors/Huibo Xu/_index.md',
@@ -307,7 +360,7 @@ for (const path of [
   'content/authors/Jiaying Lin/_index.md',
   'content/authors/Yiming Zhou/_index.md',
 ]) {
-  assert(/user_groups:\s*\n\s+-\s*毕业同学/.test(read(path)), `${path} should be listed as an alumnus`);
+  assert(/user_groups:\s*\n\s+-\s*历届同学/.test(read(path)), `${path} should be listed as a historical member`);
 }
 
 for (const path of [

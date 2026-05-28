@@ -13,7 +13,7 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: 'BS2302'
+index: 'BS2300'
 
 # Role/position
 role: Ph.D. Student
@@ -58,6 +58,5 @@ email: maoqy0503@mail.ustc.edu.cn
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 学生成员
+  - 在读博士生
 ---
-
