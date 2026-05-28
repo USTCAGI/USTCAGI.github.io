@@ -28,7 +28,7 @@ organizations:
 
 interests:
   - Time Series Analysis
-  - LLM-Based Agent
+  - Agentic AI
 
 # education:
 #   courses:

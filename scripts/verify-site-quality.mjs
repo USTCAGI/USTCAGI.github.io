@@ -405,6 +405,22 @@ assert(/title:\s*Yucong Wu/.test(yucongWu), 'Yucong Wu profile should define the
 assert(/interests:\s*\n\s+-\s*Time Series Analysis/.test(yucongWu), 'Yucong Wu profile should list Time Series Analysis');
 assert(fs.existsSync('content/authors/Yucong Wu/avatar.jpg'), 'Yucong Wu profile should include the provided avatar image');
 
+const zhuangZhang = read('content/authors/Zhuang Zhang/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs and Agent\s*\n\s+-\s*Time Series Cognition/.test(zhuangZhang),
+  'Zhuang Zhang profile should list LLMs and Agent, Time Series Cognition',
+);
+const bokaiPan = read('content/authors/Bokai Pan/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*Time Series Analysis\s*\n\s+-\s*Agentic AI/.test(bokaiPan),
+  'Bokai Pan profile should list Time Series Analysis, Agentic AI',
+);
+const zeGuo = read('content/authors/Ze Guo/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*AI for Science/.test(zeGuo),
+  'Ze Guo profile should list Agentic AI, AI for Science',
+);
+
 const heroPartialPath = 'layouts/partials/blocks/hero.html';
 assert(fs.existsSync(heroPartialPath), 'local hero partial should render configured image alt text');
 if (fs.existsSync(heroPartialPath)) {

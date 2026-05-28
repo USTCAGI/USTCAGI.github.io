@@ -27,7 +27,8 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Time Series Analysis
+  - LLMs and Agent
+  - Time Series Cognition
 
 # education:
 #   courses:
