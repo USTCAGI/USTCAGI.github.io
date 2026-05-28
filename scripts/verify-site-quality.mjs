@@ -402,7 +402,10 @@ for (const path of [
 
 const yucongWu = read('content/authors/Yucong Wu/_index.md');
 assert(/title:\s*Yucong Wu/.test(yucongWu), 'Yucong Wu profile should define the display name');
-assert(/interests:\s*\n\s+-\s*Time Series Analysis/.test(yucongWu), 'Yucong Wu profile should list Time Series Analysis');
+assert(
+  /interests:\s*\n\s+-\s*Time Series Anomaly Detection\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*LLMs/.test(yucongWu),
+  'Yucong Wu profile should list Time Series Anomaly Detection, Agentic AI, LLMs',
+);
 assert(fs.existsSync('content/authors/Yucong Wu/avatar.jpg'), 'Yucong Wu profile should include the provided avatar image');
 
 const zhuangZhang = read('content/authors/Zhuang Zhang/_index.md');
@@ -417,8 +420,13 @@ assert(
 );
 const zeGuo = read('content/authors/Ze Guo/_index.md');
 assert(
-  /interests:\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*AI for Science/.test(zeGuo),
-  'Ze Guo profile should list Agentic AI, AI for Science',
+  /interests:\s*\n\s+-\s*LLMs\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*AI for Science/.test(zeGuo),
+  'Ze Guo profile should list LLMs, Agentic AI, AI for Science',
+);
+const xingpengGao = read('content/authors/Xingpeng Gao/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*Slow-thinking Reasoning\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*Time Series Analysis/.test(xingpengGao),
+  'Xingpeng Gao profile should list Slow-thinking Reasoning, Agentic AI, Time Series Analysis',
 );
 
 const heroPartialPath = 'layouts/partials/blocks/hero.html';

@@ -27,7 +27,9 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Time Series Analysis
+  - Time Series Anomaly Detection
+  - Agentic AI
+  - LLMs
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
