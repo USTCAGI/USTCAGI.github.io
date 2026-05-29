@@ -141,6 +141,8 @@ const authorGroupPaths = (group) => fs.readdirSync('content/authors', { withFile
   .filter((entry) => entry.isDirectory())
   .map((entry) => `content/authors/${entry.name}/_index.md`)
   .filter((path) => fs.existsSync(path) && authorHasGroup(path, group));
+const currentStudentGroups = ['在读博士生', '在读硕士生', '本科生同学'];
+const currentStudentAuthorPaths = currentStudentGroups.flatMap((group) => authorGroupPaths(group));
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/id:\s*people-hero/.test(peoplePage), 'people page should render a top banner before the member grid');
@@ -165,6 +167,17 @@ assert(/#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*2\.45re
 assert(/#section-people\s+\.network-icon\s*\{[\s\S]*display:\s*flex/.test(scss), 'people social links should align as a compact icon row');
 assert(!/-webkit-line-clamp/.test(peopleInterestsBlock), 'people interests should not be line-clamped because research directions must be fully visible');
 assert(/#section-people\s+\.people-interests\s*\{[\s\S]*overflow:\s*visible/.test(scss), 'people interests should allow all research directions to display');
+for (const path of currentStudentAuthorPaths) {
+  assert(/^admission_year:\s*2024\s*$/m.test(read(path)), `${path} should define the default student admission year`);
+}
+const peopleBlockPath = 'layouts/partials/blocks/people.html';
+assert(fs.existsSync(peopleBlockPath), 'site should override the people block to render student admission years');
+if (fs.existsSync(peopleBlockPath)) {
+  const peopleBlock = read(peopleBlockPath);
+  assert(/Params\.admission_year/.test(peopleBlock), 'people block should read admission_year from author front matter');
+  assert(/入学时间/.test(peopleBlock), 'people block should label the admission year in Chinese');
+}
+assert(/\.people-admission-year\s*\{[\s\S]*font-size:\s*0\.82rem/.test(scss), 'people admission year should have compact card styling');
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
@@ -446,6 +459,11 @@ const shilongZhang = read('content/authors/Shilong Zhang/_index.md');
 assert(
   /interests:\s*\n\s+-\s*Time Series Analysis\s*\n\s+-\s*Deep Learning/.test(shilongZhang),
   'Shilong Zhang profile should list Time Series Analysis, Deep Learning',
+);
+const yitongZhou = read('content/authors/Yitong Zhou/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs and Agentic AI\s*\n\s+-\s*Structured Data Mining\s*\n\s+-\s*AI for Science/.test(yitongZhou),
+  'Yitong Zhou profile should list LLMs and Agentic AI, Structured Data Mining, AI for Science',
 );
 const tianGao = read('content/authors/Tian Gao/_index.md');
 assert(

@@ -14,6 +14,7 @@ authors:
 superuser: false
 
 index: "SS2406"
+admission_year: 2024
 
 # Role/position
 role: Master Student
@@ -27,7 +28,9 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Table Understanding and Reasoning
+  - LLMs and Agentic AI
+  - Structured Data Mining
+  - AI for Science
 
 # education:
 #   courses:

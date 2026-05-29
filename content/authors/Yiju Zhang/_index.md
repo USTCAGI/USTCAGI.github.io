@@ -14,6 +14,7 @@ authors:
 superuser: false
 
 index: "SS2506"
+admission_year: 2024
 
 # Role/position
 role: Master Student
