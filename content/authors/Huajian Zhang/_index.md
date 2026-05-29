@@ -14,7 +14,7 @@ authors:
 superuser: false
 
 index: "SS2502.5"
-admission_year: 2024
+admission_year: 2025
 
 # Role/position
 role: Master Student

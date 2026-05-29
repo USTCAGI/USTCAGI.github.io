@@ -143,6 +143,16 @@ const authorGroupPaths = (group) => fs.readdirSync('content/authors', { withFile
   .filter((path) => fs.existsSync(path) && authorHasGroup(path, group));
 const currentStudentGroups = ['在读博士生', '在读硕士生', '本科生同学'];
 const currentStudentAuthorPaths = currentStudentGroups.flatMap((group) => authorGroupPaths(group));
+const admissionYearOverrides = new Map([
+  ['content/authors/Qingyang Mao/_index.md', '2023'],
+  ['content/authors/Zhiding Liu/_index.md', '2023'],
+  ['content/authors/Daoyu Wang/_index.md', '2025'],
+  ['content/authors/Shuo Yu/_index.md', '2025'],
+  ['content/authors/Huajian Zhang/_index.md', '2025'],
+  ['content/authors/Yaguo Liu/_index.md', '2025'],
+  ['content/authors/Yiju Zhang/_index.md', '2025'],
+  ['content/authors/Zirui Liu/_index.md', '2025'],
+]);
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/id:\s*people-hero/.test(peoplePage), 'people page should render a top banner before the member grid');
@@ -168,7 +178,11 @@ assert(/#section-people\s+\.network-icon\s*\{[\s\S]*display:\s*flex/.test(scss),
 assert(!/-webkit-line-clamp/.test(peopleInterestsBlock), 'people interests should not be line-clamped because research directions must be fully visible');
 assert(/#section-people\s+\.people-interests\s*\{[\s\S]*overflow:\s*visible/.test(scss), 'people interests should allow all research directions to display');
 for (const path of currentStudentAuthorPaths) {
-  assert(/^admission_year:\s*2024\s*$/m.test(read(path)), `${path} should define the default student admission year`);
+  const expectedAdmissionYear = admissionYearOverrides.get(path) || '2024';
+  assert(
+    new RegExp(`^admission_year:\\s*${expectedAdmissionYear}\\s*$`, 'm').test(read(path)),
+    `${path} should define admission year ${expectedAdmissionYear}`,
+  );
 }
 const peopleBlockPath = 'layouts/partials/blocks/people.html';
 assert(fs.existsSync(peopleBlockPath), 'site should override the people block to render student admission years');

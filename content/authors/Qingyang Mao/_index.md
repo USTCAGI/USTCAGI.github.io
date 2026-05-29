@@ -14,7 +14,7 @@ authors:
 superuser: false
 
 index: 'BS2300'
-admission_year: 2024
+admission_year: 2023
 
 # Role/position
 role: Ph.D. Student
