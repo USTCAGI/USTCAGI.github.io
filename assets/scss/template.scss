@@ -730,7 +730,6 @@ body {
 #section-people .people-person {
   position: relative;
   display: flex;
-  overflow: hidden;
   width: 100%;
   max-width: none;
   min-height: 100%;
@@ -831,15 +830,15 @@ body {
 }
 
 #section-people .people-interests {
-  display: -webkit-box;
-  overflow: hidden;
-  min-height: 2.75rem;
+  display: block;
+  overflow: visible;
+  width: 100%;
+  min-height: 0;
   margin: 0.35rem 0 0;
   color: rgba(15, 23, 42, 0.68);
   font-size: 0.82rem;
   line-height: 1.45;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
 }
 
 #section-people .people-interests:empty {

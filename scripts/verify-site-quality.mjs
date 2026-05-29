@@ -28,6 +28,8 @@ const homepageSection = (id) => {
 const scss = read('assets/scss/template.scss');
 const cardBlock = between(scss, /^\.card-simple\s*\{/m, /^\}/m);
 const homepageCardGridBlock = between(scss, /^#research\s+\.card-simple,\s*$/m, /^\}/m);
+const peoplePersonBlock = between(scss, /^#section-people\s+\.people-person\s*\{/m, /^\}/m);
+const peopleInterestsBlock = between(scss, /^#section-people\s+\.people-interests\s*\{/m, /^\}/m);
 assert(/:root\s*\{[\s\S]*--site-navbar-height:\s*70px[\s\S]*--site-navbar-height-mobile:\s*50px/.test(scss), 'navbar should define one shared desktop and mobile height');
 assert(/body\s*\{[\s\S]*padding-top:\s*var\(--site-navbar-height\)/.test(scss), 'all pages should reserve the same desktop space below the fixed navbar');
 assert(/\.page-header\.header--fixed\s*\{[\s\S]*position:\s*fixed[\s\S]*top:\s*0[\s\S]*right:\s*0[\s\S]*left:\s*0[\s\S]*z-index:\s*1030[\s\S]*border-bottom:\s*1px\s+solid\s+#dbe4ef[\s\S]*background:\s*#ffffff[\s\S]*box-shadow:\s*0\s+10px\s+28px\s+rgba\(15,\s*23,\s*42,\s*0\.08\)/.test(scss), 'site header should have one fixed white treatment across homepage and subpages');
@@ -157,10 +159,12 @@ assert(/#section-people\s+\.people-widget\s*>\s*\.col-md-12\s*\+\s*\.people-pers
 assert(/#section-people\s+\.section-heading\s*\+\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*grid-column:\s*2/.test(scss), 'supervisor cards should start from the second desktop grid column so the row is centered');
 assert(/@media\s*\(max-width:\s*1199\.98px\)\s*\{[\s\S]*#section-people\s+\.section-heading\s*\+\s*\.col-md-12\s*\+\s*\.people-person\s*\{[\s\S]*grid-column:\s*auto/.test(scss), 'supervisor centering should reset below the five-column desktop layout');
 assert(/#section-people\s+\.people-person\s*\{[\s\S]*position:\s*relative[\s\S]*border-top:\s*3px\s+solid\s+#1f6fbc[\s\S]*border-radius:\s*8px[\s\S]*text-align:\s*center/.test(scss), 'people entries should render as polished compact member cards');
+assert(!/overflow:\s*hidden/.test(peoplePersonBlock), 'people cards should not clip long member metadata');
 assert(/#section-people\s+\.people-person\s+\.avatar\s*\{[\s\S]*width:\s*120px[\s\S]*height:\s*150px[\s\S]*border-radius:\s*8px/.test(scss), 'people avatars should render as compact rectangular portraits');
 assert(/#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*2\.45rem/.test(scss), 'people role text should reserve enough height to keep card bodies aligned');
 assert(/#section-people\s+\.network-icon\s*\{[\s\S]*display:\s*flex/.test(scss), 'people social links should align as a compact icon row');
-assert(/#section-people\s+\.people-interests\s*\{[\s\S]*-webkit-line-clamp:\s*2/.test(scss), 'people interests should be clamped to keep cards balanced');
+assert(!/-webkit-line-clamp/.test(peopleInterestsBlock), 'people interests should not be line-clamped because research directions must be fully visible');
+assert(/#section-people\s+\.people-interests\s*\{[\s\S]*overflow:\s*visible/.test(scss), 'people interests should allow all research directions to display');
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
@@ -413,6 +417,16 @@ assert(
   /interests:\s*\n\s+-\s*LLMs and Agent\s*\n\s+-\s*Time Series Cognition/.test(zhuangZhang),
   'Zhuang Zhang profile should list LLMs and Agent, Time Series Cognition',
 );
+const undergraduateOrder = authorGroupPaths('本科生同学')
+  .map((path) => ({ path, index: authorIndex(path) }))
+  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))
+  .map(({ path }) => path);
+const yucongUndergradIndex = undergraduateOrder.indexOf('content/authors/Yucong Wu/_index.md');
+const zhuangUndergradIndex = undergraduateOrder.indexOf('content/authors/Zhuang Zhang/_index.md');
+assert(
+  yucongUndergradIndex !== -1 && zhuangUndergradIndex === yucongUndergradIndex + 1,
+  'Yucong Wu should appear immediately before Zhuang Zhang in the undergraduate group',
+);
 const bokaiPan = read('content/authors/Bokai Pan/_index.md');
 assert(
   /interests:\s*\n\s+-\s*Time Series Analysis\s*\n\s+-\s*Agentic AI/.test(bokaiPan),
@@ -428,6 +442,17 @@ assert(
   /interests:\s*\n\s+-\s*Slow-thinking Reasoning\s*\n\s+-\s*Agentic AI\s*\n\s+-\s*Time Series Analysis/.test(xingpengGao),
   'Xingpeng Gao profile should list Slow-thinking Reasoning, Agentic AI, Time Series Analysis',
 );
+const shilongZhang = read('content/authors/Shilong Zhang/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*Time Series Analysis\s*\n\s+-\s*Deep Learning/.test(shilongZhang),
+  'Shilong Zhang profile should list Time Series Analysis, Deep Learning',
+);
+const tianGao = read('content/authors/Tian Gao/_index.md');
+assert(
+  /social:\s*\n\s+-\s*icon:\s*envelope\s*\n\s+icon_pack:\s*fas\s*\n\s+link:\s*["']mailto:ustc25gt@mail\.ustc\.edu\.cn["']/.test(tianGao),
+  'Tian Gao profile should expose an email envelope link',
+);
+assert(/email:\s*["']ustc25gt@mail\.ustc\.edu\.cn["']/.test(tianGao), 'Tian Gao profile should include email metadata');
 
 const heroPartialPath = 'layouts/partials/blocks/hero.html';
 assert(fs.existsSync(heroPartialPath), 'local hero partial should render configured image alt text');

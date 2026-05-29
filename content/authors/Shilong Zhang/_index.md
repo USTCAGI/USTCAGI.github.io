@@ -28,6 +28,7 @@ organizations:
 
 interests:
   - Time Series Analysis
+  - Deep Learning
 
 # education:
 #   courses:
