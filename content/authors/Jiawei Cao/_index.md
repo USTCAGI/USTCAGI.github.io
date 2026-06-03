@@ -13,7 +13,7 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2408"
+index: "SS2399"
 admission_year: 2024
 
 # Role/position

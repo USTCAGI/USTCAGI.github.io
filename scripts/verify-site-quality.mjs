@@ -402,10 +402,16 @@ for (const path of [
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
-const firstMasterPath = authorGroupPaths('在读硕士生')
+const firstMasterPaths = authorGroupPaths('在读硕士生')
   .map((path) => ({ path, index: authorIndex(path) }))
-  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))[0]?.path;
-assert(firstMasterPath === 'content/authors/Qingchuan Li/_index.md', 'Qingchuan Li should appear first in the master student group');
+  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))
+  .slice(0, 2)
+  .map(({ path }) => path);
+assert(
+  firstMasterPaths[0] === 'content/authors/Jintao Zhang/_index.md'
+    && firstMasterPaths[1] === 'content/authors/Jiawei Cao/_index.md',
+  'Jintao Zhang and Jiawei Cao should appear first in the master student group',
+);
 
 for (const path of [
   'content/authors/Tian Gao/_index.md',
