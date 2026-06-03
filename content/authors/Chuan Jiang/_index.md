@@ -17,6 +17,7 @@ index: "SS2308"
 
 # Role/position
 role: Master Student
+graduation_destination: "iFlyTek"
 
 # Organizations/Affiliations
 organizations:

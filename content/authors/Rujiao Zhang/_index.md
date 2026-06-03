@@ -17,6 +17,7 @@ index: "SS2202"
 
 # Role/position
 role: Master Student
+graduation_destination: "Ant Finance Group"
 
 # Organizations/Affiliations
 organizations:

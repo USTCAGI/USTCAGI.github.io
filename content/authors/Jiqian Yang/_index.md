@@ -17,6 +17,7 @@ index: "GS2404"
 
 # Role/position
 role: Master
+graduation_destination: "Tsinghua University"
 
 # Organizations/Affiliations
 organizations:

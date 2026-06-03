@@ -17,6 +17,7 @@ index: 'BS2101'
 
 # Role/position
 role: Ph.D. Student
+graduation_destination: "待定"
 
 # Organizations/Affiliations
 organizations:

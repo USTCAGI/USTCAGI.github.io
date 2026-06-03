@@ -17,6 +17,7 @@ index: 'BS2201'
 
 # Role/position
 role: Ph.D. Student
+graduation_destination: "Shenzhen University"
 
 # Organizations/Affiliations
 organizations:

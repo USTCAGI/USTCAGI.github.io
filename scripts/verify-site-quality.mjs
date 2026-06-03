@@ -151,6 +151,7 @@ const admissionYearOverrides = new Map([
   ['content/authors/Huajian Zhang/_index.md', '2025'],
   ['content/authors/Yaguo Liu/_index.md', '2025'],
   ['content/authors/Yiju Zhang/_index.md', '2025'],
+  ['content/authors/Mingxuan Zhao/_index.md', '2025'],
   ['content/authors/Zirui Liu/_index.md', '2025'],
 ]);
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
@@ -190,8 +191,11 @@ if (fs.existsSync(peopleBlockPath)) {
   const peopleBlock = read(peopleBlockPath);
   assert(/Params\.admission_year/.test(peopleBlock), 'people block should read admission_year from author front matter');
   assert(/入学时间/.test(peopleBlock), 'people block should label the admission year in Chinese');
+  assert(/Params\.graduation_destination/.test(peopleBlock), 'people block should read graduation_destination from historical author front matter');
+  assert(/毕业去向/.test(peopleBlock), 'people block should label historical member graduation destinations in Chinese');
 }
 assert(/\.people-admission-year\s*\{[\s\S]*font-size:\s*0\.82rem/.test(scss), 'people admission year should have compact card styling');
+assert(/\.people-graduation-destination\s*\{[\s\S]*font-size:\s*0\.8rem/.test(scss), 'people graduation destination should have compact card styling');
 assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to three columns on tablets');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.portrait-title\s+h3\s*\{[\s\S]*min-height:\s*0/.test(scss), 'people role text should release fixed height on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*#section-people\s+\.people-widget\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'people grid should reduce to two columns on mobile');
@@ -368,6 +372,7 @@ for (const path of [
   'content/authors/Yuqian Wang/_index.md',
   'content/authors/Ruikun Cai/_index.md',
   'content/authors/Yuren Zhang/_index.md',
+  'content/authors/Hefu Zhang/_index.md',
 ]) {
   assert(/user_groups:\s*\[\]/.test(read(path)), `${path} should be hidden from the People page`);
 }
@@ -399,6 +404,7 @@ for (const path of [
   'content/authors/Huajian Zhang/_index.md',
   'content/authors/Yaguo Liu/_index.md',
   'content/authors/Yiju Zhang/_index.md',
+  'content/authors/Mingxuan Zhao/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
@@ -423,6 +429,19 @@ for (const path of [
   'content/authors/Yiming Zhou/_index.md',
 ]) {
   assert(/user_groups:\s*\n\s+-\s*历届同学/.test(read(path)), `${path} should be listed as a historical member`);
+}
+for (const path of authorGroupPaths('历届同学')) {
+  const graduationDestinationOverrides = new Map([
+    ['content/authors/Hao Zhang/_index.md', 'Bytedance'],
+    ['content/authors/Yucong Luo/_index.md', 'Bytedance'],
+    ['content/authors/Jie Ouyang/_index.md', 'Bytedance'],
+    ['content/authors/Huijie Liu/_index.md', 'Shenzhen University'],
+    ['content/authors/Jiqian Yang/_index.md', 'Tsinghua University'],
+    ['content/authors/Rujiao Zhang/_index.md', 'Ant Finance Group'],
+    ['content/authors/Chuan Jiang/_index.md', 'iFlyTek'],
+  ]);
+  const expectedDestination = graduationDestinationOverrides.get(path) || '待定';
+  assert(new RegExp(`^graduation_destination:\\s*["']${expectedDestination}["']\\s*$`, 'm').test(read(path)), `${path} should define graduation destination ${expectedDestination}`);
 }
 
 for (const path of [

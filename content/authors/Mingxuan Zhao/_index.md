@@ -1,23 +1,23 @@
 ---
 # Display name
-title: Hao Zhang
+title: Mingxuan Zhao
 
 # Full name (for SEO)
-first_name: Hao
-last_name: Zhang
+first_name: Mingxuan
+last_name: Zhao
 
 # Username (this should match the folder name)
 authors:
-  - Hao Zhang
+  - Mingxuan Zhao
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2201"
+index: "SS2507"
+admission_year: 2025
 
 # Role/position
 role: Master Student
-graduation_destination: "Bytedance"
 
 # Organizations/Affiliations
 organizations:
@@ -27,9 +27,7 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-interests:
-  - Recommender System
-  - Time Series Analysis
+interests: []
 
 # education:
 #   courses:
@@ -47,16 +45,13 @@ interests:
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
 #   form "mailto:your-email@example.com" or "#contact" for contact widget.
-social:
-  - icon: envelope
-    icon_pack: fas
-    link: "mailto:zh2001@mail.ustc.edu.cn"
+social: []
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "zh2001@mail.ustc.edu.cn"
+email: ""
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 历届同学
+  - 在读硕士生
 ---

@@ -17,6 +17,7 @@ index: 'SS2302'
 
 # Role/position
 role: Master Student
+graduation_destination: "Bytedance"
 
 # Organizations/Affiliations
 organizations:

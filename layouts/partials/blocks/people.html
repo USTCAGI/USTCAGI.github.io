@@ -37,6 +37,7 @@
     {{ end }}
 
     {{ range $query }}
+      {{ $is_historical_member := in (.Params.user_groups | default (slice)) "历届同学" }}
       {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
       {{ $link := "" }}
       {{ with site.GetPage (printf "/authors/%s" (path.Base .File.Dir)) }}
@@ -60,6 +61,7 @@
           {{ if and $show_organizations .Params.organizations }}{{ range .Params.organizations }}<h3>{{ .name }}</h3>{{ end }}{{ end }}
           {{ if and $show_role .Params.role }}<h3>{{ .Params.role | markdownify | emojify }}</h3>{{ end }}
           {{ with .Params.admission_year }}<p class="people-admission-year">入学时间：{{ . }}</p>{{ end }}
+          {{ if $is_historical_member }}<p class="people-graduation-destination">毕业去向：{{ with .Params.graduation_destination }}{{ . | markdownify | emojify }}{{ end }}</p>{{ end }}
           {{ if $show_social }}{{ partial "social_links" . }}{{ end }}
           {{ if and $show_interests .Params.interests }}<p class="people-interests">{{ delimit .Params.interests ", " | markdownify | emojify }}</p>{{ end }}
         </div>

@@ -17,6 +17,7 @@ index: 'SS2306'
 
 # Role/position
 role: Master Student
+graduation_destination: "待定"
 
 # Organizations/Affiliations
 organizations:

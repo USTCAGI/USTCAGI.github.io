@@ -34,10 +34,13 @@ interests:
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
-social: []
+social:
+  - icon: envelope
+    icon_pack: fas
+    link: "mailto:wu3091455397@mail.ustc.edu.cn"
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ""
+email: "wu3091455397@mail.ustc.edu.cn"
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
