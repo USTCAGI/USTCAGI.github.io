@@ -28,8 +28,7 @@ organizations:
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-  - Large Language Model
-  - Cognitive Diagnosis
+  - LLMs and Agentic AI, 逻辑符号推理
 
 # education:
 #   courses:
