@@ -13,11 +13,11 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: "BS2604"
+index: "SS2604"
 admission_year: 2026
 
 # Role/position
-role: Ph.D. Student
+role: Master Student
 
 # Organizations/Affiliations
 organizations:
@@ -27,7 +27,9 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-interests: []
+interests:
+  - LLMs
+  - Agentic AI
 
 # education:
 #   courses:
@@ -53,5 +55,5 @@ email: ""
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 在读博士生
+  - 在读硕士生
 ---
