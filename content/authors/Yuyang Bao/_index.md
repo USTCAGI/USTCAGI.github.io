@@ -1,24 +1,23 @@
 ---
 # Display name
-title: Yucong Wu
+title: Yuyang Bao
 
 # Full name (for SEO)
-first_name: Yucong
-last_name: Wu
+first_name: Yuyang
+last_name: Bao
 
 # Username (this should match the folder name)
 authors:
-  - Yucong Wu
+  - Yuyang Bao
 
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2603"
-admission_year: 2024
+index: "BS2604"
+admission_year: 2026
 
 # Role/position
-role: Undergraduate Student
-graduation_destination: "待定"
+role: Ph.D. Student
 
 # Organizations/Affiliations
 organizations:
@@ -28,23 +27,31 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 # bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
-interests:
-  - Time Series Anomaly Detection
-  - Agentic AI
-  - LLMs
+interests: []
+
+# education:
+#   courses:
+#     - course: PhD in Artificial Intelligence
+#       institution: Stanford University
+#       year: 2012
+#     - course: MEng in Artificial Intelligence
+#       institution: Massachusetts Institute of Technology
+#       year: 2009
+#     - course: BSc in Artificial Intelligence
+#       institution: Massachusetts Institute of Technology
+#       year: 2008
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
-social:
-  - icon: envelope
-    icon_pack: fas
-    link: "mailto:wu3091455397@mail.ustc.edu.cn"
+#   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
+#   form "mailto:your-email@example.com" or "#contact" for contact widget.
+social: []
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: "wu3091455397@mail.ustc.edu.cn"
+email: ""
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 历届同学
+  - 在读博士生
 ---

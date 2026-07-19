@@ -14,10 +14,10 @@ authors:
 superuser: false
 
 index: "SS2602"
-admission_year: 2024
+admission_year: 2026
 
 # Role/position
-role: Undergraduate Student
+role: Master Student
 
 # Organizations/Affiliations
 organizations:
@@ -59,5 +59,5 @@ email: "gz1504921411@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 本科生同学
+  - 在读硕士生
 ---
