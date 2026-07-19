@@ -146,6 +146,8 @@ const currentStudentAuthorPaths = currentStudentGroups.flatMap((group) => author
 const admissionYearOverrides = new Map([
   ['content/authors/Qingyang Mao/_index.md', '2023'],
   ['content/authors/Zhiding Liu/_index.md', '2023'],
+  ['content/authors/Jintao Zhang/_index.md', '2026'],
+  ['content/authors/Jiawei Cao/_index.md', '2026'],
   ['content/authors/Daoyu Wang/_index.md', '2025'],
   ['content/authors/Shuo Yu/_index.md', '2025'],
   ['content/authors/Huajian Zhang/_index.md', '2025'],
@@ -382,6 +384,8 @@ for (const path of [
   'content/authors/Zhiding Liu/_index.md',
   'content/authors/Xiaoyu Tao/_index.md',
   'content/authors/Zirui Liu/_index.md',
+  'content/authors/Jintao Zhang/_index.md',
+  'content/authors/Jiawei Cao/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读博士生'), `${path} should be listed as a doctoral student`);
 }
@@ -390,11 +394,9 @@ for (const path of [
   'content/authors/Li Li/_index.md',
   'content/authors/Tingyue Pan/_index.md',
   'content/authors/Jie Ma/_index.md',
-  'content/authors/Jintao Zhang/_index.md',
   'content/authors/Shilong Zhang/_index.md',
   'content/authors/Yitong Zhou/_index.md',
   'content/authors/Yupeng Li/_index.md',
-  'content/authors/Jiawei Cao/_index.md',
   'content/authors/Xiaohan Zhang/_index.md',
   'content/authors/Panjing He/_index.md',
   'content/authors/Qingchuan Li/_index.md',
@@ -408,16 +410,15 @@ for (const path of [
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
-const firstMasterPaths = authorGroupPaths('在读硕士生')
-  .map((path) => ({ path, index: authorIndex(path) }))
-  .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))
-  .slice(0, 2)
-  .map(({ path }) => path);
-assert(
-  firstMasterPaths[0] === 'content/authors/Jintao Zhang/_index.md'
-    && firstMasterPaths[1] === 'content/authors/Jiawei Cao/_index.md',
-  'Jintao Zhang and Jiawei Cao should appear first in the master student group',
-);
+for (const path of [
+  'content/authors/Jintao Zhang/_index.md',
+  'content/authors/Jiawei Cao/_index.md',
+]) {
+  const profile = read(path);
+  assert(!authorHasGroup(path, '在读硕士生'), `${path} should not remain in the master student group`);
+  assert(/^role:\s*Ph\.D\. Student\s*$/m.test(profile), `${path} should show Ph.D. Student as the role`);
+  assert(/^admission_year:\s*2026\s*$/m.test(profile), `${path} should be marked as a 2026 doctoral student`);
+}
 
 for (const path of [
   'content/authors/Tian Gao/_index.md',

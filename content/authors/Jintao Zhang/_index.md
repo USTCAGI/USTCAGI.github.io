@@ -13,11 +13,11 @@ authors:
 # Is this the primary user of the site?
 superuser: false
 
-index: "SS2398"
-admission_year: 2024
+index: "BS2601"
+admission_year: 2026
 
 # Role/position
-role: Master Student
+role: Ph.D. Student
 
 # Organizations/Affiliations
 organizations:
@@ -58,5 +58,5 @@ email: "zjttt@mail.ustc.edu.cn"
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 在读硕士生
+  - 在读博士生
 ---
