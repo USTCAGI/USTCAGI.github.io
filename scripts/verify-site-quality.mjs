@@ -161,8 +161,8 @@ const admissionYearOverrides = new Map([
   ['content/authors/Yaguo Liu/_index.md', '2025'],
   ['content/authors/Yiju Zhang/_index.md', '2025'],
   ['content/authors/Mingxuan Zhao/_index.md', '2025'],
-  ['content/authors/Zirui Liu/_index.md', '2025'],
 ]);
+assert(!fs.existsSync('content/authors/Zirui Liu/_index.md'), 'Zirui Liu should be removed from the People page authors');
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/id:\s*people-hero/.test(peoplePage), 'people page should render a top banner before the member grid');
@@ -390,11 +390,8 @@ for (const path of [
   'content/authors/Qingyang Mao/_index.md',
   'content/authors/Zhiding Liu/_index.md',
   'content/authors/Xiaoyu Tao/_index.md',
-  'content/authors/Zirui Liu/_index.md',
   'content/authors/Jintao Zhang/_index.md',
   'content/authors/Jiawei Cao/_index.md',
-  'content/authors/Yifan Lu/_index.md',
-  'content/authors/Yuyang Bao/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读博士生'), `${path} should be listed as a doctoral student`);
 }
@@ -418,6 +415,8 @@ for (const path of [
   'content/authors/Mingxuan Zhao/_index.md',
   'content/authors/Bokai Pan/_index.md',
   'content/authors/Ze Guo/_index.md',
+  'content/authors/Yifan Lu/_index.md',
+  'content/authors/Yuyang Bao/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
@@ -435,14 +434,28 @@ for (const path of [
   'content/authors/Yuyang Bao/_index.md',
 ]) {
   if (!fs.existsSync(path)) {
-    assert(false, `${path} should exist for the new doctoral member`);
+    assert(false, `${path} should exist for the new master member`);
     continue;
   }
   const profile = read(path);
-  assert(/^role:\s*Ph\.D\. Student\s*$/m.test(profile), `${path} should show Ph.D. Student as the role`);
-  assert(/^admission_year:\s*2026\s*$/m.test(profile), `${path} should be marked as a 2026 doctoral student`);
+  assert(!authorHasGroup(path, '在读博士生'), `${path} should not remain in the doctoral student group`);
+  assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
+  assert(/^role:\s*Master Student\s*$/m.test(profile), `${path} should show Master Student as the role`);
+  assert(/^admission_year:\s*2026\s*$/m.test(profile), `${path} should be marked as a 2026 master student`);
+  const expectedIndex = path.includes('Yifan Lu') ? 'SS2603' : 'SS2604';
+  assert(new RegExp(`^index:\\s*["']${expectedIndex}["']\\s*$`, 'm').test(profile), `${path} should use master student index ${expectedIndex}`);
   assert(fs.existsSync(path.replace('/_index.md', '/avatar.jpg')), `${path} should include the provided avatar image`);
 }
+const yifanLu = read('content/authors/Yifan Lu/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs\s*\n\s+-\s*Agentic AI/.test(yifanLu),
+  'Yifan Lu profile should list LLMs, Agentic AI',
+);
+const yuyangBao = read('content/authors/Yuyang Bao/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs\s*\n\s+-\s*Agentic AI/.test(yuyangBao),
+  'Yuyang Bao profile should list LLMs, Agentic AI',
+);
 
 for (const path of [
   'content/authors/Tian Gao/_index.md',
@@ -486,6 +499,22 @@ for (const path of [
   assert(/user_groups:\s*\n\s+-\s*本科生同学/.test(author), `${path} should be listed as an undergraduate member`);
   assert(fs.existsSync(path.replace('/_index.md', '/avatar.jpg')), `${path} should include the provided avatar image`);
 }
+
+const jingtianYang = read('content/authors/Jingtian Yang/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs and Agentic AI\s*\n\s+-\s*AI for Science/.test(jingtianYang),
+  'Jingtian Yang profile should list LLMs and Agentic AI, AI for Science',
+);
+const ruijieYang = read('content/authors/Ruijie Yang/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs and Agentic AI/.test(ruijieYang),
+  'Ruijie Yang profile should list LLMs and Agentic AI',
+);
+const shangtongYe = read('content/authors/Shangtong Ye/_index.md');
+assert(
+  /interests:\s*\n\s+-\s*LLMs and Agentic AI\s*\n\s+-\s*Time Series Analysis/.test(shangtongYe),
+  'Shangtong Ye profile should list LLMs and Agentic AI, Time Series Analysis',
+);
 
 const yucongWu = read('content/authors/Yucong Wu/_index.md');
 assert(/title:\s*Yucong Wu/.test(yucongWu), 'Yucong Wu profile should define the display name');
