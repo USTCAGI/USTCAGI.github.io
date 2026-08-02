@@ -79,6 +79,7 @@ assert(/title:\s*USTC-AGI Research Group/.test(languages), 'default language tit
 const home = read('content/_index.md');
 const researchHomeSection = homepageSection('research');
 const newsHomeSection = homepageSection('news-highlights');
+const fundingHomeSection = homepageSection('funding-support');
 const researchFocusModules = [
   '多模态表征学习',
   '情境表示与推理',
@@ -101,12 +102,16 @@ for (const moduleTitle of researchFocusModules) {
 assert(!/大数据分析与应用安徽省重点实验室|bigdata\.ustc\.edu\.cn/.test(home), 'homepage related links should not include the removed big-data lab link');
 assert((home.match(/class="home-link-strip"/g) || []).length === 1, 'homepage should keep one related-links strip');
 assert(/\.home-link-strip\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage related links should use a two-column grid after removing the third link');
+assert(/title:\s*基金支撑/.test(fundingHomeSection), 'homepage funding section should be labelled 基金支撑');
+assert(/国家重大科技攻关专项/.test(fundingHomeSection), 'homepage funding section should include 国家重大科技攻关专项');
+assert(/国家自然科学基金委项目/.test(fundingHomeSection), 'homepage funding section should include 国家自然科学基金委项目');
+assert((fundingHomeSection.match(/class="home-funding-item"/g) || []).length === 2, 'homepage funding section should render two funding items');
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
 assert(/id:\s*research[\s\S]*title:\s*领域应用研究/.test(home), 'homepage research collection should be labelled 领域应用研究');
 assert(/id:\s*research[\s\S]*sort_by:\s*Weight[\s\S]*order:\s*asc/.test(home), 'homepage research collection should use explicit weight ordering');
-for (const id of ['hero', 'research', 'selected-publications', 'news-highlights', 'related-links']) {
+for (const id of ['hero', 'research', 'selected-publications', 'news-highlights', 'funding-support', 'related-links']) {
   assert(new RegExp(`id:\\s*${id}`).test(home), `homepage section should define stable id: ${id}`);
 }
 assert(!/id:\s*projects/.test(home), 'homepage should not render the Projects section');
@@ -129,6 +134,9 @@ assert(/#research\s+\.card-simple:nth-child\(4n\s*\+\s*2\)\s*\{[\s\S]*border-top
 assert(/margin-top:\s*0/.test(homepageCardGridBlock), 'homepage card grids should remove theme card top margins');
 assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage news cards should be explicitly arranged in a three-column CSS grid');
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
+assert(/#funding-support\s*\{[\s\S]*background:\s*#ffffff/.test(scss), 'homepage funding support should sit on a white band');
+assert(/\.home-funding-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage funding support should use a two-column desktop grid');
+assert(/\.home-funding-item\s*\{[\s\S]*border-radius:\s*8px[\s\S]*border-top:\s*4px\s+solid\s+#1f6fbc/.test(scss), 'homepage funding support items should use compact site cards');
 
 const peoplePage = read('content/people/index.md');
 const authorIndex = (path) => {
@@ -163,6 +171,8 @@ const admissionYearOverrides = new Map([
   ['content/authors/Mingxuan Zhao/_index.md', '2025'],
 ]);
 assert(!fs.existsSync('content/authors/Zirui Liu/_index.md'), 'Zirui Liu should be removed from the People page authors');
+assert(!fs.existsSync('content/authors/Huibo Xu/_index.md'), 'Huibo Xu should be removed from the People page authors');
+assert(!fs.existsSync('content/authors/Zhuang Zhang/_index.md'), 'Zhuang Zhang should be removed from the People page authors');
 assert(!/id:\s*people-overview/.test(peoplePage), 'people page should not render the removed overview module');
 assert(!/people-overview/.test(scss), 'removed people overview styles should not remain in template CSS');
 assert(/id:\s*people-hero/.test(peoplePage), 'people page should render a top banner before the member grid');
@@ -382,6 +392,7 @@ for (const path of [
   'content/authors/Ruikun Cai/_index.md',
   'content/authors/Yuren Zhang/_index.md',
   'content/authors/Hefu Zhang/_index.md',
+  'content/authors/Tian Gao/_index.md',
 ]) {
   assert(/user_groups:\s*\[\]/.test(read(path)), `${path} should be hidden from the People page`);
 }
@@ -458,9 +469,7 @@ assert(
 );
 
 for (const path of [
-  'content/authors/Tian Gao/_index.md',
   'content/authors/Chuan Jiang/_index.md',
-  'content/authors/Huibo Xu/_index.md',
   'content/authors/Yucong Luo/_index.md',
   'content/authors/Jie Ouyang/_index.md',
   'content/authors/Jiaying Lin/_index.md',
@@ -485,7 +494,6 @@ for (const path of authorGroupPaths('历届同学')) {
 
 for (const path of [
   'content/authors/Xingpeng Gao/_index.md',
-  'content/authors/Zhuang Zhang/_index.md',
   'content/authors/Jingtian Yang/_index.md',
   'content/authors/Ruijie Yang/_index.md',
   'content/authors/Shangtong Ye/_index.md',
@@ -526,19 +534,13 @@ assert(fs.existsSync('content/authors/Yucong Wu/avatar.jpg'), 'Yucong Wu profile
 assert(/user_groups:\s*\n\s+-\s*历届同学/.test(yucongWu), 'Yucong Wu should be listed as a historical member');
 assert(/^graduation_destination:\s*"待定"\s*$/m.test(yucongWu), 'Yucong Wu should define graduation destination 待定');
 
-const zhuangZhang = read('content/authors/Zhuang Zhang/_index.md');
-assert(
-  /interests:\s*\n\s+-\s*LLMs and Agent\s*\n\s+-\s*Time Series Cognition/.test(zhuangZhang),
-  'Zhuang Zhang profile should list LLMs and Agent, Time Series Cognition',
-);
 const undergraduateOrder = authorGroupPaths('本科生同学')
   .map((path) => ({ path, index: authorIndex(path) }))
   .sort((left, right) => left.index.localeCompare(right.index) || left.path.localeCompare(right.path))
   .map(({ path }) => path);
-const zhuangUndergradIndex = undergraduateOrder.indexOf('content/authors/Zhuang Zhang/_index.md');
 assert(
-  !undergraduateOrder.includes('content/authors/Yucong Wu/_index.md') && zhuangUndergradIndex !== -1,
-  'Yucong Wu should leave the undergraduate group while Zhuang Zhang remains listed there',
+  !undergraduateOrder.includes('content/authors/Yucong Wu/_index.md'),
+  'Yucong Wu should leave the undergraduate group',
 );
 const bokaiPan = read('content/authors/Bokai Pan/_index.md');
 assert(
@@ -633,6 +635,52 @@ for (const path of [
   'content/publication/mao2026visual/index.md',
 ]) {
   assert(/date:\s*['"]2026-04-23['"]/.test(read(path)), `${path} should use the ICLR 2026 conference start date`);
+}
+
+const publicationIndexPaths = fs.readdirSync('content/publication', { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => `content/publication/${entry.name}/index.md`)
+  .filter((path) => fs.existsSync(path));
+const publicationTitle = (path) => {
+  const match = read(path).match(/^title:\s*['"]?(.+?)['"]?\s*$/m);
+  assert(match, `${path} should define a publication title`);
+  return match?.[1] || '';
+};
+const normalizePublicationTitle = (title) => title
+  .toLowerCase()
+  .replace(/[^\p{L}\p{N}]+/gu, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+const normalizedPublicationTitles = new Map();
+for (const path of publicationIndexPaths) {
+  const normalizedTitle = normalizePublicationTitle(publicationTitle(path));
+  assert(!normalizedPublicationTitles.has(normalizedTitle), `${path} should not duplicate ${normalizedPublicationTitles.get(normalizedTitle)}`);
+  normalizedPublicationTitles.set(normalizedTitle, path);
+}
+assert(publicationIndexPaths.length >= 87, 'publication page should include the visible Mingyue Cheng publication list plus existing group entries');
+assert(!fs.existsSync('content/publication/zhang2025towards/index.md'), 'duplicate AutoSAM arXiv entry should stay removed after the IJCAI version is present');
+for (const [path, title] of [
+  ['content/publication/pan2026castflow/index.md', 'CastFlow: Learning Role-Specialized Agentic Workflows for Time Series Forecasting'],
+  ['content/publication/wang2026steppo/index.md', 'StepPO: Step-Aligned Policy Optimization for Agentic Reinforcement Learning'],
+  ['content/publication/cheng2026agentsurvey/index.md', 'A Comprehensive Survey of the LLM-Based Agent: The Contextual Cognition Perspective'],
+  ['content/publication/tao2026memcast/index.md', 'MemCast: Memory-Driven Time Series Forecasting with Experience-Conditioned Reasoning'],
+  ['content/publication/cao2026re3/index.md', 'Re^3: Relevance & Recency Retrieval for Mitigating Temporal Hallucination'],
+  ['content/publication/geng2023rebuy/index.md', '基于用户重购行为的产品推荐方法'],
+]) {
+  assert(fs.existsSync(path), `${path} should exist after publication sync`);
+  if (fs.existsSync(path)) {
+    assert(publicationTitle(path) === title, `${path} should use the synced title`);
+  }
+}
+for (const [path, pattern, message] of [
+  ['content/publication/cheng2025ragsurvey/index.md', /ACM Transactions on Information Systems \(ACM TOIS\) Accepted/, 'RAG survey should show the TOIS accepted status'],
+  ['content/publication/zhou2025benchmarking/index.md', /publication:\s*KDD2026 Accepted/, 'ChemTable benchmark should show the KDD2026 accepted status'],
+  ['content/publication/zhang2025star/index.md', /publication:\s*ACM WWW2026/, 'STaR should show the ACM WWW2026 status'],
+  ['content/publication/cheng2023timemae/index.md', /publication:\s*["']ACM WSDM2026: 498-508["']/, 'TimeMAE should show the WSDM2026 proceedings status'],
+  ['content/publication/li2025hypothesis/index.md', /doi:\s*['"]10\.1609\/aaai\.v40i37\.40434['"]/, 'HBLR should use the AAAI DOI'],
+  ['content/publication/liu2024generative/index.md', /publication:\s*["']ACM SIGKDD2024: 2003-2013["']/, 'GPHT should show the KDD2024 proceedings status'],
+]) {
+  assert(pattern.test(read(path)), message);
 }
 
 for (const sectionPath of ['content/post', 'content/project', 'content/research']) {

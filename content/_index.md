@@ -123,6 +123,24 @@ sections:
       columns: "1"
 
   - block: markdown
+    id: funding-support
+    content:
+      title: 基金支撑
+      text: |
+        <div class="home-funding-grid" aria-label="基金支撑">
+          <div class="home-funding-item">
+            <span class="home-funding-kicker">国家级重大科技任务</span>
+            <strong>国家重大科技攻关专项</strong>
+          </div>
+          <div class="home-funding-item">
+            <span class="home-funding-kicker">基础研究项目</span>
+            <strong>国家自然科学基金委项目</strong>
+          </div>
+        </div>
+    design:
+      columns: "1"
+
+  - block: markdown
     id: related-links
     content:
       title: 相关链接

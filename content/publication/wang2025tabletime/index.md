@@ -1,5 +1,5 @@
 ---
-title: 'TableTime: Reformulating Time Series Classification as Training-Free Table Understanding with Large Language Models'
+title: 'TableTime: Reformulating Time Series Classification as Zero-Shot Table Understanding via LLMs'
 authors:
 - Jiahao Wang
 - Mingyue Cheng

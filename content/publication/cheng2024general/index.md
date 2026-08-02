@@ -1,5 +1,5 @@
 ---
-title: 'A general tail item representation enhancement framework for sequential recommendation'
+title: 'A General Tail Item Representation Enhancement Framework for Sequential Recommender Systems'
 authors:
 - Mingyue Cheng
 - Qi Liu
