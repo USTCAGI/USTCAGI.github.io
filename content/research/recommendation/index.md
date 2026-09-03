@@ -1,18 +1,19 @@
 ---
-title: 个性化推荐
+title: 推荐系统
 date: 2024-05-29
 weight: 50
-subtitle: "Personalized Recommendation"
-summary: "研究隐式反馈、用户兴趣演化与情境感知推荐方法，推动推荐系统从相关性匹配走向认知智能和可信决策。"
+subtitle: "Recommender Systems"
+summary: "面向用户行为理解与信息服务，研究个性化推荐、序列建模、交互决策及智能推荐系统等。"
 topics:
-  - 用户行为建模
-  - 单类反馈学习
-  - 情境感知推荐
+  - 个性化推荐
+  - 序列建模
+  - 交互决策
+  - 智能推荐系统
 image:
-  alt_text: "个性化推荐研究方向配图"
+  alt_text: "推荐系统研究方向配图"
 ---
 
-Personalized Recommendation
+推荐系统面向用户行为理解与信息服务，研究个性化推荐、序列建模、交互决策及智能推荐系统等。
 
 研究隐式反馈下的用户行为建模与情境感知推荐技术，推动推荐系统向认知智能演进。
 
@@ -22,3 +23,5 @@ Personalized Recommendation
 
 - 单类反馈学习
 - 融合情境信息的个性化推荐
+- 用户兴趣演化与序列建模
+- 交互决策与智能推荐系统

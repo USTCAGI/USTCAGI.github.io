@@ -9,7 +9,9 @@ sections:
     content:
       title: 中国科大 AGI 研究组
       text: |
-        AGI（Agentic Intelligence）研究组依托中国科学技术大学认知智能全国重点实验室，围绕智能体智能、大模型、数据挖掘与 AI for Science 开展研究。我们关注人工智能基础理论与关键方法，包括多模态表征学习、情境表示与推理、慢思考认知推理、智能体学习与可信评测；同时构建能够主动理解情境、推理规划并调用工具完成复杂任务的智能系统，推动人工智能在科研、教育、推荐、结构化数据分析等真实场景中可靠落地。
+        AGI（Agentic Intelligence）研究组依托中国科学技术大学认知智能全国重点实验室。
+
+        以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究。
       image:
         filename: welcome.png
         alt: 中国科大 AGI 研究组首页图
@@ -29,57 +31,11 @@ sections:
         label: 代表论文
         url: /publication/
       cta_note:
-        label: 多模态表征学习 · 情境表示与推理 · 慢思考认知推理 · 自主交互智能体
+        label: 扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律。
 
-  - block: markdown
-    id: home-focus
-    content:
-      title: 基础方法
-      text: |
-        <div class="home-focus-grid" aria-label="基础方法">
-          <a class="home-focus-item" href="/research/structured/">
-            <span class="home-focus-kicker">Multimodal Representation</span>
-            <strong>多模态表征学习</strong>
-            <span>面向文本、表格、时间序列与科学文档等复杂数据，研究统一表征、语义对齐与跨模态融合方法。</span>
-          </a>
-          <a class="home-focus-item" href="/research/context/">
-            <span class="home-focus-kicker">Context Representation</span>
-            <strong>情境表示与推理</strong>
-            <span>建模环境状态、任务目标、领域知识与外部事件等情境因素，理解其对预测、决策与推理过程的影响机制。</span>
-          </a>
-          <a class="home-focus-item" href="/research/agent/">
-            <span class="home-focus-kicker">Slow Thinking Reasoning</span>
-            <strong>慢思考认知推理</strong>
-            <span>研究多步推理、证据整合、自反思验证与逻辑推演机制，提升大模型在复杂任务中的可靠推理能力。</span>
-          </a>
-          <a class="home-focus-item" href="/research/agent/">
-            <span class="home-focus-kicker">Autonomous Interactive Agents</span>
-            <strong>自主交互智能体</strong>
-            <span>构建能够调用工具、交互环境、复用记忆并持续修正的大模型智能体，实现复杂任务的自主规划与执行。</span>
-          </a>
-        </div>
-    design:
-      columns: "1"
-
-  - block: collection
+  - block: research_tree
     id: research
-    content:
-      title: 领域应用研究
-      subtitle:
-      text:
-      count: 5
-      filters:
-        author: ""
-        category: ""
-        exclude_featured: false
-        publication_type: ""
-        tag: ""
-      offset: 0
-      sort_by: Weight
-      order: asc
-      page_type: research
     design:
-      view: card
       columns: "1"
 
   - block: collection
@@ -129,12 +85,16 @@ sections:
       text: |
         <div class="home-funding-grid" aria-label="基金支撑">
           <div class="home-funding-item">
-            <span class="home-funding-kicker">国家级重大科技任务</span>
-            <strong>国家重大科技攻关专项</strong>
+            <span class="home-funding-kicker">国家级人工智能专项</span>
+            <strong>新一代AI专项</strong>
           </div>
           <div class="home-funding-item">
-            <span class="home-funding-kicker">基础研究项目</span>
-            <strong>国家自然科学基金委项目</strong>
+            <span class="home-funding-kicker">中国科学院战略性先导科技专项</span>
+            <strong>中科院先导B类项目</strong>
+          </div>
+          <div class="home-funding-item">
+            <span class="home-funding-kicker">国家自然科学基金</span>
+            <strong>国自然基金委青年科学基金A类项目（原国家杰青）</strong>
           </div>
         </div>
     design:

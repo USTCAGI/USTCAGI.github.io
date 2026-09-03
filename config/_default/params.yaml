@@ -18,7 +18,7 @@ marketing:
     site_type: Organization
     local_business_type: ''
     org_name: '中国科大 AGI 研究组'
-    description: '中国科学技术大学 AGI 研究组关注智能体智能、大模型、数据挖掘、时间序列分析、表格推理、推荐系统与 AI for Science。'
+    description: '以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究。'
     twitter: ''
   analytics:
     google_analytics: ''

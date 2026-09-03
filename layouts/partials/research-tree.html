@@ -1,0 +1,123 @@
+{{- $research := .research -}}
+{{- $variant := .variant | default "page" -}}
+{{- $treeTitleID := printf "research-tree-title-%s" $variant -}}
+{{- $foundationTitleID := printf "research-tree-foundation-title-%s" $variant -}}
+{{- $coreTitleID := printf "research-tree-core-title-%s" $variant -}}
+{{- $areasTitleID := printf "research-tree-areas-title-%s" $variant -}}
+
+<section class="research-tree research-tree--{{ $variant }}" aria-labelledby="{{ $treeTitleID }}">
+  <header class="research-tree-header">
+    <p class="research-tree-eyebrow" lang="en">AGI Research Framework</p>
+    <h2 id="{{ $treeTitleID }}">方法根基 · 核心技术 · 研究方向</h2>
+    {{ if eq $variant "home" }}
+      {{ with $research.Params.summary }}
+        <p class="research-tree-positioning">{{ . }}</p>
+      {{ end }}
+    {{ end }}
+    {{ with $research.Params.narrative }}
+      <p class="research-tree-brand">{{ . }}</p>
+    {{ end }}
+    {{ with $research.Params.narrative_axes }}
+      <ul class="research-tree-axes" aria-label="科学、时间与人的研究方向映射">
+        {{ range . }}
+          <li class="research-tree-axis">
+            <strong>{{ .axis }}</strong>
+            <span aria-hidden="true">—</span>
+            <span>{{ .area }}</span>
+          </li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  </header>
+
+  {{ with $research.Params.foundation }}
+    <section class="research-tree-layer research-tree-layer--foundation" aria-labelledby="{{ $foundationTitleID }}">
+      <header class="research-tree-layer-heading">
+        <p class="research-tree-layer-kicker" lang="en">Foundation</p>
+        <h3 id="{{ $foundationTitleID }}">方法根基</h3>
+      </header>
+      <article class="research-tree-foundation">
+        <div>
+          <h4>{{ .title }}</h4>
+          {{ with .subtitle }}
+            <span class="research-tree-card-subtitle" lang="en">{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ with .text }}
+          <p>{{ . }}</p>
+        {{ end }}
+      </article>
+    </section>
+  {{ end }}
+
+  <div class="research-tree-connector" aria-hidden="true">
+    <span class="research-tree-connector-branch"></span>
+    <span class="research-tree-connector-branch"></span>
+    <span class="research-tree-connector-branch"></span>
+  </div>
+
+  {{ with $research.Params.core_technologies }}
+    <section class="research-tree-layer research-tree-layer--core" aria-labelledby="{{ $coreTitleID }}">
+      <header class="research-tree-layer-heading">
+        <p class="research-tree-layer-kicker" lang="en">Core Technologies</p>
+        <h3 id="{{ $coreTitleID }}">核心工具与技术</h3>
+        {{ with $research.Params.core_intro }}
+          <p>{{ . }}</p>
+        {{ end }}
+      </header>
+      <div class="research-tree-core-grid">
+        {{ range . }}
+          <article class="research-tree-core-card">
+            <h4>{{ .title }}</h4>
+            {{ with .subtitle }}
+              <span class="research-tree-card-subtitle" lang="en">{{ . }}</span>
+            {{ end }}
+            {{ with .text }}
+              <p>{{ . }}</p>
+            {{ end }}
+          </article>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+
+  <div class="research-tree-connector" aria-hidden="true">
+    <span class="research-tree-connector-branch"></span>
+    <span class="research-tree-connector-branch"></span>
+    <span class="research-tree-connector-branch"></span>
+  </div>
+
+  {{ with $research.Params.research_areas }}
+    <section class="research-tree-layer research-tree-layer--areas" aria-labelledby="{{ $areasTitleID }}">
+      <header class="research-tree-layer-heading">
+        <p class="research-tree-layer-kicker" lang="en">Research Areas</p>
+        <h3 id="{{ $areasTitleID }}">三大研究方向</h3>
+      </header>
+      <div class="research-tree-area-grid">
+        {{ range . }}
+          {{- $link := .url -}}
+          {{- $target := "" -}}
+          {{- with $link -}}
+            {{- $scheme := (urls.Parse .).Scheme -}}
+            {{- if not $scheme -}}
+              {{- $link = . | relLangURL -}}
+            {{- else if in (slice "http" "https") $scheme -}}
+              {{- $target = "target=\"_blank\" rel=\"noopener\"" -}}
+            {{- end -}}
+          {{- end -}}
+          <a class="research-tree-area-card" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+            <span class="research-tree-area-index">{{ .index }}</span>
+            <h4>{{ .title }}</h4>
+            {{ with .subtitle }}
+              <span class="research-tree-card-subtitle" lang="en">{{ . }}</span>
+            {{ end }}
+            {{ with .summary }}
+              <p>{{ . }}</p>
+            {{ end }}
+            <span class="research-tree-area-more">查看方向 <span aria-hidden="true">→</span></span>
+          </a>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+</section>

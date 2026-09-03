@@ -27,7 +27,7 @@ const homepageSection = (id) => {
 
 const scss = read('assets/scss/template.scss');
 const cardBlock = between(scss, /^\.card-simple\s*\{/m, /^\}/m);
-const homepageCardGridBlock = between(scss, /^#research\s+\.card-simple,\s*$/m, /^\}/m);
+const homeFundingGridBlock = between(scss, /^\.home-funding-grid\s*\{/m, /^\}/m);
 const peoplePersonBlock = between(scss, /^#section-people\s+\.people-person\s*\{/m, /^\}/m);
 const peopleInterestsBlock = between(scss, /^#section-people\s+\.people-interests\s*\{/m, /^\}/m);
 assert(/:root\s*\{[\s\S]*--site-navbar-height:\s*70px[\s\S]*--site-navbar-height-mobile:\s*50px/.test(scss), 'navbar should define one shared desktop and mobile height');
@@ -43,6 +43,7 @@ assert(/-webkit-line-clamp:\s*4\s*;/.test(scss), 'card summaries should be clamp
 assert(/\.summary-link:empty\s*\{[\s\S]*display:\s*none/.test(scss), 'empty summary links should be hidden from rendered lists');
 
 const params = read('config/_default/params.yaml');
+const approvedResearchPositioning = '以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究。';
 assert(!/highly-customizable Hugo research group theme/i.test(params), 'SEO description must not use template copy');
 assert(!/GetResearchDev/.test(params), 'Twitter metadata must not use template account');
 assert(!/<username>\/<repository>/.test(params), 'repository URL must not use template placeholder');
@@ -50,6 +51,7 @@ assert(/org_name:\s*['"]中国科大 AGI 研究组['"]/.test(params), 'org_name 
 assert(/date_format:\s*['"]2006年1月2日['"]/.test(params), 'site date format should use Chinese year-month-day order');
 assert(/address_format:\s*zh-cn/.test(params), 'address format should match the Chinese default language');
 assert(/font_size:\s*M/.test(params), 'font size should be set to M for denser research pages');
+assert(params.includes(`description: '${approvedResearchPositioning}'`), 'site metadata should use the approved three-layer research positioning');
 
 const footerPartialPath = 'layouts/partials/site_footer.html';
 assert(fs.existsSync(footerPartialPath), 'site should use a local custom footer partial');
@@ -75,47 +77,49 @@ const languages = read('config/_default/languages.yaml');
 assert(/^zh:/m.test(languages), 'languages.yaml should define zh as the default language');
 assert(/languageCode:\s*zh-Hans/.test(languages), 'languageCode should be zh-Hans');
 assert(/title:\s*USTC-AGI Research Group/.test(languages), 'default language title should use the requested English navbar brand');
+assert(languages.includes(`description: ${approvedResearchPositioning}`), 'language metadata should use the approved three-layer research positioning');
 
 const home = read('content/_index.md');
 const researchHomeSection = homepageSection('research');
 const newsHomeSection = homepageSection('news-highlights');
 const fundingHomeSection = homepageSection('funding-support');
-const researchFocusModules = [
-  '多模态表征学习',
-  '情境表示与推理',
-  '慢思考认知推理',
-  '自主交互智能体',
+const coreTechnologies = [
+  ['深度神经网络', 'Deep Neural Networks'],
+  ['大模型推理与智能体', 'LLM Reasoning & Agents'],
+  ['情境大数据智能理论与技术', 'Context-aware Big Data Intelligence'],
+];
+const researchAreas = [
+  ['01', '科学智能', 'AI for Science', '/research/science/', '面向科学数据、科学知识与科学发现，研究科学数据建模、科技文献智能、科研智能体与自主科学发现等。'],
+  ['02', '时序智能', 'Time Series Intelligence', '/research/context/', '面向复杂动态系统，研究时序表征、预测、情境感知、推理与自主预测智能体等。'],
+  ['03', '推荐系统', 'Recommender Systems', '/research/recommendation/', '面向用户行为理解与信息服务，研究个性化推荐、序列建模、交互决策及智能推荐系统等。'],
 ];
 assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a Chinese title');
-assert(/我们关注人工智能基础理论与关键方法，包括多模态表征学习、情境表示与推理、慢思考认知推理、智能体学习与可信评测/.test(home), 'homepage hero should describe the updated core research methods');
-assert(!/我们关注能够主动理解情境、推理规划并调用工具完成复杂任务的智能系统/.test(home), 'homepage hero should not keep the previous shorter research framing');
+assert(/以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究/.test(home), 'homepage hero should use the three-layer technical positioning');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/image:\s*\n\s*filename:\s*welcome\.png[\s\S]*slides:\s*\n(?:\s+-\s*filename:\s*.+\n\s+alt:\s*.+\n){3,}/.test(home), 'homepage hero image should define at least three configured carousel slides');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
-assert(/cta_note:\s*\n\s*label:\s*多模态表征学习 · 情境表示与推理 · 慢思考认知推理 · 自主交互智能体/.test(home), 'homepage hero should use the requested research focus tagline');
-assert(/id:\s*home-focus/.test(home), 'homepage should include a compact research focus section after the hero');
-assert((home.match(/class="home-focus-item"/g) || []).length === 4, 'homepage research focus should render four modules');
-for (const moduleTitle of researchFocusModules) {
-  assert(home.includes(moduleTitle), `homepage research focus should include ${moduleTitle}`);
-}
+assert(/cta_note:\s*\n\s*label:\s*扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律/.test(home), 'homepage hero should use the science-time-human brand statement');
+assert(/block:\s*research_tree\s*\n\s*id:\s*research/.test(home), 'homepage should render the shared three-layer research tree block');
+assert(!/id:\s*home-focus/.test(home), 'homepage should not retain the old four-card research focus section');
+assert(!/page_type:\s*research/.test(researchHomeSection), 'homepage research tree should not fall back to the old five-page collection');
 assert(!/大数据分析与应用安徽省重点实验室|bigdata\.ustc\.edu\.cn/.test(home), 'homepage related links should not include the removed big-data lab link');
 assert((home.match(/class="home-link-strip"/g) || []).length === 1, 'homepage should keep one related-links strip');
 assert(/\.home-link-strip\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage related links should use a two-column grid after removing the third link');
 assert(/title:\s*基金支撑/.test(fundingHomeSection), 'homepage funding section should be labelled 基金支撑');
-assert(/国家重大科技攻关专项/.test(fundingHomeSection), 'homepage funding section should include 国家重大科技攻关专项');
-assert(/国家自然科学基金委项目/.test(fundingHomeSection), 'homepage funding section should include 国家自然科学基金委项目');
-assert((fundingHomeSection.match(/class="home-funding-item"/g) || []).length === 2, 'homepage funding section should render two funding items');
+for (const fundingProject of ['新一代AI专项', '中科院先导B类项目', '国自然基金委青年科学基金A类项目（原国家杰青）']) {
+  assert(fundingHomeSection.includes(`<strong>${fundingProject}</strong>`), `homepage funding section should use the exact project name: ${fundingProject}`);
+}
+assert(!/国家级重大科技任务|国家重大科技攻关专项|基础研究项目|国家自然科学基金委项目/.test(fundingHomeSection), 'homepage funding section should remove all superseded funding copy');
+assert((fundingHomeSection.match(/class="home-funding-item"/g) || []).length === 3, 'homepage funding section should render three funding items');
 assert(/title:\s*代表论文/.test(home), 'homepage should surface recent publications with a Chinese title');
 assert(!/title:\s*Latest News/.test(home), 'stale news section should not be labelled Latest News');
 assert(!/title:\s*(Research|Selected Publications|News Highlights|Related Links)\b/.test(home), 'homepage section titles should be Chinese');
-assert(/id:\s*research[\s\S]*title:\s*领域应用研究/.test(home), 'homepage research collection should be labelled 领域应用研究');
-assert(/id:\s*research[\s\S]*sort_by:\s*Weight[\s\S]*order:\s*asc/.test(home), 'homepage research collection should use explicit weight ordering');
 for (const id of ['hero', 'research', 'selected-publications', 'news-highlights', 'funding-support', 'related-links']) {
   assert(new RegExp(`id:\\s*${id}`).test(home), `homepage section should define stable id: ${id}`);
 }
 assert(!/id:\s*projects/.test(home), 'homepage should not render the Projects section');
-assert(/view:\s*card/.test(researchHomeSection) && /columns:\s*["']1["']/.test(researchHomeSection), 'homepage research section should keep the heading and cards in a full-width layout');
+assert(/columns:\s*["']1["']/.test(researchHomeSection), 'homepage research tree should render in a full-width layout');
 assert(/view:\s*card/.test(newsHomeSection) && /columns:\s*["']1["']/.test(newsHomeSection), 'homepage news section should keep the heading and cards in a full-width layout');
 
 assert(/#hero\s*\{/.test(scss), 'homepage hero should have dedicated CSS');
@@ -124,19 +128,22 @@ assert(/#hero\s+\.hero-carousel-slide\s*\{[\s\S]*opacity:\s*0[\s\S]*transition:\
 assert(/#hero\s+\.hero-carousel-slide\.is-active\s*\{[\s\S]*opacity:\s*1/.test(scss), 'homepage hero carousel should expose an active slide state');
 assert(/#hero\s+\.hero-carousel-dots\s*\{[\s\S]*display:\s*flex/.test(scss), 'homepage hero carousel should render compact dot controls');
 assert(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*#hero\s+\.hero-carousel-slide\s*\{[\s\S]*transition:\s*none/.test(scss), 'homepage hero carousel should respect reduced motion preferences');
-assert(/\.home-focus-grid\s*\{/.test(scss), 'homepage research focus grid should have dedicated CSS');
-assert(/\.home-focus-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research focus modules should use a readable two-column desktop grid');
-assert(/#research\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage research cards should be explicitly arranged in a full-width three-column CSS grid');
-assert(/#research\s+\.article-metadata\s*\{[\s\S]*display:\s*none/.test(scss), 'homepage research cards should hide publication-style dates');
-assert(/#research\s+\.card-simple\s+\.article-banner\s*\{[\s\S]*display:\s*none/.test(scss), 'homepage research cards should not render image banners');
-assert(/#research\s+\.card-simple\s*\{[\s\S]*border-top:\s*4px\s+solid\s+#1f6fbc[\s\S]*padding:\s*1\.25rem/.test(scss), 'homepage research cards should mirror the research focus card shell');
-assert(/#research\s+\.card-simple:nth-child\(4n\s*\+\s*2\)\s*\{[\s\S]*border-top-color:\s*#0f766e/.test(scss), 'homepage research cards should reuse the focus-card accent colors');
-assert(/margin-top:\s*0/.test(homepageCardGridBlock), 'homepage card grids should remove theme card top margins');
+assert(/\.research-tree\s*\{/.test(scss), 'the shared research tree should have dedicated CSS');
+assert(/\.research-tree-core-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'core technologies should use a three-column desktop grid');
+assert(/\.research-tree-area-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research areas should use a three-column desktop grid');
+assert(/\.research-tree-connector\s*\{[\s\S]*height:\s*3rem/.test(scss), 'research layers should have a compact visual connector');
+assert((read('layouts/partials/research-tree.html').match(/class="research-tree-connector-branch"/g) || []).length === 6, 'each of the two layer connectors should expose three visual branches');
+assert(/\.research-tree-connector::after\s*\{[\s\S]*left:\s*calc\(16\.6667%\s*-\s*0\.3333rem\)[\s\S]*right:\s*calc\(16\.6667%\s*-\s*0\.3333rem\)/.test(scss), 'desktop research connectors should draw a horizontal branch rail across the three columns');
+assert(/\.research-tree-connector-branch:nth-child\(1\)[\s\S]*\.research-tree-connector-branch:nth-child\(3\)/.test(scss), 'desktop research connectors should address all three column branches');
+assert(/\.research-tree-connector::before\s*\{[\s\S]*background:\s*#6f8daa/.test(scss) && /\.research-tree-connector-branch\s*\{[\s\S]*background:\s*#6f8daa/.test(scss), 'research connector lines should use a sufficiently visible blue-gray');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-tree-core-grid,[\s\S]*\.research-tree-area-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research tree cards should stack on mobile');
+assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-tree-connector-branch\s*\{[\s\S]*display:\s*none[\s\S]*\.research-tree-connector-branch:nth-child\(2\)\s*\{[\s\S]*display:\s*block/.test(scss), 'research connector should collapse to one centered arrow on mobile');
 assert(/#news-highlights\s+\.row\s*>\s*\.col-12:not\(\.section-heading\)\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage news cards should be explicitly arranged in a three-column CSS grid');
 assert(/#news-highlights\s+\.card-simple\s*\{/.test(scss), 'homepage news cards should have scoped CSS');
 assert(/#funding-support\s*\{[\s\S]*background:\s*#ffffff/.test(scss), 'homepage funding support should sit on a white band');
-assert(/\.home-funding-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'homepage funding support should use a two-column desktop grid');
+assert(/grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(homeFundingGridBlock), 'homepage funding support should use a three-column desktop grid');
 assert(/\.home-funding-item\s*\{[\s\S]*border-radius:\s*8px[\s\S]*border-top:\s*4px\s+solid\s+#1f6fbc/.test(scss), 'homepage funding support items should use compact site cards');
+assert(/\.home-funding-item:nth-child\(3\)\s*\{[\s\S]*border-top-color:\s*#7c3aed/.test(scss), 'the third funding item should use the established purple accent');
 
 const peoplePage = read('content/people/index.md');
 const authorIndex = (path) => {
@@ -314,13 +321,30 @@ assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.post-card-grid\s*\{[\s\
 
 const researchIndex = read('content/research/_index.md');
 const relatedProjectsBlock = between(researchIndex, /^related_projects:\s*$/m, /^\s*# Listing view/m);
+const foundationBlock = between(researchIndex, /^foundation:\s*$/m, /^core_technologies:\s*$/m);
+const coreTechnologyBlock = between(researchIndex, /^core_technologies:\s*$/m, /^research_areas:\s*$/m);
+const researchAreaBlock = between(researchIndex, /^research_areas:\s*$/m, /^related_projects:\s*$/m);
 assert(/summary:\s*['"].+['"]/.test(researchIndex), 'research index should define a concise page summary');
-assert(/highlights:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define four overview highlights');
-assert(/pillars:\s*\n(?:\s+-\s+title:\s*['"]?.+['"]?\n\s+text:\s*['"]?.+['"]?\n){4,}/.test(researchIndex), 'research index should define four research focus modules');
-for (const moduleTitle of researchFocusModules) {
-  assert(researchIndex.includes(moduleTitle), `research index should include ${moduleTitle}`);
+assert(/narrative:\s*['"]扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律。['"]/.test(researchIndex), 'research index should define the science-time-human narrative');
+assert(/title:\s*['"]机器学习与数据挖掘['"]/.test(foundationBlock), 'research foundation should be Machine Learning and Data Mining');
+assert(/subtitle:\s*['"]Machine Learning & Data Mining['"]/.test(foundationBlock), 'research foundation should include its English label');
+assert(/core_intro:\s*['"]这一层回答的是：我们依靠什么技术解决问题？['"]/.test(researchIndex), 'research index should explain the role of core technologies');
+assert((coreTechnologyBlock.match(/^\s+-\s+title:/gm) || []).length === 3, 'research index should define three core technologies');
+for (const [title, subtitle] of coreTechnologies) {
+  assert(coreTechnologyBlock.includes(`title: "${title}"`), `research core technologies should include ${title}`);
+  assert(coreTechnologyBlock.includes(`subtitle: "${subtitle}"`), `research core technology should include English label: ${subtitle}`);
 }
-assert(/applications:\s*\n(?:\s+-\s+.+\n){4,}/.test(researchIndex), 'research index should define representative application scenarios');
+assert((researchAreaBlock.match(/^\s+-\s+index:/gm) || []).length === 3, 'research index should define exactly three research areas');
+for (const [index, title, subtitle, url, summary] of researchAreas) {
+  assert(researchAreaBlock.includes(`index: "${index}"`), `research areas should include index ${index}`);
+  assert(researchAreaBlock.includes(`title: "${title}"`), `research areas should include ${title}`);
+  assert(researchAreaBlock.includes(`subtitle: "${subtitle}"`), `research area should include English label: ${subtitle}`);
+  assert(researchAreaBlock.includes(`url: "${url}"`), `research area should link to ${url}`);
+  assert(researchAreaBlock.includes(`summary: "${summary}"`), `research area should keep the approved description for ${title}`);
+}
+for (const [axis, area] of [['科学', '科学智能'], ['时间', '时序智能'], ['人', '推荐系统']]) {
+  assert(new RegExp(`axis:\\s*["']${axis}["'][\\s\\S]*area:\\s*["']${area}["']`).test(researchIndex), `research narrative should map ${axis} to ${area}`);
+}
 assert((relatedProjectsBlock.match(/^\s+-\s+title:/gm) || []).length === 3, 'research index should define three related project links');
 for (const url of [
   'https://agentr1.github.io/',
@@ -335,15 +359,35 @@ assert(fs.existsSync(researchListPath), 'research section should use a dedicated
 if (fs.existsSync(researchListPath)) {
   const researchList = read(researchListPath);
   assert(/research-index-hero/.test(researchList), 'research layout should render a page hero');
-  assert(/research-pillar-grid/.test(researchList), 'research layout should render research pillars before direction cards');
-  assert(/research-application-strip/.test(researchList), 'research layout should render representative application scenarios');
-  assert(/research-direction-grid/.test(researchList), 'research layout should render directions in a grid');
-  assert(/research-direction-card/.test(researchList), 'research layout should render dedicated direction cards');
-  assert(/Params\.topics/.test(researchList), 'research layout should render per-direction topics');
+  assert(/partial\s+["']research-tree\.html["']/.test(researchList), 'research layout should render the shared three-layer research tree');
+  assert(!/\.Pages\.ByDate|range\s+\$index,\s*\$item\s*:=\s*\$pages/.test(researchList), 'research layout should not expose the legacy five-page list as top-level areas');
   assert(/Params\.related_projects/.test(researchList), 'research layout should render related project links from front matter');
   assert(/research-related-grid/.test(researchList), 'research layout should render related project cards in a grid');
-  assert(!/research-direction-media/.test(researchList), 'research direction cards should not render image media blocks');
-  assert(!/partial\s+"blox-core\/functions\/get_featured_image\.html"/.test(researchList), 'research direction cards should not load featured images');
+}
+
+const researchTreePartialPath = 'layouts/partials/research-tree.html';
+const researchTreeBlockPath = 'layouts/partials/blocks/research_tree.html';
+assert(fs.existsSync(researchTreePartialPath), 'site should define one shared research tree partial');
+assert(fs.existsSync(researchTreeBlockPath), 'homepage should define a research tree block adapter');
+if (fs.existsSync(researchTreePartialPath)) {
+  const researchTreePartial = read(researchTreePartialPath);
+  for (const param of ['Params.foundation', 'Params.core_technologies', 'Params.research_areas', 'Params.narrative_axes']) {
+    assert(researchTreePartial.includes(param), `shared research tree should read ${param}`);
+  }
+  assert(researchTreePartial.includes('Params.core_intro'), 'shared research tree should render the core-technology explanation');
+  for (const className of ['research-tree-foundation', 'research-tree-core-grid', 'research-tree-area-grid', 'research-tree-connector']) {
+    assert(researchTreePartial.includes(className), `shared research tree should render ${className}`);
+  }
+  for (const label of ['方法根基', 'Foundation', '核心工具与技术', 'Core Technologies', '三大研究方向', 'Research Areas']) {
+    assert(researchTreePartial.includes(label), `shared research tree should render the approved layer label: ${label}`);
+  }
+  assert(/research-tree-eyebrow"\s+lang="en">AGI Research Framework/.test(researchTreePartial), 'research tree English eyebrow should declare its language');
+  assert(/if\s+eq\s+\$variant\s+["']home["'][\s\S]*Params\.summary[\s\S]*end/.test(researchTreePartial), 'technical positioning should not be repeated beside the Research page hero');
+}
+if (fs.existsSync(researchTreeBlockPath)) {
+  const researchTreeBlock = read(researchTreeBlockPath);
+  assert(/(?:site|\.wcPage\.Site)\.GetPage\s+["']\/research["']/.test(researchTreeBlock), 'homepage research tree should use the research index as its single content source');
+  assert(/partial\s+["']research-tree\.html["']/.test(researchTreeBlock), 'homepage research block should delegate to the shared research tree partial');
 }
 
 for (const path of fs.readdirSync('content/research', { withFileTypes: true })
@@ -356,33 +400,20 @@ for (const path of fs.readdirSync('content/research', { withFileTypes: true })
   assert(/topics:\s*\n(?:\s+-\s+.+\n){2,}/.test(text), `${path} should define at least two research card topics`);
 }
 
-for (const [path, weight] of [
-  ['content/research/agent/index.md', 10],
-  ['content/research/context/index.md', 20],
-  ['content/research/science/index.md', 30],
-  ['content/research/structured/index.md', 40],
-  ['content/research/recommendation/index.md', 50],
-]) {
-  assert(new RegExp(`weight:\\s*${weight}\\b`).test(read(path)), `${path} should define homepage ordering weight ${weight}`);
-}
-
 const contextResearch = read('content/research/context/index.md');
-assert(/title:\s*情境认知的时间序列分析/.test(contextResearch), 'context research direction should use the requested Chinese title');
-assert(!/情境认知的预测理论与方法/.test(contextResearch), 'context research direction should not keep the previous title wording');
-for (const topic of ['情境特征融合', '情境认知推理', '情境自主交互']) {
+assert(/title:\s*时序智能/.test(contextResearch), 'context research page should use the new Time Series Intelligence title');
+assert(/subtitle:\s*["']Time Series Intelligence["']/.test(contextResearch), 'context research page should use the matching English title');
+for (const topic of ['时序表征', '预测', '情境感知', '自主预测智能体']) {
   assert(contextResearch.includes(topic), `context research direction should include topic: ${topic}`);
 }
+assert(/title:\s*科学智能/.test(read('content/research/science/index.md')), 'science research page should use the new 科学智能 title');
+assert(/subtitle:\s*["']AI for Science["']/.test(read('content/research/science/index.md')), 'science research page should use the matching English title');
+assert(/title:\s*推荐系统/.test(read('content/research/recommendation/index.md')), 'recommendation research page should use the new 推荐系统 title');
+assert(/subtitle:\s*["']Recommender Systems["']/.test(read('content/research/recommendation/index.md')), 'recommendation research page should use the matching English title');
 
 assert(/\.research-index-hero\s*\{/.test(scss), 'research index hero should have dedicated CSS');
-assert(/\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research focus modules should use a readable two-column desktop grid');
-assert(/\.research-application-strip\s*\{[\s\S]*display:\s*flex/.test(scss), 'research application scenarios should render as a compact strip');
-assert(/\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research direction grid should use a six-track desktop layout');
-assert(/\.research-direction-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research direction cards should use the site card radius');
-assert(/\.research-direction-card:nth-child\(-n\s*\+\s*2\)\s*\{[\s\S]*grid-column:\s*span\s+3/.test(scss), 'first two research cards should have stronger desktop emphasis');
 assert(/\.research-related-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/.test(scss), 'research related project links should use a three-column desktop grid');
 assert(/\.research-related-card\s*\{[\s\S]*border-radius:\s*8px/.test(scss), 'research related project cards should match the site card radius');
-assert(/@media\s*\(max-width:\s*991\.98px\)\s*\{[\s\S]*\.research-pillar-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research pillars should stack on tablets');
-assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-direction-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research direction grid should collapse to one column on mobile');
 assert(/@media\s*\(max-width:\s*767\.98px\)\s*\{[\s\S]*\.research-related-grid\s*\{[\s\S]*grid-template-columns:\s*1fr/.test(scss), 'research related project links should stack on mobile');
 
 for (const path of [

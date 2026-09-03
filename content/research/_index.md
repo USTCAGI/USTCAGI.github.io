@@ -1,26 +1,42 @@
 ---
 title: 研究方向
-summary: "围绕复杂数据表征、情境推理、慢思考认知推理与自主交互智能体，研究组构建面向可靠智能系统的四个研究聚焦模块。"
-highlights:
-  - 多模态表征学习
-  - 情境表示与推理
-  - 慢思考认知推理
-  - 自主交互智能体
-pillars:
-  - title: "多模态表征学习"
-    text: "面向文本、表格、时间序列与科学文档等复杂数据，研究统一表征、语义对齐与跨模态融合方法。"
-  - title: "情境表示与推理"
-    text: "建模环境状态、任务目标、领域知识与外部事件等情境因素，理解其对预测、决策与推理过程的影响机制。"
-  - title: "慢思考认知推理"
-    text: "研究多步推理、证据整合、自反思验证与逻辑推演机制，提升大模型在复杂任务中的可靠推理能力。"
-  - title: "自主交互智能体"
-    text: "构建能够调用工具、交互环境、复用记忆并持续修正的大模型智能体，实现复杂任务的自主规划与执行。"
-applications:
-  - 科研文献理解
-  - 教育写作辅助
-  - 医疗风险预警
-  - 能源功率预测
-  - 推荐与用户建模
+summary: "以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究。"
+narrative: "扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律。"
+foundation:
+  title: "机器学习与数据挖掘"
+  subtitle: "Machine Learning & Data Mining"
+  text: "这是整个研究组最底层的方法论基础，强调我们本质上仍然是做智能方法、数据建模与知识发现。"
+core_intro: "这一层回答的是：我们依靠什么技术解决问题？"
+core_technologies:
+  - title: "深度神经网络"
+    subtitle: "Deep Neural Networks"
+  - title: "大模型推理与智能体"
+    subtitle: "LLM Reasoning & Agents"
+  - title: "情境大数据智能理论与技术"
+    subtitle: "Context-aware Big Data Intelligence"
+research_areas:
+  - index: "01"
+    title: "科学智能"
+    subtitle: "AI for Science"
+    summary: "面向科学数据、科学知识与科学发现，研究科学数据建模、科技文献智能、科研智能体与自主科学发现等。"
+    url: "/research/science/"
+  - index: "02"
+    title: "时序智能"
+    subtitle: "Time Series Intelligence"
+    summary: "面向复杂动态系统，研究时序表征、预测、情境感知、推理与自主预测智能体等。"
+    url: "/research/context/"
+  - index: "03"
+    title: "推荐系统"
+    subtitle: "Recommender Systems"
+    summary: "面向用户行为理解与信息服务，研究个性化推荐、序列建模、交互决策及智能推荐系统等。"
+    url: "/research/recommendation/"
+narrative_axes:
+  - axis: "科学"
+    area: "科学智能"
+  - axis: "时间"
+    area: "时序智能"
+  - axis: "人"
+    area: "推荐系统"
 related_projects:
   - title: "AgentR1"
     url: "https://agentr1.github.io/"

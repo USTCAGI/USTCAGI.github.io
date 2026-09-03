@@ -1,6 +1,4 @@
 {{- define "main" -}}
-{{ $pages := .Pages.ByDate.Reverse }}
-
 <div class="research-index">
   <section class="research-index-hero">
     <div class="research-index-hero-inner">
@@ -9,83 +7,10 @@
       {{ with .Params.summary }}
         <p class="research-index-summary">{{ . }}</p>
       {{ end }}
-      {{ with .Params.highlights }}
-        <div class="research-index-highlights" aria-label="研究聚焦模块">
-          {{ range . }}
-            <span>{{ . }}</span>
-          {{ end }}
-        </div>
-      {{ end }}
     </div>
   </section>
 
-  <section class="research-overview-section" aria-labelledby="research-overview-title">
-    <div class="research-overview-heading">
-      <h2 id="research-overview-title">研究聚焦</h2>
-      <p>研究聚焦于复杂数据表征、情境推理、慢思考认知推理与自主交互智能体四个模块，强调从统一表示到可靠推理和自主执行的能力闭环。</p>
-    </div>
-
-    {{ with .Params.pillars }}
-      <div class="research-pillar-grid" aria-label="研究聚焦模块">
-        {{ range . }}
-          <article class="research-pillar-card">
-            <h3>{{ .title }}</h3>
-            <p>{{ .text }}</p>
-          </article>
-        {{ end }}
-      </div>
-    {{ end }}
-
-    {{ with .Params.applications }}
-      <div class="research-application-strip" aria-label="代表场景">
-        {{ range . }}
-          <span>{{ . }}</span>
-        {{ end }}
-      </div>
-    {{ end }}
-  </section>
-
-  <section class="research-direction-section" aria-labelledby="research-direction-title">
-    <div class="research-direction-heading">
-      <h2 id="research-direction-title">方向速览</h2>
-      <p>从基础机制到真实应用，五个方向共同支撑研究组在智能体、复杂数据分析和科学智能上的长期探索。</p>
-    </div>
-
-    <div class="research-direction-grid">
-      {{ range $index, $item := $pages }}
-        {{ $link := $item.RelPermalink }}
-        {{ $target := "" }}
-        {{ if $item.Params.external_link }}
-          {{ $link = $item.Params.external_link }}
-          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-        {{ end }}
-        <a class="research-direction-card" href="{{ $link }}" {{ $target | safeHTMLAttr }}>
-          <div class="research-direction-body">
-            <span class="research-direction-index">{{ printf "%02d" (add $index 1) }}</span>
-            <h3>{{ $item.Title }}</h3>
-            {{ with $item.Params.subtitle }}
-              <p class="research-direction-subtitle">{{ . }}</p>
-            {{ end }}
-            {{ if $item.Params.summary }}
-              <p class="research-direction-summary">{{ $item.Params.summary }}</p>
-            {{ else }}
-              {{ with $item.Summary }}
-                <p class="research-direction-summary">{{ . | plainify }}</p>
-              {{ end }}
-            {{ end }}
-            {{ with $item.Params.topics }}
-              <ul class="research-direction-topics" aria-label="{{ $item.Title }}关键词">
-                {{ range . }}
-                  <li>{{ . }}</li>
-                {{ end }}
-              </ul>
-            {{ end }}
-            <span class="research-direction-more">查看方向</span>
-          </div>
-        </a>
-      {{ end }}
-    </div>
-  </section>
+  {{ partial "research-tree.html" (dict "research" . "variant" "page") }}
 
   {{ with .Params.related_projects }}
     <section class="research-related-section" aria-labelledby="research-related-title">

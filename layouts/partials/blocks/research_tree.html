@@ -1,0 +1,4 @@
+{{- $research := .wcPage.Site.GetPage "/research" -}}
+{{- with $research -}}
+  {{ partial "research-tree.html" (dict "research" . "variant" "home") }}
+{{- end -}}
