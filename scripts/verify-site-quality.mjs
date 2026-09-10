@@ -97,6 +97,13 @@ assert(/title:\s*中国科大 AGI 研究组/.test(home), 'homepage should use a 
 assert(/以机器学习与数据挖掘为根基，以深度神经网络、大模型推理与智能体、情境大数据智能为核心技术，面向科学智能、时序智能与推荐系统开展基础方法与关键应用研究/.test(home), 'homepage hero should use the three-layer technical positioning');
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/image:\s*\n\s*filename:\s*welcome\.png[\s\S]*slides:\s*\n(?:\s+-\s*filename:\s*.+\n\s+alt:\s*.+\n){3,}/.test(home), 'homepage hero image should define at least three configured carousel slides');
+const hero2026PhotoPath = 'assets/media/hero-group-2026.jpg';
+assert(fs.existsSync(hero2026PhotoPath), 'homepage hero should include the supplied 2026 group photo');
+assert(
+  /slides:\s*\n\s*- filename:\s*hero-group-2026\.jpg\s*\n\s*alt:\s*中国科大 AGI 研究组 2026 年团队合影\s*\n\s*- filename:\s*welcome\.png/.test(home),
+  'homepage hero should show the supplied 2026 group photo first and retain the existing slides',
+);
+assert((home.match(/^\s+- filename:\s*.+$/gm) || []).length === 4, 'homepage hero should define exactly four carousel slides');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
 assert(/cta_note:\s*\n\s*label:\s*扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律/.test(home), 'homepage hero should use the science-time-human brand statement');
@@ -170,6 +177,9 @@ const admissionYearOverrides = new Map([
   ['content/authors/Shangtong Ye/_index.md', '2026'],
   ['content/authors/Bokai Pan/_index.md', '2026'],
   ['content/authors/Ze Guo/_index.md', '2026'],
+  ['content/authors/Chenmin Wu/_index.md', '2026'],
+  ['content/authors/Yu Long/_index.md', '2026'],
+  ['content/authors/Yujia Hou/_index.md', '2026'],
   ['content/authors/Daoyu Wang/_index.md', '2025'],
   ['content/authors/Shuo Yu/_index.md', '2025'],
   ['content/authors/Huajian Zhang/_index.md', '2025'],
@@ -459,6 +469,9 @@ for (const path of [
   'content/authors/Ze Guo/_index.md',
   'content/authors/Yifan Lu/_index.md',
   'content/authors/Yuyang Bao/_index.md',
+  'content/authors/Chenmin Wu/_index.md',
+  'content/authors/Yu Long/_index.md',
+  'content/authors/Yujia Hou/_index.md',
 ]) {
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
 }
@@ -471,10 +484,14 @@ for (const path of [
   assert(/^role:\s*Ph\.D\. Student\s*$/m.test(profile), `${path} should show Ph.D. Student as the role`);
   assert(/^admission_year:\s*2026\s*$/m.test(profile), `${path} should be marked as a 2026 doctoral student`);
 }
-for (const path of [
-  'content/authors/Yifan Lu/_index.md',
-  'content/authors/Yuyang Bao/_index.md',
-]) {
+const new2026MasterProfiles = new Map([
+  ['content/authors/Yifan Lu/_index.md', 'SS2603'],
+  ['content/authors/Yuyang Bao/_index.md', 'SS2604'],
+  ['content/authors/Chenmin Wu/_index.md', 'SS2605'],
+  ['content/authors/Yu Long/_index.md', 'SS2606'],
+  ['content/authors/Yujia Hou/_index.md', 'SS2607'],
+]);
+for (const [path, expectedIndex] of new2026MasterProfiles) {
   if (!fs.existsSync(path)) {
     assert(false, `${path} should exist for the new master member`);
     continue;
@@ -484,7 +501,6 @@ for (const path of [
   assert(authorHasGroup(path, '在读硕士生'), `${path} should be listed as a master student`);
   assert(/^role:\s*Master Student\s*$/m.test(profile), `${path} should show Master Student as the role`);
   assert(/^admission_year:\s*2026\s*$/m.test(profile), `${path} should be marked as a 2026 master student`);
-  const expectedIndex = path.includes('Yifan Lu') ? 'SS2603' : 'SS2604';
   assert(new RegExp(`^index:\\s*["']${expectedIndex}["']\\s*$`, 'm').test(profile), `${path} should use master student index ${expectedIndex}`);
   assert(fs.existsSync(path.replace('/_index.md', '/avatar.jpg')), `${path} should include the provided avatar image`);
 }
@@ -498,6 +514,17 @@ assert(
   /interests:\s*\n\s+-\s*LLMs\s*\n\s+-\s*Agentic AI/.test(yuyangBao),
   'Yuyang Bao profile should list LLMs, Agentic AI',
 );
+for (const path of [
+  'content/authors/Chenmin Wu/_index.md',
+  'content/authors/Yu Long/_index.md',
+  'content/authors/Yujia Hou/_index.md',
+]) {
+  if (!fs.existsSync(path)) continue;
+  const profile = read(path);
+  assert(/interests:\s*\n\s+-\s*LLMs and Agentic AI\s*$/m.test(profile), `${path} should list LLMs and Agentic AI`);
+  assert(/^social:\s*\[\]\s*$/m.test(profile), `${path} should omit social links until contact details are provided`);
+  assert(/^email:\s*["']{2}\s*$/m.test(profile), `${path} should keep email empty until contact details are provided`);
+}
 
 for (const path of [
   'content/authors/Chuan Jiang/_index.md',
