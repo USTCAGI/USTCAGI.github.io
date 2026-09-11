@@ -286,12 +286,16 @@ assert(
   'photo wall viewer should support keyboard navigation',
 );
 assert(
-  /\.gallery-grid\s*\{[\s\S]*columns:\s*3/.test(scss),
+  /\.gallery-wall\s*\{[\s\S]*display:\s*block[\s\S]*columns:\s*3/.test(scss),
   'photo wall should use a three-column desktop masonry layout',
 );
 assert(
-  /@media\s*\(max-width:\s*767\.98px\)[\s\S]*\.gallery-grid\s*\{[\s\S]*columns:\s*1/.test(scss),
+  /@media\s*\(max-width:\s*767\.98px\)[\s\S]*\.gallery-wall\s*\{[\s\S]*columns:\s*1/.test(scss),
   'photo wall should collapse to one column on mobile',
+);
+assert(
+  !/class="gallery-grid"/.test(galleryLayout),
+  'photo wall should not collide with the theme gallery shortcode grid',
 );
 assert(
   !/\.gallery[\s\S]*\bwidth:\s*min\(/.test(scss),

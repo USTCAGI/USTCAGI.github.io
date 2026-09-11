@@ -76,7 +76,7 @@
             <p lang="en">Year</p>
             <h2 id="gallery-year-{{ $group.Key }}">{{ $group.Key }}</h2>
           </header>
-          <div class="gallery-grid">
+          <div class="gallery-wall">
             {{- range $group.Pages -}}
               {{- $post := . -}}
               {{- with partial "blox-core/functions/get_featured_image.html" $post -}}

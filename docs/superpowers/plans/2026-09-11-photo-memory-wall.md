@@ -40,8 +40,10 @@ assert(/<dialog[\s\S]*data-gallery-dialog/.test(galleryLayout), 'photo wall shou
 assert(/data-gallery-item/.test(galleryLayout), 'photo cards should expose progressive-enhancement hooks');
 assert(/showModal\(\)/.test(galleryScript), 'photo wall script should open the native dialog');
 assert(/ArrowLeft/.test(galleryScript) && /ArrowRight/.test(galleryScript), 'photo wall viewer should support keyboard navigation');
-assert(/\.gallery-grid\s*\{[\s\S]*columns:\s*3/.test(scss), 'photo wall should use a three-column desktop masonry layout');
-assert(/@media\s*\(max-width:\s*767\.98px\)[\s\S]*\.gallery-grid\s*\{[\s\S]*columns:\s*1/.test(scss), 'photo wall should collapse to one column on mobile');
+assert(/\.gallery-wall\s*\{[\s\S]*display:\s*block[\s\S]*columns:\s*3/.test(scss), 'photo wall should use a three-column desktop masonry layout');
+assert(/@media\s*\(max-width:\s*767\.98px\)[\s\S]*\.gallery-wall\s*\{[\s\S]*columns:\s*1/.test(scss), 'photo wall should collapse to one column on mobile');
+assert(!/class="gallery-grid"/.test(galleryLayout), 'photo wall should not collide with the theme gallery shortcode grid');
+assert(!/\.gallery[\s\S]*\bwidth:\s*min\(/.test(scss), 'photo wall width rules should remain compatible with the pinned Hugo SCSS compiler');
 ```
 
 - [ ] **Step 2: Run the test to verify it fails**
@@ -181,7 +183,7 @@ Create the complete layout exactly as follows:
             <p lang="en">Year</p>
             <h2 id="gallery-year-{{ $group.Key }}">{{ $group.Key }}</h2>
           </header>
-          <div class="gallery-grid">
+          <div class="gallery-wall">
             {{- range $group.Pages -}}
               {{- $post := . -}}
               {{- with partial "blox-core/functions/get_featured_image.html" $post -}}
@@ -436,7 +438,8 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
 .gallery-timeline {
   position: relative;
   z-index: 2;
-  width: min(1180px, calc(100% - 3rem));
+  width: calc(100% - 3rem);
+  max-width: 1180px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -585,7 +588,8 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
   line-height: 1;
 }
 
-.gallery-grid {
+.gallery-wall {
+  display: block;
   columns: 3 17rem;
   column-gap: 1.05rem;
 }
@@ -648,8 +652,8 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
 }
 
 .gallery-lightbox {
-  width: min(1120px, calc(100vw - 2rem));
-  max-width: none;
+  width: calc(100vw - 2rem);
+  max-width: 1120px;
   max-height: calc(100vh - 2rem);
   padding: 0;
   overflow: hidden;
@@ -790,7 +794,7 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
     right: -1.55rem;
   }
 
-  .gallery-grid {
+  .gallery-wall {
     columns: 2 16rem;
   }
 }
@@ -806,7 +810,8 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
 
   .gallery-featured-section,
   .gallery-timeline {
-    width: min(100% - 2rem, 1180px);
+    width: calc(100% - 2rem);
+    max-width: 1180px;
   }
 
   .gallery-featured-section {
@@ -849,7 +854,7 @@ Add focused `.gallery-*` styles for the page hero, featured memory, year timelin
     margin: 0;
   }
 
-  .gallery-grid {
+  .gallery-wall {
     columns: 1;
   }
 
