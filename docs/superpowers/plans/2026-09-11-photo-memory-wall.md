@@ -75,7 +75,7 @@ Create `content/gallery/_index.md` with the title, introduction, and the 2026 te
 title: 照片纪念墙
 summary: 用影像记录中国科大 AGI 研究组共同走过的时刻。
 featured_memory:
-  title: 2026 年团队合影
+  title: 2026年9月教师节合影留念
   date: 2026-09-10
   image: hero-group-2026.jpg
   alt: 中国科大 AGI 研究组 2026 年团队合影
@@ -946,7 +946,7 @@ Expected: all commands exit 0 and Hugo reports no build errors.
 ```bash
 rg -Fq '照片纪念墙' "$gallery_public/gallery/index.html"
 rg -Fq 'data-gallery-item' "$gallery_public/gallery/index.html"
-rg -Fq '2026 年团队合影' "$gallery_public/gallery/index.html"
+rg -Fq '2026年9月教师节合影留念' "$gallery_public/gallery/index.html"
 rg -Fq '2025' "$gallery_public/gallery/index.html"
 rg -Fq '2024' "$gallery_public/gallery/index.html"
 rg -Fq '2023' "$gallery_public/gallery/index.html"

@@ -269,6 +269,10 @@ assert(
   'main navigation should expose the photo wall after people',
 );
 assert(/title:\s*照片纪念墙/.test(galleryContent), 'photo wall should use the approved Chinese title');
+assert(
+  /featured_memory:\s*\n\s*title:\s*2026年9月教师节合影留念/.test(galleryContent),
+  'photo wall should label the featured memory as the September 2026 Teachers Day group photo',
+);
 assert(/image:\s*hero-group-2026\.jpg/.test(galleryContent), 'photo wall should feature the 2026 group portrait');
 assert(
   /where site\.RegularPages "Section" "post"/.test(galleryLayout),
