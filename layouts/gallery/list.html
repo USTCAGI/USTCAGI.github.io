@@ -1,0 +1,147 @@
+{{- define "main" -}}
+{{- $posts := (where site.RegularPages "Section" "post").ByDate.Reverse -}}
+{{- $featured := .Params.featured_memory -}}
+{{- $featuredDate := time.AsTime $featured.date -}}
+{{- $memoryCount := 1 -}}
+{{- $years := slice (time.Format "2006" $featuredDate) -}}
+{{- range $posts -}}
+  {{- $post := . -}}
+  {{- with partial "blox-core/functions/get_featured_image.html" $post -}}
+    {{- $memoryCount = add $memoryCount 1 -}}
+    {{- $years = $years | append (time.Format "2006" $post.Date) -}}
+  {{- end -}}
+{{- end -}}
+{{- $yearCount := len (uniq $years) -}}
+
+<main class="gallery-page" data-gallery-root>
+  <section class="gallery-hero" aria-labelledby="gallery-title">
+    <div class="gallery-hero-inner">
+      <p class="gallery-eyebrow" lang="en">Moments · Milestones · Memories</p>
+      <h1 id="gallery-title">{{ .Title }}</h1>
+      {{ with .Params.summary }}<p class="gallery-intro">{{ . }}</p>{{ end }}
+      <dl class="gallery-stats" aria-label="照片墙概览">
+        <div><dt>{{ $memoryCount }}</dt><dd>段影像记忆</dd></div>
+        <div><dt>{{ $yearCount }}</dt><dd>个共同年份</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  {{- $featuredResource := resources.Get (path.Join "media" $featured.image) -}}
+  {{- with $featuredResource -}}
+    {{- $featuredThumb := .Fill "1600x900 Center" -}}
+    {{- $featuredFull := .Fit "1800x1200" -}}
+    {{- if ne $featuredThumb.MediaType.SubType "gif" -}}
+      {{- $featuredThumb = $featuredThumb.Process "webp" -}}
+      {{- $featuredFull = $featuredFull.Process "webp" -}}
+    {{- end -}}
+    <section class="gallery-featured-section" aria-labelledby="gallery-featured-title">
+      <a
+        class="gallery-featured-card"
+        href="{{ $featuredFull.RelPermalink }}"
+        data-gallery-item
+        data-gallery-caption="{{ $featured.caption }}"
+        data-gallery-date="{{ $featuredDate | time.Format site.Params.locale.date_format }}"
+        data-gallery-source=""
+        aria-label="查看大图：{{ $featured.alt }}"
+      >
+        <img
+          src="{{ $featuredThumb.RelPermalink }}"
+          width="{{ $featuredThumb.Width }}"
+          height="{{ $featuredThumb.Height }}"
+          alt="{{ $featured.alt }}"
+          fetchpriority="high"
+        >
+        <span class="gallery-featured-overlay" aria-hidden="true"></span>
+        <span class="gallery-featured-copy">
+          <time datetime="{{ $featuredDate.Format "2006-01-02" }}">{{ $featuredDate | time.Format site.Params.locale.date_format }}</time>
+          <strong id="gallery-featured-title">{{ $featured.title }}</strong>
+          <span>{{ $featured.caption }}</span>
+        </span>
+      </a>
+    </section>
+  {{- end -}}
+
+  <section class="gallery-timeline" aria-label="历年照片">
+    {{- range $group := $posts.GroupByDate "2006" -}}
+      {{- $hasImages := false -}}
+      {{- range $group.Pages -}}
+        {{- $post := . -}}
+        {{- with partial "blox-core/functions/get_featured_image.html" $post -}}
+          {{- $hasImages = true -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if $hasImages -}}
+        <section class="gallery-year" aria-labelledby="gallery-year-{{ $group.Key }}">
+          <header class="gallery-year-marker">
+            <p lang="en">Year</p>
+            <h2 id="gallery-year-{{ $group.Key }}">{{ $group.Key }}</h2>
+          </header>
+          <div class="gallery-grid">
+            {{- range $group.Pages -}}
+              {{- $post := . -}}
+              {{- with partial "blox-core/functions/get_featured_image.html" $post -}}
+                {{- $thumb := .Resize "760x" -}}
+                {{- $full := .Fit "1800x1800" -}}
+                {{- if ne $thumb.MediaType.SubType "gif" -}}
+                  {{- $thumb = $thumb.Process "webp" -}}
+                  {{- $full = $full.Process "webp" -}}
+                {{- end -}}
+                {{- $alt := $post.Params.image.alt_text | default $post.Title -}}
+                <a
+                  class="gallery-card"
+                  href="{{ $full.RelPermalink }}"
+                  data-gallery-item
+                  data-gallery-caption="{{ $post.Title }}"
+                  data-gallery-date="{{ $post.Date | time.Format site.Params.locale.date_format }}"
+                  data-gallery-source="{{ $post.RelPermalink }}"
+                  aria-label="查看大图：{{ $alt }}"
+                >
+                  <img
+                    src="{{ $thumb.RelPermalink }}"
+                    width="{{ $thumb.Width }}"
+                    height="{{ $thumb.Height }}"
+                    alt="{{ $alt }}"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                  <span class="gallery-card-overlay" aria-hidden="true"></span>
+                  <span class="gallery-card-copy">
+                    <time datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date | time.Format site.Params.locale.date_format }}</time>
+                    <strong>{{ $post.Title }}</strong>
+                  </span>
+                </a>
+              {{- end -}}
+            {{- end -}}
+          </div>
+        </section>
+      {{- end -}}
+    {{- end -}}
+  </section>
+
+  <dialog class="gallery-lightbox" data-gallery-dialog aria-label="照片大图预览">
+    <div class="gallery-lightbox-shell">
+      <button class="gallery-lightbox-close" type="button" data-gallery-close aria-label="关闭大图预览">×</button>
+      <button class="gallery-lightbox-nav gallery-lightbox-prev" type="button" data-gallery-prev aria-label="查看上一张照片">‹</button>
+      <figure class="gallery-lightbox-figure">
+        <div class="gallery-lightbox-stage">
+          <img class="gallery-lightbox-image" data-gallery-dialog-image src="" alt="">
+        </div>
+        <figcaption>
+          <div>
+            <time data-gallery-dialog-date></time>
+            <p data-gallery-dialog-caption></p>
+          </div>
+          <div class="gallery-lightbox-meta">
+            <span data-gallery-dialog-count></span>
+            <a href="#" data-gallery-dialog-source>查看相关动态 <span aria-hidden="true">→</span></a>
+          </div>
+        </figcaption>
+      </figure>
+      <button class="gallery-lightbox-nav gallery-lightbox-next" type="button" data-gallery-next aria-label="查看下一张照片">›</button>
+    </div>
+  </dialog>
+</main>
+
+{{- $galleryScript := resources.Get "js/gallery.js" | minify | fingerprint -}}
+<script src="{{ $galleryScript.RelPermalink }}" integrity="{{ $galleryScript.Data.Integrity }}" defer></script>
+{{- end -}}

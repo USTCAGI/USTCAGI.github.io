@@ -10,6 +10,9 @@ main:
   - name: 师生成员
     url: people
     weight: 20
+  - name: 照片墙
+    url: gallery
+    weight: 25
   - name: 研究方向
     url: research
     weight: 30

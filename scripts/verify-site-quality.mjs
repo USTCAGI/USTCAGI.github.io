@@ -294,6 +294,10 @@ assert(
   'photo wall should collapse to one column on mobile',
 );
 assert(
+  !/\.gallery[\s\S]*\bwidth:\s*min\(/.test(scss),
+  'photo wall width rules should remain compatible with the pinned Hugo SCSS compiler',
+);
+assert(
   fs.existsSync(footerPartialPath) && /href="\/gallery\/">照片墙/.test(read(footerPartialPath)),
   'footer should expose the photo wall',
 );
