@@ -255,6 +255,49 @@ for (const label of ['动态发布', '师生成员', '研究方向', '论文列�
 assert(!/name:\s*(News|People|Research|Publications|Projects|Repository)\b/.test(menus), 'main menu labels should not remain English');
 assert(/name:\s*开源项目\s*\n\s*url:\s*open-source/.test(menus), 'main menu should link Open Source Projects to the local open-source page');
 
+const galleryContentPath = 'content/gallery/_index.md';
+const galleryLayoutPath = 'layouts/gallery/list.html';
+const galleryScriptPath = 'assets/js/gallery.js';
+const galleryContent = fs.existsSync(galleryContentPath) ? read(galleryContentPath) : '';
+const galleryLayout = fs.existsSync(galleryLayoutPath) ? read(galleryLayoutPath) : '';
+const galleryScript = fs.existsSync(galleryScriptPath) ? read(galleryScriptPath) : '';
+assert(fs.existsSync(galleryContentPath), 'photo memory wall should define a gallery section page');
+assert(fs.existsSync(galleryLayoutPath), 'photo memory wall should use a dedicated list layout');
+assert(fs.existsSync(galleryScriptPath), 'photo memory wall should provide progressive lightbox behavior');
+assert(
+  /name:\s*照片墙\s*\n\s*url:\s*gallery\s*\n\s*weight:\s*25/.test(menus),
+  'main navigation should expose the photo wall after people',
+);
+assert(/title:\s*照片纪念墙/.test(galleryContent), 'photo wall should use the approved Chinese title');
+assert(/image:\s*hero-group-2026\.jpg/.test(galleryContent), 'photo wall should feature the 2026 group portrait');
+assert(
+  /where site\.RegularPages "Section" "post"/.test(galleryLayout),
+  'photo wall should derive memories from existing posts',
+);
+assert(/GroupByDate "2006"/.test(galleryLayout), 'photo wall should group news memories by year');
+assert(
+  /<dialog[\s\S]*data-gallery-dialog/.test(galleryLayout),
+  'photo wall should include an accessible native dialog viewer',
+);
+assert(/data-gallery-item/.test(galleryLayout), 'photo cards should expose progressive-enhancement hooks');
+assert(/showModal\(\)/.test(galleryScript), 'photo wall script should open the native dialog');
+assert(
+  /ArrowLeft/.test(galleryScript) && /ArrowRight/.test(galleryScript),
+  'photo wall viewer should support keyboard navigation',
+);
+assert(
+  /\.gallery-grid\s*\{[\s\S]*columns:\s*3/.test(scss),
+  'photo wall should use a three-column desktop masonry layout',
+);
+assert(
+  /@media\s*\(max-width:\s*767\.98px\)[\s\S]*\.gallery-grid\s*\{[\s\S]*columns:\s*1/.test(scss),
+  'photo wall should collapse to one column on mobile',
+);
+assert(
+  fs.existsSync(footerPartialPath) && /href="\/gallery\/">照片墙/.test(read(footerPartialPath)),
+  'footer should expose the photo wall',
+);
+
 for (const [path, title] of [
   ['content/post/_index.md', '新闻'],
   ['content/people/index.md', '成员'],
