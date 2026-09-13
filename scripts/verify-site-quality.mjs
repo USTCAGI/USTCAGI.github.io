@@ -98,12 +98,16 @@ assert(/以机器学习与数据挖掘为根基，以深度神经网络、大模
 assert(/alt:\s*中国科大 AGI 研究组首页图/.test(home), 'hero image should include Chinese alt text');
 assert(/image:\s*\n\s*filename:\s*welcome\.png[\s\S]*slides:\s*\n(?:\s+-\s*filename:\s*.+\n\s+alt:\s*.+\n){3,}/.test(home), 'homepage hero image should define at least three configured carousel slides');
 const hero2026PhotoPath = 'assets/media/hero-group-2026.jpg';
-assert(fs.existsSync(hero2026PhotoPath), 'homepage hero should include the supplied 2026 group photo');
+assert(!fs.existsSync(hero2026PhotoPath), 'removed 2026 group photo should no longer remain in the site assets');
 assert(
-  /slides:\s*\n\s*- filename:\s*hero-group-2026\.jpg\s*\n\s*alt:\s*中国科大 AGI 研究组 2026 年团队合影\s*\n\s*- filename:\s*welcome\.png/.test(home),
-  'homepage hero should show the supplied 2026 group photo first and retain the existing slides',
+  !/hero-group-2026\.jpg|中国科大 AGI 研究组 2026 年团队合影/.test(home),
+  'homepage hero should not reference the removed 2026 group photo',
 );
-assert((home.match(/^\s+- filename:\s*.+$/gm) || []).length === 4, 'homepage hero should define exactly four carousel slides');
+assert(
+  /slides:\s*\n\s*- filename:\s*welcome\.png\s*\n\s*alt:\s*中国科大 AGI 研究组合影/.test(home),
+  'homepage hero should start with the existing welcome photo after removing the 2026 group photo',
+);
+assert((home.match(/^\s+- filename:\s*.+$/gm) || []).length === 3, 'homepage hero should define exactly three carousel slides');
 assert(/cta:\s*\n\s*label:\s*查看研究方向/.test(home), 'homepage hero should provide a primary research CTA');
 assert(/cta_alt:\s*\n\s*label:\s*代表论文/.test(home), 'homepage hero should provide a secondary publications CTA');
 assert(/cta_note:\s*\n\s*label:\s*扎根机器学习与数据挖掘，发展新一代智能技术，探索科学、时间与人的智能规律/.test(home), 'homepage hero should use the science-time-human brand statement');

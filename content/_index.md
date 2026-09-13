@@ -16,8 +16,6 @@ sections:
         filename: welcome.png
         alt: 中国科大 AGI 研究组首页图
         slides:
-          - filename: hero-group-2026.jpg
-            alt: 中国科大 AGI 研究组 2026 年团队合影
           - filename: welcome.png
             alt: 中国科大 AGI 研究组合影
           - filename: hero-group-meeting.png
