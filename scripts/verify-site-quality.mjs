@@ -270,10 +270,13 @@ assert(
 );
 assert(/title:\s*照片纪念墙/.test(galleryContent), 'photo wall should use the approved Chinese title');
 assert(
-  /featured_memory:\s*\n\s*title:\s*2026年9月教师节合影留念/.test(galleryContent),
-  'photo wall should label the featured memory as the September 2026 Teachers Day group photo',
+  !/^featured_memory:/m.test(galleryContent) && !/hero-group-2026\.jpg/.test(galleryContent),
+  'photo wall should not include the 2026 Teachers Day group photo',
 );
-assert(/image:\s*hero-group-2026\.jpg/.test(galleryContent), 'photo wall should feature the 2026 group portrait');
+assert(
+  /with\s+\$featured\s*-?}}/.test(galleryLayout),
+  'photo wall should render a featured memory only when one is configured',
+);
 assert(
   /where site\.RegularPages "Section" "post"/.test(galleryLayout),
   'photo wall should derive memories from existing posts',

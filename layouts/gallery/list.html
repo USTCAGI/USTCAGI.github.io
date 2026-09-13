@@ -1,9 +1,13 @@
 {{- define "main" -}}
 {{- $posts := (where site.RegularPages "Section" "post").ByDate.Reverse -}}
 {{- $featured := .Params.featured_memory -}}
-{{- $featuredDate := time.AsTime $featured.date -}}
-{{- $memoryCount := 1 -}}
-{{- $years := slice (time.Format "2006" $featuredDate) -}}
+{{- $memoryCount := 0 -}}
+{{- $years := slice -}}
+{{- with $featured -}}
+  {{- $featuredDate := time.AsTime .date -}}
+  {{- $memoryCount = add $memoryCount 1 -}}
+  {{- $years = $years | append (time.Format "2006" $featuredDate) -}}
+{{- end -}}
 {{- range $posts -}}
   {{- $post := . -}}
   {{- with partial "blox-core/functions/get_featured_image.html" $post -}}
@@ -26,39 +30,42 @@
     </div>
   </section>
 
-  {{- $featuredResource := resources.Get (path.Join "media" $featured.image) -}}
-  {{- with $featuredResource -}}
-    {{- $featuredThumb := .Fill "1600x900 Center" -}}
-    {{- $featuredFull := .Fit "1800x1200" -}}
-    {{- if ne $featuredThumb.MediaType.SubType "gif" -}}
-      {{- $featuredThumb = $featuredThumb.Process "webp" -}}
-      {{- $featuredFull = $featuredFull.Process "webp" -}}
-    {{- end -}}
-    <section class="gallery-featured-section" aria-labelledby="gallery-featured-title">
-      <a
-        class="gallery-featured-card"
-        href="{{ $featuredFull.RelPermalink }}"
-        data-gallery-item
-        data-gallery-caption="{{ $featured.caption }}"
-        data-gallery-date="{{ $featuredDate | time.Format site.Params.locale.date_format }}"
-        data-gallery-source=""
-        aria-label="查看大图：{{ $featured.alt }}"
-      >
-        <img
-          src="{{ $featuredThumb.RelPermalink }}"
-          width="{{ $featuredThumb.Width }}"
-          height="{{ $featuredThumb.Height }}"
-          alt="{{ $featured.alt }}"
-          fetchpriority="high"
+  {{- with $featured -}}
+    {{- $featuredDate := time.AsTime .date -}}
+    {{- $featuredResource := resources.Get (path.Join "media" .image) -}}
+    {{- with $featuredResource -}}
+      {{- $featuredThumb := .Fill "1600x900 Center" -}}
+      {{- $featuredFull := .Fit "1800x1200" -}}
+      {{- if ne $featuredThumb.MediaType.SubType "gif" -}}
+        {{- $featuredThumb = $featuredThumb.Process "webp" -}}
+        {{- $featuredFull = $featuredFull.Process "webp" -}}
+      {{- end -}}
+      <section class="gallery-featured-section" aria-labelledby="gallery-featured-title">
+        <a
+          class="gallery-featured-card"
+          href="{{ $featuredFull.RelPermalink }}"
+          data-gallery-item
+          data-gallery-caption="{{ $featured.caption }}"
+          data-gallery-date="{{ $featuredDate | time.Format site.Params.locale.date_format }}"
+          data-gallery-source=""
+          aria-label="查看大图：{{ $featured.alt }}"
         >
-        <span class="gallery-featured-overlay" aria-hidden="true"></span>
-        <span class="gallery-featured-copy">
-          <time datetime="{{ $featuredDate.Format "2006-01-02" }}">{{ $featuredDate | time.Format site.Params.locale.date_format }}</time>
-          <strong id="gallery-featured-title">{{ $featured.title }}</strong>
-          <span>{{ $featured.caption }}</span>
-        </span>
-      </a>
-    </section>
+          <img
+            src="{{ $featuredThumb.RelPermalink }}"
+            width="{{ $featuredThumb.Width }}"
+            height="{{ $featuredThumb.Height }}"
+            alt="{{ $featured.alt }}"
+            fetchpriority="high"
+          >
+          <span class="gallery-featured-overlay" aria-hidden="true"></span>
+          <span class="gallery-featured-copy">
+            <time datetime="{{ $featuredDate.Format "2006-01-02" }}">{{ $featuredDate | time.Format site.Params.locale.date_format }}</time>
+            <strong id="gallery-featured-title">{{ $featured.title }}</strong>
+            <span>{{ $featured.caption }}</span>
+          </span>
+        </a>
+      </section>
+    {{- end -}}
   {{- end -}}
 
   <section class="gallery-timeline" aria-label="历年照片">
